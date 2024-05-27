@@ -3,7 +3,7 @@ import { TestComponentComponent } from './test-component/test-component.componen
 
 export const routes: Routes = [
     {
-        path: '',
+        path: 'home',
         component: TestComponentComponent
     }
 ];
