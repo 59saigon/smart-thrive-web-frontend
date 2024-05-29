@@ -52,7 +52,7 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
     OverlayPanelModule,
     ToastModule,
     TableModule,
-    AutoCompleteModule
+    AutoCompleteModule,
   ],
   exports: [AppLayoutComponent],
 })

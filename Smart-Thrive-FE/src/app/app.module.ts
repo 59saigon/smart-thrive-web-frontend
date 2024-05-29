@@ -11,13 +11,8 @@ import { Guid } from 'guid-typescript';
 @NgModule({
   declarations: [AppComponent, NotfoundComponent],
   imports: [AppRoutingModule, AppLayoutModule],
-  providers: [provideClientHydration()],
+  providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule implements OnInit {
-  constructor(private primengConfig: PrimeNGConfig) {}
-  
-  ngOnInit() {
-    this.primengConfig.ripple = true;
-  }
+export class AppModule {
 }
