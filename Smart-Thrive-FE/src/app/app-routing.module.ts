@@ -1,13 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AppLayoutComponent } from './layout/components/app.layout/app.layout.component';
+import path from 'path';
 
 const routes: Routes = [
   {
-    path: 'dashboard',
-    loadChildren: () =>
-      import('./main/components/dashboard/dashboard.module').then(
-        (m) => m.DashboardModule
-      ),
+    path: '',
+    component: AppLayoutComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./main/components/dashboard/dashboard.module').then(
+            (m) => m.DashboardModule
+          ),
+      },
+    ],
   },
 ];
 
@@ -15,4 +23,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {} 
+export class AppRoutingModule {}
