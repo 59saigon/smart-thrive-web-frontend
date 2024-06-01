@@ -2,7 +2,6 @@ import { Input, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AppFooterComponent } from './app.footer/app.footer.component';
 import { AppLayoutComponent } from './app.layout/app.layout.component';
-import { AppMenuItemComponent } from './app.menu-item/app.menu-item.component';
 import { AppMenuComponent } from './app.menu/app.menu.component';
 import { AppSidebarComponent } from './app.sidebar/app.sidebar.component';
 import { AppTopbarComponent } from './app.topbar/app.topbar.component';
@@ -24,13 +23,14 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { TableModule } from 'primeng/table';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AppMenuitemComponent } from './app.menu-item/app.menu-item.component';
 
 @NgModule({
   declarations: [
     AppTopbarComponent,
     AppSidebarComponent,
     AppMenuComponent,
-    AppMenuItemComponent,
+    AppMenuitemComponent,
     AppLayoutComponent,
     AppFooterComponent,
   ],
