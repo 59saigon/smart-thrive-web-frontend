@@ -2,9 +2,9 @@
     <button
         #menubutton
         class="p-link layout-menu-button layout-topbar-button"
-        (click)="layoutService.onMenuToggle()"
+        (click)="toggleMenu()"
     >
-        <i class="pi pi-bars"></i>
+        <i [ngClass]="!isMenuOpen ? 'pi pi-chevron-right' : 'pi pi-chevron-left'"></i>
     </button>
     <a class="layout-topbar-logo" routerLink="">
         <span>SMART THRIVE</span>

@@ -25,6 +25,8 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
 
   @ViewChild('topbarmenu') menu!: ElementRef;
 
+  isMenuOpen = this.layoutService.isDesktop();
+  
   constructor(
     public layoutService: LayoutService,
     public userService: UserService
@@ -35,6 +37,11 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
     } else {
       console.error('Avatar element not found!');
     }
+  }
+
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+    this.layoutService.onMenuToggle();
   }
 
   ngOnInit() {
@@ -90,46 +97,105 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
         items: [
           {
             label: 'Dashboard',
-            icon: 'pi pi-fw pi-home',
+            icon: 'pi pi-chart-line',
             routerLink: ['/'],
           },
+          {
+            label: 'Reports',
+            icon: 'pi pi-chart-pie',
+            routerLink: ['/report'],
+          },
+          {
+            label: 'Administration',
+            icon: 'pi pi-bars',
+            items: [
+              {
+                label: 'Package',
+                icon: 'pi pi-box',
+                routerLink: ['/management/package'],
+              },
+              {
+                label: 'Course',
+                icon: 'pi pi-book',
+                routerLink: ['/management/course'],
+              },
+              {
+                label: 'Order',
+                icon: 'pi pi-wallet',
+                routerLink: ['/management/order'],
+              },
+              {
+                label: 'User',
+                icon: 'pi pi-user',
+                items: [
+                  {
+                    label: 'Customer',
+                    icon: 'pi pi-user',
+                    routerLink: ['/management/user/customer'],
+                  },
+                  {
+                    label: 'Provider',
+                    icon: 'pi pi-user',
+                    routerLink: ['/management/user/provider'],
+                  },
+                  {
+                    label: 'Staff',
+                    icon: 'pi pi-user',
+                    routerLink: ['/management/user/staff'],
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            label: 'Application',
+            icon: 'pi pi-bars',
+            items: [
+              {
+                label: 'Schedule',
+                icon: 'pi pi-calendar',
+                routerLink: ['/management/schedule'],
+              },
+              {
+                label: 'Feedback',
+                icon: 'pi pi-comments',
+                routerLink: ['/management/feedback'],
+              },
+              {
+                label: 'Comment',
+                icon: 'pi pi-comment',
+                routerLink: ['/management/comment'],
+              },
+              {
+                label: 'Blog',
+                icon: 'pi pi-pencil',
+                routerLink: ['/management/blog'],
+              },
+              {
+                label: 'Voucher',
+                icon: 'pi pi-tag',
+                routerLink: ['/management/voucher'],
+              },
+              {
+                label: 'Cart',
+                icon: 'pi pi-shopping-cart',
+                routerLink: ['/management/cart'],
+              },
+              {
+                label: 'Order',
+                icon: 'pi pi-shopping-bag',
+                routerLink: ['/management/order'],
+              },
+              {
+                label: 'OrderDetail',
+                icon: 'pi pi-info',
+                routerLink: ['/management/order-detail'],
+              },
+            ],
+          },
         ],
       },
-      {
-        label: 'Management',
-        items: [
-          {
-            label: 'Event Management',
-            icon: 'pi pi-calendar',
-            routerLink: ['/management/event'],
-          },
-          {
-            label: 'Wedding Management',
-            icon: 'pi pi-heart',
-            routerLink: ['/management/wedding'],
-          },
-          {
-            label: 'Service Management',
-            icon: 'pi pi-cog',
-            routerLink: ['/management/service'],
-          },
-          {
-            label: 'Photo Management',
-            icon: 'pi pi-images',
-            routerLink: ['/management/photo'],
-          },
-          {
-            label: 'City Management',
-            icon: 'pi pi-map-marker',
-            routerLink: ['/management/city'],
-          },
-          {
-            label: 'Country Management',
-            icon: 'pi pi-map-marker',
-            routerLink: ['/management/country'],
-          },
-        ],
-      },
+
       // {
       //     label: 'UI Components',
       //     items: [
@@ -260,7 +326,7 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
       //     ]
       // },
       {
-        label: 'Get Started',
+        label: 'Support',
         items: [
           {
             label: 'Documentation',

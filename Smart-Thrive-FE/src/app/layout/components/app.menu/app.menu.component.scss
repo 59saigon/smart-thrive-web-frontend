@@ -3,3 +3,13 @@
     position: fixed !important;
 }
 
+.layout-menu {
+    .layout-menu-button-toggle {
+        display: flex;
+        justify-content: flex-end;
+        margin-right: -30px;
+    }
+}
+
+
+
