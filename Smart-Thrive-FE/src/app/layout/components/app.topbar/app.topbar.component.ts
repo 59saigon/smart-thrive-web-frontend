@@ -18,7 +18,6 @@ export class AppTopbarComponent implements OnInit {
   constructor(public layoutService: LayoutService) {}
   
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
   }
 
   toggleMenu() {

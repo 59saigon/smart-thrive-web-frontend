@@ -1,4 +1,4 @@
-import { AfterViewInit, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Component } from '@angular/core';
 import { Menu } from 'primeng/menu';
 import { LayoutService } from '../../services/app.layout.service';
@@ -26,6 +26,8 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
   @ViewChild('topbarmenu') menu!: ElementRef;
 
   isMenuOpen = this.layoutService.isDesktop();
+
+  private hideMenuTimeout: any;
   
   constructor(
     public layoutService: LayoutService,
@@ -37,35 +39,51 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
     } else {
       console.error('Avatar element not found!');
     }
+    this.resetHideMenuTimeout();
   }
 
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
     this.layoutService.onMenuToggle();
   }
+  
+  @HostListener('window:scroll', [])
+  onWindowScroll(): void {
+    this.hideMenuImmediately();
+  }
+  private resetHideMenuTimeout(): void {
+    // Clear any existing timeout
+    if (this.hideMenuTimeout) {
+      clearTimeout(this.hideMenuTimeout);
+    }
+
+    // Show the menu
+    const menuElement = document.querySelector('.p-menu.p-menu-overlay') as HTMLElement;
+    if (menuElement) {
+      menuElement.classList.remove('hidden');
+    }
+  }
+
+  private hideMenuImmediately(): void {
+    // Hide the menu immediately
+    const menuElement = document.querySelector('.p-menu.p-menu-overlay') as HTMLElement;
+    if (menuElement) {
+      menuElement.classList.add('hidden');
+    }
+  }
 
   ngOnInit() {
+    this.resetHideMenuTimeout();
     this.setModel();
     this.setOtherModel();
   }
 
   showAndHideMenu($ev: Event) {
-    this._menu.show($ev);
-    setTimeout(() => {
-      this._menu.hide();
-    }, 3000);
+    this._menu.toggle($ev);
+    this.resetHideMenuTimeout();
   }
   openMenu() {
-    const menuItem = (
-      this.menu.nativeElement.getElementsByClassName(
-        'p-menuitem-link'
-      ) as HTMLCollectionOf<HTMLElement>
-    )[0];
-
-    setTimeout(() => {
-      menuItem.focus();
-      menuItem.blur();
-    }, 1);
+    this.resetHideMenuTimeout();
   }
   onOpenConfigModule() {
     this.layoutService.showConfigSidebar();

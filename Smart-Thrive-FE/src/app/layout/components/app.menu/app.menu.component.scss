@@ -1,6 +1,11 @@
 ::ng-deep .p-menu.p-menu-overlay {
     display: inline-block !important;
-    position: fixed !important;
+    transition: opacity 0.5s ease; /* Add transition for smooth hiding */
+}
+
+::ng-deep .p-menu.p-menu-overlay.hidden {
+    opacity: 0; /* Hide the menu */
+    pointer-events: none; /* Disable interactions when hidden */
 }
 
 .layout-menu {
@@ -10,6 +15,3 @@
         margin-right: -30px;
     }
 }
-
-
-
