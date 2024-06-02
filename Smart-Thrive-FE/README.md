@@ -25,3 +25,11 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## High Note
+ng g m [myModule_name] --route 
+[myRoute_path_name] --module 
+[routing_module_name] -> create 1 module + routing with 1 component and then auto generate declare module in [routing_module_name]
+
+ng g m [myModule_name] --routing -> create 1 module + routing
+
