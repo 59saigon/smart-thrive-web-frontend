@@ -2,17 +2,22 @@
     <button
         #menubutton
         class="p-link layout-menu-button layout-topbar-button"
+        (click)="toggleMenu()"
     >
-        <i class="pi pi-bars"></i>
+        <i [ngClass]="!isMenuOpen ? 'pi pi-chevron-right' : 'pi pi-chevron-left'"></i>
     </button>
     <a class="layout-topbar-logo" routerLink="">
-        <span>SMART SHRIVE </span>
-        
+        <span>SMART THRIVE</span>
+        <!-- <img
+            src="https://i.im.ge/2024/04/28/ZmHe40.pngwing-com.png"
+            alt="logo"
+        /> -->
     </a>
 
     <button
         #topbarmenubutton
         class="p-link layout-topbar-menu-button layout-topbar-button"
+        (click)="layoutService.showProfileSidebar()"
     >
         <i class="pi pi-ellipsis-v"></i>
     </button>
@@ -20,6 +25,10 @@
     <div
         #topbarmenu
         class="layout-topbar-menu"
+        [ngClass]="{
+            'layout-topbar-menu-mobile-active':
+                layoutService.state.profileSidebarVisible
+        }"
     >
         
     </div>
