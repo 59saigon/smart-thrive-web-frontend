@@ -2,7 +2,7 @@ import { AfterViewInit, ElementRef, HostListener, OnInit, ViewChild } from '@ang
 import { Component } from '@angular/core';
 import { Menu } from 'primeng/menu';
 import { LayoutService } from '../../services/app.layout/app.layout.service';
-import { UserService } from '../../../main/services/user/user.service';
+import { UserService } from '../../../main/services/User/user.service';
 
 @Component({
   selector: 'app-menu',
