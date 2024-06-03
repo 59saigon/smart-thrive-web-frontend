@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { LayoutService } from '../../services/app.layout.service';
+import { LayoutService } from '../../services/app.layout/app.layout.service';
 
 @Component({
   selector: 'app-topbar',
