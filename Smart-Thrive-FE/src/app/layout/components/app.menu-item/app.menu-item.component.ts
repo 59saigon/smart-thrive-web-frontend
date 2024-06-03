@@ -17,8 +17,8 @@ import {
 } from '@angular/animations';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { LayoutService } from '../../services/app.layout.service';
-import { MenuService } from '../../services/app.menu.service';
+import { LayoutService } from '../../services/app.layout/app.layout.service';
+import { MenuService } from '../../services/app.menu/app.menu.service';
 
 @Component({
   selector: '[app-menuitem]',

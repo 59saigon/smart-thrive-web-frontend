@@ -24,6 +24,8 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import { TableModule } from 'primeng/table';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { AppMenuitemComponent } from './app.menu-item/app.menu-item.component';
+import { AppConfigComponent } from './app-config/app-config.component';
+import { AppConfigModule } from './app-config/app-config.module';
 
 @NgModule({
   declarations: [
@@ -53,6 +55,7 @@ import { AppMenuitemComponent } from './app.menu-item/app.menu-item.component';
     ToastModule,
     TableModule,
     AutoCompleteModule,
+    AppConfigModule
   ],
   exports: [AppLayoutComponent],
 })

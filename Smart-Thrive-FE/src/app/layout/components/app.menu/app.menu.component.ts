@@ -1,8 +1,8 @@
 import { AfterViewInit, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Component } from '@angular/core';
 import { Menu } from 'primeng/menu';
-import { LayoutService } from '../../services/app.layout.service';
-import { UserService } from '../../../main/services/User/user.service';
+import { LayoutService } from '../../services/app.layout/app.layout.service';
+import { UserService } from '../../../main/services/user/user.service';
 
 @Component({
   selector: 'app-menu',
@@ -354,7 +354,7 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
           {
             label: 'View Source',
             icon: 'pi pi-fw pi-search',
-            url: ['https://github.com/sonnh1106/NhuMyStudio_WebAPI'],
+            url: ['https://github.com/59saigon/smart-thrive-web-frontend'],
             target: '_blank',
           },
         ],
