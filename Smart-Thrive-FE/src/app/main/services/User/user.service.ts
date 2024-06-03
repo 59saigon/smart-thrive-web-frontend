@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { BaseService } from '../base/base.service';
 import { User } from '../../../data/entities/user';
 
 @Injectable({
