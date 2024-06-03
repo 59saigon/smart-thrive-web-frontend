@@ -7,11 +7,12 @@ import { AppLayoutModule } from './layout/components/app.layout.module';
 import { NotfoundComponent } from './main/components/error/notfound/notfound.component';
 import { MessageService, PrimeNGConfig } from 'primeng/api';
 import { Guid } from 'guid-typescript';
+import { UserService } from './main/services/user/user.service';
 
 @NgModule({
   declarations: [AppComponent, NotfoundComponent],
   imports: [AppRoutingModule, AppLayoutModule],
-  providers: [MessageService],
+  providers: [MessageService, UserService],
   bootstrap: [AppComponent],
 })
 export class AppModule {
