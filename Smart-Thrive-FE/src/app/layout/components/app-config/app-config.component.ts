@@ -15,7 +15,7 @@ export class AppConfigComponent {
     public layoutService: LayoutService,
     public menuService: MenuService
   ) {
-    this.changeTheme('arya-orange', 'dark');
+    this.changeTheme('saga-orange', 'dark');
     this.ripple = true;
   }
 
