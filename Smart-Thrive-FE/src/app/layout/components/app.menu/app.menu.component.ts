@@ -130,17 +130,17 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
               {
                 label: 'Package',
                 icon: 'pi pi-box',
-                routerLink: ['/management/package'],
+                routerLink: ['/administration/package'],
               },
               {
                 label: 'Course',
                 icon: 'pi pi-book',
-                routerLink: ['/management/course'],
+                routerLink: ['/administration/course'],
               },
               {
                 label: 'Order',
                 icon: 'pi pi-wallet',
-                routerLink: ['/management/order'],
+                routerLink: ['/administration/order'],
               },
               {
                 label: 'User',
@@ -149,17 +149,17 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
                   {
                     label: 'Customer',
                     icon: 'pi pi-user',
-                    routerLink: ['/management/user/customer'],
+                    routerLink: ['/application/user/customer'],
                   },
                   {
                     label: 'Provider',
                     icon: 'pi pi-user',
-                    routerLink: ['/management/user/provider'],
+                    routerLink: ['/application/user/provider'],
                   },
                   {
                     label: 'Staff',
                     icon: 'pi pi-user',
-                    routerLink: ['/management/user/staff'],
+                    routerLink: ['/administration/user/staff'],
                   },
                 ],
               },
