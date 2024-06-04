@@ -1,0 +1,50 @@
+// Variables
+$primary-color: #3498db;
+$secondary-color: #2ecc71;
+$font-family: 'Arial, sans-serif';
+
+// Mixins
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+// Main Styles
+.main-auth-login {
+    display: flex;
+    flex-direction: row;
+    min-height: 100vh;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+    }
+
+    &-content {
+        flex: 1;
+        background-color: $primary-color;
+        color: white;
+        padding: 2rem;
+        font-family: $font-family;
+        
+        @include flex-center;
+        text-align: center;
+
+        @media (max-width: 768px) {
+            padding: 1rem;
+        }
+    }
+
+    &-img {
+        flex: 1;
+        // background-image: url('path/to/your/image.jpg');
+        background-size: cover;
+        background-position: center;
+
+        @include flex-center;
+
+        @media (max-width: 768px) {
+            height: 50vh;
+        }
+    }
+}
