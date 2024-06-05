@@ -1,0 +1,129 @@
+// Variables
+$primary-color: #eeeeee;
+$secondary-color: #222831;
+$font-family: "Inter var", sans-serif;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+// all button not focus
+::ng-deep body .p-button:enabled:focus {
+  outline: 0 none;
+  outline-offset: 0px;
+  box-shadow: none;
+}
+
+
+// Main Styles
+.main-auth-login {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+
+  &-content {
+    flex: 1;
+    background-color: $primary-color;
+    padding: 2rem;
+    color: #686d76;
+    font-family: $font-family;
+
+    @include flex-center;
+    text-align: center;
+
+    @media (max-width: 768px) {
+      padding: 1rem;
+    }
+
+    &-main {
+      &-title {
+        padding-bottom: 1rem;
+        h1 {
+          margin-bottom: 0.5rem;
+        }
+      }
+
+      &-login-with {
+        padding-bottom: 2rem;
+        ::ng-deep .p-button:enabled:focus {
+          outline: 0 none;
+          outline-offset: 0px;
+          box-shadow: none;
+        }
+      }
+
+      &-line {
+        padding-bottom: 2rem;
+      }
+
+      &-input {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        ::ng-deep .p-inputtext {
+          width: 100% !important;
+          height: 45px !important;
+          margin-bottom: 0.5rem !important;
+        }
+
+        .p-element {
+          width: 100%;
+        }
+        ::ng-deep .p-password {
+          width: 100% !important;
+        }
+      }
+
+      &-func {
+        padding-bottom: 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        ::ng-deep .p-button-link {
+          color: var(--surface-900);
+        }
+        ::ng-deep .p-button {
+          padding: 0 !important ;
+        }
+      }
+
+      &-button {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 1rem;
+
+        ::ng-deep .p-element {
+          width: 100% !important;
+          height: 45px !important;
+        }
+      }
+
+      &-text {
+        padding-bottom: 1rem;
+      }
+    }
+  }
+
+  &-img {
+    flex: 1;
+    // background-image: url('path/to/your/image.jpg');
+    background-color: $secondary-color;
+    background-size: cover;
+    background-position: center;
+
+    @include flex-center;
+
+    @media (max-width: 768px) {
+      height: 50vh;
+    }
+  }
+}
