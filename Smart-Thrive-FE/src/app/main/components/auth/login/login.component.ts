@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginUser } from '../../../../data/model/login';
+import { LoginUser } from '../../../../data/model/auth';
 
 @Component({
   selector: 'app-login',
@@ -7,11 +7,7 @@ import { LoginUser } from '../../../../data/model/login';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent implements OnInit {
-  login: LoginUser = {
-    emailOrUsername: '',
-    password: '',
-    isRemember: false,
-  }
+  login: LoginUser = {} as LoginUser;
 
   ngOnInit(): void {
     
