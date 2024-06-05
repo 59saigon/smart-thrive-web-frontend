@@ -7,11 +7,15 @@ import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
 import { CheckboxModule } from 'primeng/checkbox'
 import { ContextMenuModule } from 'primeng/contextmenu'
+import { RippleModule } from 'primeng/ripple';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { PasswordModule } from 'primeng/password';
+import { FormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @NgModule({
-  declarations: [
-    LoginComponent
-  ],
+  declarations: [LoginComponent],
   imports: [
     CommonModule,
     ButtonModule,
@@ -19,6 +23,13 @@ import { ContextMenuModule } from 'primeng/contextmenu'
     CheckboxModule,
     LoginRoutingModule,
     ContextMenuModule,
-  ]
+    RippleModule,
+    FloatLabelModule,
+    PasswordModule,
+    InputTextModule,
+    InputNumberModule,
+    CheckboxModule,
+    FormsModule,
+  ],
 })
-export class LoginModule { }
+export class LoginModule {}
