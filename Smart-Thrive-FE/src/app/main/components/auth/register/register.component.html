@@ -1,12 +1,15 @@
-<div class="main-auth-login">
-    <div class="main-auth-login-content">
-        <div class="main-auth-login-content-main w-8">
-            <div class="main-auth-login-content-main-title">
-                <h1>Login to your Account</h1>
-                <span>Welcome back! Select method to log in: </span>
+<div class="main-auth-register">
+    <div class="main-auth-register-img">
+
+    </div>
+    <div class="main-auth-register-content">
+        <div class="main-auth-register-content-main w-8">
+            <div class="main-auth-register-content-main-title">
+                <h1>Create a SmartThrive account</h1>
+                <span>Welcome back! Select method to register: </span>
             </div>
 
-            <div class="main-auth-login-content-main-login-with">
+            <div class="main-auth-register-content-main-register-with">
                 <button pButton type="button"
                     [outlined]="true"
                     severity="secondary"
@@ -26,41 +29,46 @@
                  
             </div>
 
-            <div class="main-auth-login-content-main-line">
+            <div class="main-auth-register-content-main-line">
                 <span>------------- or continue with email -------------</span>
             </div>
-            <div class="main-auth-login-content-main-input">
-                <input pInputText placeholder="Email or username"
-                    [(ngModel)]="login.emailOrUsername" />
-                <p-password [(ngModel)]="login.password" placeholder="Password"
+            <div class="main-auth-register-content-main-input">
+                
+                <div class="field flex flex-row column-gap-3 w-full">
+                    <input pInputText placeholder="First name"/>
+                    <input pInputText placeholder="Last name"/>
+                </div>
+                <input class="field" pInputText placeholder="Email"/>
+                <input class="field" pInputText placeholder="Username"/>
+                <div class="field flex flex-row column-gap-3 w-full">
+                    <p-password  placeholder="Password"
                     [toggleMask]="true" [feedback]="false" />
+                    <p-password placeholder="Confirm"
+                    [toggleMask]="true" [feedback]="false" />
+                </div>
             </div>
 
-            <div class="main-auth-login-content-main-func">
-                <div class="main-auth-login-content-main-func-remember">
+            <div class="main-auth-register-content-main-func">
+                <div class="main-auth-register-content-main-func-remember">
                     <p-checkbox [binary]="true" label=" Remember me"
-                        [(ngModel)]="login.isRemember"></p-checkbox>
+                        ></p-checkbox>
 
                 </div>
 
-                <div class="main-auth-login-content-main-func-forgot">
+                <div class="main-auth-register-content-main-func-forgot">
                     <p-button label="Forgot Password?" [link]="true" />
                 </div>
             </div>
 
-            <div class="main-auth-login-content-main-button">
-                <p-button label="Login" [raised]="true"
+            <div class="main-auth-register-content-main-button">
+                <p-button label="Register" [raised]="true"
                     severity="contrast" />
             </div>
 
-            <div class="main-auth-login-content-main-text">
+            <div class="main-auth-register-content-main-text">
 
             </div>
 
         </div>
-    </div>
-
-    <div class="main-auth-login-img">
-
     </div>
 </div>
