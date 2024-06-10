@@ -109,6 +109,11 @@ $font-family: "Inter var", sans-serif;
 
       &-text {
         padding-bottom: 1rem;
+        @include flex-center;
+        ::ng-deep .p-button-link {
+          padding: 0;
+          color: var(--surface-900);
+        }
       }
     }
   }
