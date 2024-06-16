@@ -3,7 +3,7 @@ import { Injectable, Injector, inject } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Observable } from 'rxjs';
 import { AppConstantsService } from '../../../layout/services/app.constants.service';
-import { AppConstants } from '../../../shared/appConstants';
+import { AppConstants } from '../../../shared/app-constants';
 
 @Injectable({
   providedIn: 'root',
