@@ -11,7 +11,7 @@ const routes: Routes = [
     component: AppLayoutComponent,
     children: [
       {
-        path: '',
+        path: 'administration',
         loadChildren: () =>
           import('./main/components/dashboard/dashboard.module').then(
             (m) => m.DashboardModule
@@ -19,11 +19,11 @@ const routes: Routes = [
       },
     ],
   },
-  { path: 'auth', loadChildren: () => import('./main/components/auth/auth.module').then(m => m.AuthModule) },
+  { path: 'auth', canActivate: [AuthGuard], loadChildren: () => import('./main/components/auth/auth.module').then(m => m.AuthModule) },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

@@ -1,52 +1,28 @@
-const api = 'https://localhost:7192/api';
 
-const API = {
-  baseApi: api,
-  user: {
-    baseUrl: `${api}/user`,
-    getUsers: '/get-users',
-    getUserByEmail: '/get-by-email',
-    login: '/login',
-    register: '/register',
-    forget: '/forget',
-  },
-  course: {
-    baseUrl: `${api}/course`,
-    getCourses: '/get-courses',
-    getCourseById: '/get-by-id',
-  },
-  package: {
-    baseUrl: `${api}/package`,
-    getPackages: '/get-packages',
-    getPackageById: '/get-by-id',
-  },
-}
+// export enum AppConstants {
+//   BASE_URL = api,
 
+//   LOGIN = 'login',
 
-export enum AppConstants {
-  BASE_URL = api,
+//   REGISTER = 'register',
 
-  LOGIN = 'login',
+//   CREATE = 'create',
 
-  REGISTER = 'register',
+//   UPDATE = 'update',
 
-  CREATE = 'create',
+//   DELETE = 'delete',
 
-  UPDATE = 'update',
+//   GET_LIST = 'get',
 
-  DELETE = 'delete',
+//   GET_BY = 'get-by',
 
-  GET_LIST = 'get',
+//   ENTITY_WEDDING = 'wedding',
 
-  GET_BY = 'get-by',
+//   ENTITY_EVENT = 'event',
 
-  ENTITY_WEDDING = 'wedding',
+//   ENTITY_SERVICE = 'service',
 
-  ENTITY_EVENT = 'event',
+//   ENTITY_LOCATION = 'location',
 
-  ENTITY_SERVICE = 'service',
-
-  ENTITY_LOCATION = 'location',
-
-  ENTITY_PHOTO = 'photo',
-}
+//   ENTITY_PHOTO = 'photo',
+// }

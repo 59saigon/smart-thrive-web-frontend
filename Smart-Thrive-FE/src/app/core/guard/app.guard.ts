@@ -22,14 +22,14 @@ export class AuthGuard implements CanActivate {
     const currentUrl = state.url; // Đường dẫn hiện tại
 
     if (this.userService.IsLoggedIn()) {
-      if (currentUrl === '/auth/login') {
+      if (currentUrl === '/auth/login' || currentUrl === '/auth/register') {
         // Nếu người dùng đã đăng nhập và đang cố gắng truy cập trang đăng nhập, chuyển hướng họ
-        this.router.navigate(['/']); // Chuyển hướng đến trang chính hoặc trang khác
+        this.router.navigate(['/administration']); // Chuyển hướng đến trang chính hoặc trang khác
         return false; // Ngăn kích hoạt tuyến đường
       }
       return true; // Cho phép truy cập nếu đã đăng nhập
     } else {
-      if (currentUrl === '/auth/login') {
+      if (currentUrl === '/auth/login' || currentUrl === '/auth/register') {
         // Nếu chưa đăng nhập và cố gắng truy cập trang đăng nhập, cho phép
         return true; // Cho phép truy cập
       }

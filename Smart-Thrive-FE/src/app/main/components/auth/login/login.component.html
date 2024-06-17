@@ -31,15 +31,15 @@
             </div>
             <div class="main-auth-login-content-main-input">
                 <input pInputText placeholder="Email or username"
-                    [(ngModel)]="login.emailOrUsername" />
-                <p-password [(ngModel)]="login.password" placeholder="Password"
+                    [(ngModel)]="loginUser.usernameOrEmail" />
+                <p-password [(ngModel)]="loginUser.password" placeholder="Password"
                     [toggleMask]="true" [feedback]="false" />
             </div>
 
             <div class="main-auth-login-content-main-func">
                 <div class="main-auth-login-content-main-func-remember">
                     <p-checkbox [binary]="true" label=" Remember me"
-                        [(ngModel)]="login.isRemember"></p-checkbox>
+                        [(ngModel)]="loginUser.isRemember"></p-checkbox>
 
                 </div>
 
@@ -49,7 +49,7 @@
             </div>
 
             <div class="main-auth-login-content-main-button">
-                <p-button label="Login" [raised]="true"
+                <p-button label="Login" (click)="onLogin()" [raised]="true"
                     severity="contrast" />
             </div>
 
