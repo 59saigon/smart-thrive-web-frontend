@@ -10,7 +10,8 @@ export interface User extends BaseEntity {
   phone: string; // Required field, not nullable
   username: string; // Required field, not nullable
   password: string; // Required field, not nullable
-  roleId: string; // RoleId as a UUID/GUID, could be a string in TypeScript
+  roleID: string; // RoleId as a UUID/GUID, could be a string in TypeScript
+  locationID: string;
   avatar?: string; // Nullable
   status?: string; // Nullable
   role: Role; // Required field, assuming it's a reference to a Role object

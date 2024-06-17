@@ -1,11 +1,15 @@
-::ng-deep .p-menu.p-menu-overlay {
+.p-menu.p-menu-overlay {
     display: inline-block !important;
     transition: opacity 0.5s ease; /* Add transition for smooth hiding */
 }
 
-::ng-deep .p-menu.p-menu-overlay.hidden {
+.p-menu.p-menu-overlay.hidden {
     opacity: 0; /* Hide the menu */
     pointer-events: none; /* Disable interactions when hidden */
+}
+
+.p-menu {
+    width: 208px;
 }
 
 .layout-menu {

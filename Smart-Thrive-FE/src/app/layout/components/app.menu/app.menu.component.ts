@@ -1,4 +1,4 @@
-import { AfterViewInit, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ElementRef, HostListener, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Component } from '@angular/core';
 import { Menu } from 'primeng/menu';
 import { LayoutService } from '../../services/app.layout/app.layout.service';
@@ -8,6 +8,7 @@ import { UserService } from '../../../main/services/user/user.service';
   selector: 'app-menu',
   templateUrl: './app.menu.component.html',
   styleUrl: './app.menu.component.scss',
+  encapsulation: ViewEncapsulation.None,
 })
 export class AppMenuComponent implements OnInit, AfterViewInit {
   model: any[] = [];
@@ -116,7 +117,7 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
           {
             label: 'Dashboard',
             icon: 'pi pi-chart-line',
-            routerLink: ['/'],
+            routerLink: ['/administration'],
           },
           {
             label: 'Reports',
@@ -145,23 +146,24 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
               {
                 label: 'User',
                 icon: 'pi pi-user',
-                items: [
-                  {
-                    label: 'Customer',
-                    icon: 'pi pi-user',
-                    routerLink: ['/application/user/customer'],
-                  },
-                  {
-                    label: 'Provider',
-                    icon: 'pi pi-user',
-                    routerLink: ['/application/user/provider'],
-                  },
-                  {
-                    label: 'Staff',
-                    icon: 'pi pi-user',
-                    routerLink: ['/administration/user/staff'],
-                  },
-                ],
+                routerLink: ['/administration/user'],
+                // items: [
+                //   {
+                //     label: 'Customer',
+                //     icon: 'pi pi-user',
+                //     routerLink: ['/application/user/customer'],
+                //   },
+                //   {
+                //     label: 'Provider',
+                //     icon: 'pi pi-user',
+                //     routerLink: ['/application/user/provider'],
+                //   },
+                //   {
+                //     label: 'Staff',
+                //     icon: 'pi pi-user',
+                //     routerLink: ['/administration/user/staff'],
+                //   },
+                // ],
               },
             ],
           },

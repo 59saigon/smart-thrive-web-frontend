@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { LayoutService } from '../../services/app.layout/app.layout.service';
 import { MenuService } from '../../services/app.menu/app.menu.service';
+import { ConstantsTheme } from '../../../shared/constants/constant-theme';
 
 @Component({
   selector: 'app-config',
@@ -15,7 +16,7 @@ export class AppConfigComponent {
     public layoutService: LayoutService,
     public menuService: MenuService
   ) {
-    //this.changeTheme('lara-light-blue', 'dark');
+    this.changeTheme(ConstantsTheme.theme, '');
     this.ripple = true;
   }
 
