@@ -1,0 +1,31 @@
+.event-status-completed {
+    background-color: #c8e6c9;
+    color: #256029;
+    padding: 4px;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.event-status-open {
+    background-color: #b3e5fc;
+    color: #23547b;
+    padding: 4px;
+    border-radius: 4px;
+    font-weight: 600;
+}
+.event-status-deleted {
+    background-color: #ffced2;
+    color: #c63737;
+    padding: 4px;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.p-button-link {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 12ch;
+}
+

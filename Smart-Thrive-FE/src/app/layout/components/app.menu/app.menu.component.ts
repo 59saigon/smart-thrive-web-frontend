@@ -1,4 +1,4 @@
-import { AfterViewInit, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ElementRef, HostListener, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Component } from '@angular/core';
 import { Menu } from 'primeng/menu';
 import { LayoutService } from '../../services/app.layout/app.layout.service';
@@ -8,6 +8,7 @@ import { UserService } from '../../../main/services/user/user.service';
   selector: 'app-menu',
   templateUrl: './app.menu.component.html',
   styleUrl: './app.menu.component.scss',
+  encapsulation: ViewEncapsulation.None,
 })
 export class AppMenuComponent implements OnInit, AfterViewInit {
   model: any[] = [];

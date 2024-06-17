@@ -1,8 +1,8 @@
 .layout-topbar {
-    position: fixed;
+    position: static;
     height: 4rem;
     z-index: 997;
-    left: 0;
+    left: 18rem;
     top: 0;
     width: 100%;
     padding: 0 2rem;
@@ -10,7 +10,7 @@
     transition: left $transitionDuration;
     display: flex;
     align-items: center;
-    box-shadow: 0px 3px 5px rgba(0,0,0,.02), 0px 0px 2px rgba(0,0,0,.05), 0px 1px 4px rgba(0,0,0,.08);
+    box-shadow: 0 1px 10px rgba(51, 51, 51, .1);
 
     .layout-topbar-logo {
         display: flex;

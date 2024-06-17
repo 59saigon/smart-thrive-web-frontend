@@ -7,4 +7,13 @@ import { LayoutService } from '../../services/app.layout/app.layout.service';
 })
 export class AppSidebarComponent {
   constructor(public layoutService: LayoutService, public el: ElementRef) {}
+  isMenuOpen = this.layoutService.isDesktop(); // Bắt đầu với trạng thái mặc định
+
+  ngOnInit(): void {
+  }
+
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+    this.layoutService.onMenuToggle();
+  }
 }

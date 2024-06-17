@@ -1,6 +1,6 @@
-const light = 'saga-blue';
-const dark = 'arya-blue';
+const light = 'lara-light-blue';
+const dark = 'lara-dark-blue';
 
 export const ConstantsTheme = {
-  theme: dark
+  theme: light
 } 

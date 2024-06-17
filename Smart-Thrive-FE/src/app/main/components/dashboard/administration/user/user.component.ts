@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { UserService } from '../../../../services/user/user.service';
 import { User } from '../../../../../data/entities/user';
 import { Console } from 'console';
@@ -8,9 +8,10 @@ import { Table } from 'primeng/table';
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrl: './user.component.scss'
+  styleUrl: './user.component.scss',
 })
 export class UserComponent implements OnInit {
+  
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
