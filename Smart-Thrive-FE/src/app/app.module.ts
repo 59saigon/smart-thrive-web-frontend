@@ -20,9 +20,9 @@ import { HeaderInterceptor } from './core/interceptor/header.interceptor';
         {
             provide: HTTP_INTERCEPTORS,
             useClass: HeaderInterceptor, // Sử dụng custom interceptor
-            multi: true, // Điều này cho phép có nhiều interceptor
+            multi: true,
         },
-    MessageService, 
+    MessageService,
     AuthGuard
   ],
   bootstrap: [AppComponent],
