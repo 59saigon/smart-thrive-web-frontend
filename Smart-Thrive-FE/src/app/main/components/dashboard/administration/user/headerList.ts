@@ -2,7 +2,7 @@ export default [
     {
         field: 'id',
         header: 'ID',
-        isDisabled: false,
+        isDisabled: true,
     },
     {
         field: 'username',
