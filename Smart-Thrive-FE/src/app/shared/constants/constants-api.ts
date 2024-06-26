@@ -6,6 +6,7 @@ export const ConstantsApi = {
     baseUrl: `${api}/user`,
     getUser: '/get-user',
     getAllUser: '/get-all-user',
+    getAllUserSearch: '/get-all-user-search',
     getUserByEmail: '/get-by-email',
     login: '/login',
     register: '/register',
@@ -21,7 +22,10 @@ export const ConstantsApi = {
   },
   package: {
     baseUrl: `${api}/package`,
-    getPackages: '/get-packages',
-    getPackageById: '/get-by-id',
+    getPackage: '/get-package',
+    getAllPackage: '/get-all-package',
+    addPackage: '/add-new-package',
+    updatePackage: '/update-package',
+    deletePackage: '/delete-package',
   },
 } 
