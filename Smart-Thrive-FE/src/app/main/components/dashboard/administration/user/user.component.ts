@@ -4,6 +4,9 @@ import { User } from '../../../../../data/entities/user';
 import { Console } from 'console';
 import headerList from './headerList';
 import { Table } from 'primeng/table';
+import { PaginatedRequest } from '../../../../../data/model/paginated-request';
+import { PaginatedListResponse } from '../../../../../data/model/paginated-response';
+import { Event } from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -55,19 +58,41 @@ export class UserComponent implements OnInit {
     this._selectedColumns = this.cols.filter((col) => val.includes(col));
   }
 
+  paginatedRequest: PaginatedRequest = {
+    pageNumber: 0,
+    pageSize: 5,
+    orderBy: 'username'
+  };
+  paginatedListResponse: PaginatedListResponse<User> = {} as PaginatedListResponse<User>;
   getListUser(): void {
-    this.userService.getAllUser().subscribe({
+    this.userService.getAllUser(this.paginatedRequest).subscribe({
       next: (response) => {
-        this.users = response.results;
-        console.log("check_", this.users[0].locationID);
+        this.paginatedListResponse = response;
+        console.log("check_", this.paginatedListResponse.results);
+        this.setPaginatedRequest();
       },
       error: (err) => {
+        console.log("check_error", err);
       },
     });
   }
   getSelectedColumns() {
     this.cols = headerList;
     this._selectedColumns = this.cols.filter((col) => !col.isDisabled);
+  }
+
+  loadPatientListing(event: any) {
+    this.paginatedRequest.pageSize = event.rows;
+    this.paginatedRequest.pageNumber = event.first/event.rows + 1;
+    this.paginatedRequest.orderBy = event.sortField;
+
+    this.getListUser();
+  }
+
+  setPaginatedRequest() {
+    this.paginatedRequest.pageNumber = this.paginatedListResponse.pageNumber;
+    this.paginatedRequest.pageSize = this.paginatedListResponse.pageSize;
+    this.paginatedRequest.orderBy = this.paginatedListResponse.orderBy;
   }
 
   openNew() {

@@ -38,7 +38,7 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
     if (this._avatar) {
       this.avatarWidth = this._avatar.nativeElement.offsetWidth;
     } else {
-      console.error('Avatar element not found!');
+      console.log('check_avatar','Avatar element not found!');
     }
     this.resetHideMenuTimeout();
   }
