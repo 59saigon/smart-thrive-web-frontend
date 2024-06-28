@@ -68,7 +68,7 @@
                         [pSortableColumnDisabled]="!col.sortField ? true : false"
                         *ngFor="let col of columns">
                             {{ col.header }}
-                            <p-sortIcon *ngIf="col.icon"  field="{{col.field}}" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            <p-sortIcon *ngIf="col.sortIcon"  field="{{col.field}}" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
                         </th>
                         <th>Actions</th>
                     </tr>
