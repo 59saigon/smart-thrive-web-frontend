@@ -11,11 +11,12 @@
   top: 0rem;
   left: 0rem;
   transition: transform $transitionDuration, left $transitionDuration;
-  background-color: var(--surface-overlay);
+  // background-color: var(--surface-overlay);
+  background-color: transparent;
   //border-radius: $borderRadius;
   padding: 0.5rem 1.5rem;
   padding-bottom: 0rem;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  //box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 .sidebar-logo {
   padding-top: 0.7rem;

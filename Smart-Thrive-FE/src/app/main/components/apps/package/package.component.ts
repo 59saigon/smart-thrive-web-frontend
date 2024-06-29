@@ -1,37 +1,40 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Console } from 'console';
+import headerList from './headerList';
 import { Table } from 'primeng/table';
-import { Course } from '../../../../../data/entities/course';
-import { PaginatedRequest } from '../../../../../data/model/paginated-request';
-import { PaginatedListResponse } from '../../../../../data/model/paginated-response';
-import { CourseService } from '../../../../services/user/course.service';
-import headerList from '../course/headerList';
+import { Event } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { Package } from '../../../../data/entities/package';
+import { PaginatedRequest } from '../../../../data/model/paginated-request';
+import { PaginatedListResponse } from '../../../../data/model/paginated-response';
+import { PackageService } from '../../../services/user/package.service';
 
 @Component({
-  selector: 'app-course',
-  templateUrl: './course.component.html',
-  styleUrl: './course.component.scss',
+  selector: 'app-package',
+  templateUrl: './package.component.html',
+  styleUrl: './package.component.scss',
   encapsulation: ViewEncapsulation.None
 })
-export class CourseComponent {
-  constructor(private courseService: CourseService, private messageService: MessageService) { }
+export class PackageComponent implements OnInit {
+  
+  constructor(private packageService: PackageService, private messageService: MessageService) { }
 
   ngOnInit(): void {
-    this.getListCourse();
+    this.getListPackage();
     this.getSelectedColumns();
   }
 
-  courseDialog: boolean = false;
+  packageDialog: boolean = false;
 
-  deleteCourseDialog: boolean = false;
+  deletePackageDialog: boolean = false;
 
-  deleteCoursesDialog: boolean = false;
+  deletePackagesDialog: boolean = false;
 
-  courses: Course[] = [];
+  packages: Package[] = [];
 
-  course: Course = {} as Course;
+  package: Package = {} as Package;
 
-  selectedCourses: Course[] = [];
+  selectedPackages: Package[] = [];
 
   submitted: boolean = false;
 
@@ -59,9 +62,9 @@ export class CourseComponent {
     sortField: 'CreatedDate',
     sortOrder: 1
   };
-  paginatedListResponse: PaginatedListResponse<Course> = {} as PaginatedListResponse<Course>;
-  getListCourse(): void {
-    this.courseService.getAllCourse(this.paginatedRequest).subscribe({
+  paginatedListResponse: PaginatedListResponse<Package> = {} as PaginatedListResponse<Package>;
+  getListPackage(): void {
+    this.packageService.getAllPackage(this.paginatedRequest).subscribe({
       next: (response) => {
         this.paginatedListResponse = response;
         console.log("check_", this.paginatedListResponse.results);
@@ -83,7 +86,7 @@ export class CourseComponent {
     this.paginatedRequest.sortField = event.sortField;
     this.paginatedRequest.sortOrder = event.sortOrder;
 
-    this.getListCourse();
+    this.getListPackage();
   }
 
   setPaginatedRequest() {
@@ -100,10 +103,10 @@ export class CourseComponent {
 
   }
 
-  deleteSelectedCourses() {
+  deleteSelectedPackages() {
   }
 
-  deleteCourse(course: Course) {
+  deletePackage(pack: Package) {
   }
 
   confirmDelete() {
@@ -114,10 +117,10 @@ export class CourseComponent {
 
   }
 
-  editCourse(course: Course) {
+  editPackage(pack: Package) {
   }
 
-  saveCourse() {
+  savePackage() {
 
   }
 
@@ -125,7 +128,7 @@ export class CourseComponent {
 
   }
 
-  navigateAfterSelected(course: Course) {
+  navigateAfterSelected(pack: Package) {
 
   }
 

@@ -6,11 +6,12 @@
     top: 0;
     width: 100%;
     padding: 0 2rem;
-    background-color: var(--surface-card);
+    //background-color: var(--surface-card);
+    background-color: transparent;
     transition: left $transitionDuration;
     display: flex;
     align-items: center;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    //box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
     .layout-topbar-logo {
         display: flex;
@@ -41,6 +42,7 @@
         width: 3rem;
         height: 3rem;
         cursor: pointer;
+        transition: background-color $transitionDuration;
         transition: background-color $transitionDuration;
 
         &:hover {

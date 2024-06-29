@@ -1,40 +1,37 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { UserService } from '../../../../services/user/user.service';
-import { User } from '../../../../../data/entities/user';
-import { Console } from 'console';
-import headerList from './headerList';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { Table } from 'primeng/table';
-import { PaginatedRequest } from '../../../../../data/model/paginated-request';
-import { PaginatedListResponse } from '../../../../../data/model/paginated-response';
-import { Event } from '@angular/router';
+import headerList from './headerList';
 import { MessageService } from 'primeng/api';
+import { Course } from '../../../../data/entities/course';
+import { PaginatedRequest } from '../../../../data/model/paginated-request';
+import { PaginatedListResponse } from '../../../../data/model/paginated-response';
+import { CourseService } from '../../../services/user/course.service';
 
 @Component({
-  selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrl: './user.component.scss',
-  encapsulation: ViewEncapsulation.None,
+  selector: 'app-course',
+  templateUrl: './course.component.html',
+  styleUrl: './course.component.scss',
+  encapsulation: ViewEncapsulation.None
 })
-export class UserComponent implements OnInit {
-  
-  constructor(private userService: UserService, private messageService: MessageService) { }
+export class CourseComponent {
+  constructor(private courseService: CourseService, private messageService: MessageService) { }
 
   ngOnInit(): void {
-    this.getListUser();
+    this.getListCourse();
     this.getSelectedColumns();
   }
 
-  userDialog: boolean = false;
+  courseDialog: boolean = false;
 
-  deleteUserDialog: boolean = false;
+  deleteCourseDialog: boolean = false;
 
-  deleteUsersDialog: boolean = false;
+  deleteCoursesDialog: boolean = false;
 
-  users: User[] = [];
+  courses: Course[] = [];
 
-  user: User = {} as User;
+  course: Course = {} as Course;
 
-  selectedUsers: User[] = [];
+  selectedCourses: Course[] = [];
 
   submitted: boolean = false;
 
@@ -62,9 +59,9 @@ export class UserComponent implements OnInit {
     sortField: 'CreatedDate',
     sortOrder: 1
   };
-  paginatedListResponse: PaginatedListResponse<User> = {} as PaginatedListResponse<User>;
-  getListUser(): void {
-    this.userService.getAllUser(this.paginatedRequest).subscribe({
+  paginatedListResponse: PaginatedListResponse<Course> = {} as PaginatedListResponse<Course>;
+  getListCourse(): void {
+    this.courseService.getAllCourse(this.paginatedRequest).subscribe({
       next: (response) => {
         this.paginatedListResponse = response;
         console.log("check_", this.paginatedListResponse.results);
@@ -86,7 +83,7 @@ export class UserComponent implements OnInit {
     this.paginatedRequest.sortField = event.sortField;
     this.paginatedRequest.sortOrder = event.sortOrder;
 
-    this.getListUser();
+    this.getListCourse();
   }
 
   setPaginatedRequest() {
@@ -103,10 +100,10 @@ export class UserComponent implements OnInit {
 
   }
 
-  deleteSelectedUsers() {
+  deleteSelectedCourses() {
   }
 
-  deleteUser(user: User) {
+  deleteCourse(course: Course) {
   }
 
   confirmDelete() {
@@ -117,10 +114,10 @@ export class UserComponent implements OnInit {
 
   }
 
-  editUser(user: User) {
+  editCourse(course: Course) {
   }
 
-  saveUser() {
+  saveCourse() {
 
   }
 
@@ -128,7 +125,7 @@ export class UserComponent implements OnInit {
 
   }
 
-  navigateAfterSelected(user: User) {
+  navigateAfterSelected(course: Course) {
 
   }
 
