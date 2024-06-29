@@ -8,5 +8,6 @@ export interface PaginatedListResponse<TResult> extends BaseResponse {
   totalRecords: number;
   pageNumber: number;
   pageSize: number;
-  orderBy: string;
+  sortField: string;
+  sortOrder: number;
 }

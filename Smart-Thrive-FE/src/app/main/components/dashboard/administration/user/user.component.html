@@ -40,7 +40,7 @@
                 [totalRecords]="paginatedListResponse.totalRecords"
                 [lazy]="true"
                 [rows]="paginatedRequest.pageSize"
-                [sortField]="paginatedRequest.orderBy"
+                [sortField]="paginatedRequest.sortField"
                 (onLazyLoad)="loadPatientListing($event)"
                 >
 

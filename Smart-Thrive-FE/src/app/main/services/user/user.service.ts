@@ -5,7 +5,7 @@ import { ConstantsApi } from '../../../shared/constants/constants-api';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { LoginUser } from '../../../data/model/auth';
-import { BaseResponse, LoginResponse, SingleResponse } from '../../../data/model/base-response';
+import { BaseResponse, LoginResponse, ItemResponse } from '../../../data/model/base-response';
 import { PaginatedListResponse } from '../../../data/model/paginated-response';
 import { Guid } from 'guid-typescript';
 import { PaginatedRequest, PaginatedRequestFillter } from '../../../data/model/paginated-request';
@@ -38,16 +38,16 @@ export class UserService {
     return this.http.post<PaginatedListResponse<User>>(`${ConstantsApi.user.baseUrl}${ConstantsApi.user.getAllUserSearch}`, request);
   }
 
-  getById(id: Guid): Observable<SingleResponse<User>> {
-    return this.http.get<SingleResponse<User>>(`${ConstantsApi.user.baseUrl}${ConstantsApi.user.getUser}/${id}`);
+  getById(id: Guid): Observable<ItemResponse<User>> {
+    return this.http.get<ItemResponse<User>>(`${ConstantsApi.user.baseUrl}${ConstantsApi.user.getUser}/${id}`);
   }
 
   login(model: LoginUser): Observable<LoginResponse<User>> {
     return this.http.post<LoginResponse<User>>(`${ConstantsApi.user.baseUrl}${ConstantsApi.user.login}`, model);
   }
 
-  register(user: User): Observable<SingleResponse<any>> {
-    return this.http.post<SingleResponse<any>>(`${ConstantsApi.user.baseUrl}${ConstantsApi.user.register}`, user);
+  register(user: User): Observable<ItemResponse<any>> {
+    return this.http.post<ItemResponse<any>>(`${ConstantsApi.user.baseUrl}${ConstantsApi.user.register}`, user);
   }
 
   IsLoggedIn() {

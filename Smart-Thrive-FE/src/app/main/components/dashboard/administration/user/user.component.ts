@@ -61,7 +61,8 @@ export class UserComponent implements OnInit {
   paginatedRequest: PaginatedRequest = {
     pageNumber: 0,
     pageSize: 5,
-    orderBy: 'username'
+    sortField: 'CreatedDate',
+    sortOrder: 1
   };
   paginatedListResponse: PaginatedListResponse<User> = {} as PaginatedListResponse<User>;
   getListUser(): void {
@@ -84,7 +85,8 @@ export class UserComponent implements OnInit {
   loadPatientListing(event: any) {
     this.paginatedRequest.pageSize = event.rows;
     this.paginatedRequest.pageNumber = event.first/event.rows + 1;
-    this.paginatedRequest.orderBy = event.sortField;
+    this.paginatedRequest.sortField = event.sortField;
+    this.paginatedRequest.sortOrder = event.sortOrder;
 
     this.getListUser();
   }
@@ -92,7 +94,7 @@ export class UserComponent implements OnInit {
   setPaginatedRequest() {
     this.paginatedRequest.pageNumber = this.paginatedListResponse.pageNumber;
     this.paginatedRequest.pageSize = this.paginatedListResponse.pageSize;
-    this.paginatedRequest.orderBy = this.paginatedListResponse.orderBy;
+    this.paginatedRequest.sortField = this.paginatedListResponse.sortField;
   }
 
   openNew() {

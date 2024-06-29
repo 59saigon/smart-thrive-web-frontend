@@ -1,7 +1,8 @@
 export interface PaginatedRequest {
     pageNumber: number;
     pageSize: number;
-    orderBy: string;
+    sortField: string;
+    sortOrder: number;
 }
 
 export interface PaginatedRequestFillter<TResult> extends PaginatedRequest {

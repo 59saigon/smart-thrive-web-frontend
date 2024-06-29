@@ -9,6 +9,11 @@ export interface LoginResponse<TResult> extends BaseResponse {
   expiration: string;
 }
 
-export interface SingleResponse<TResult> extends BaseResponse {
+export interface ItemResponse<TResult> extends BaseResponse {
   result?: TResult;
+}
+
+export interface ItemListResponse<TResult> extends BaseResponse {
+  result?: TResult[];
+  totalRecords: number;
 }
