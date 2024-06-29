@@ -24,7 +24,7 @@ export class AuthGuard implements CanActivate {
     if (this.userService.IsLoggedIn()) {
       if (currentUrl === '/auth/login' || currentUrl === '/auth/register') {
         // Nếu người dùng đã đăng nhập và đang cố gắng truy cập trang đăng nhập, chuyển hướng họ
-        this.router.navigate(['/administration']); // Chuyển hướng đến trang chính hoặc trang khác
+        this.router.navigate(['/dashboard']); // Chuyển hướng đến trang chính hoặc trang khác
         return false; // Ngăn kích hoạt tuyến đường
       }
       return true; // Cho phép truy cập nếu đã đăng nhập

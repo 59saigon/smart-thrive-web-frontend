@@ -7,23 +7,22 @@ import { Table } from 'primeng/table';
 import { PaginatedRequest } from '../../../../../data/model/paginated-request';
 import { PaginatedListResponse } from '../../../../../data/model/paginated-response';
 import { Event } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss',
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class UserComponent implements OnInit {
   
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.getListUser();
     this.getSelectedColumns();
   }
-
-  id: string = '';
 
   userDialog: boolean = false;
 
@@ -35,15 +34,13 @@ export class UserComponent implements OnInit {
 
   user: User = {} as User;
 
-  location: Location = {} as Location;
-
   selectedUsers: User[] = [];
 
   submitted: boolean = false;
 
   cols: any[] = [];
 
-  rowsPerPageOptions = [5, 10, 20];
+  rowsPerPageOptions = [5, 10, 20, 50];
 
   showDetails = false;
 
@@ -96,6 +93,10 @@ export class UserComponent implements OnInit {
     this.paginatedRequest.pageNumber = this.paginatedListResponse.pageNumber;
     this.paginatedRequest.pageSize = this.paginatedListResponse.pageSize;
     this.paginatedRequest.sortField = this.paginatedListResponse.sortField;
+  }
+
+  getNewQuote() {
+    this.messageService.add({severity:'success', summary: 'Success', detail: 'Copied'});
   }
 
   openNew() {

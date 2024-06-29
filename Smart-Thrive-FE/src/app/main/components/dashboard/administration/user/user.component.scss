@@ -27,10 +27,17 @@
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 12ch;
-    
 }
 
-a:hover {
+.button-other-id {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 12ch;
+}
+
+.button-id:hover {
     text-decoration: underline;
     color: blue;
 }

@@ -7,6 +7,20 @@ export default [
         sortField: true,
     },
     {
+        field: 'roleId',
+        header: 'Role Id',
+        isDisabled: false,
+        sortIcon: true,
+        sortField: true
+    },
+    {
+        field: 'locationId',
+        header: 'Location Id',
+        isDisabled: false,
+        sortIcon: true,
+        sortField: true
+    },
+    {
         field: 'username',
         header: 'User Name',
         isDisabled: false,
@@ -62,25 +76,12 @@ export default [
         sortIcon: true,
         sortField: true
     },
-    {
-        field: 'roleId',
-        header: 'Role Id',
-        isDisabled: false,
-        sortIcon: true,
-        sortField: true
-    },
-    {
-        field: 'locationId',
-        header: 'Location Id',
-        isDisabled: false,
-        sortIcon: true,
-        sortField: true
-    },
+    
 
     {
         field: 'createdBy',
         header: 'Created By',
-        isDisabled: true,
+        isDisabled: false,
         sortIcon: true,
         sortField: true
     },
@@ -108,7 +109,7 @@ export default [
     {
         field: 'isDeleted',
         header: 'Is Deleted',
-        isDisabled: true,
+        isDisabled: false,
         sortIcon: true,
         sortField: true
     },

@@ -11,12 +11,13 @@ const routes: Routes = [
     component: AppLayoutComponent,
     children: [
       {
-        path: 'administration',
+        path: 'dashboard',
         loadChildren: () =>
           import('./main/components/dashboard/dashboard.module').then(
             (m) => m.DashboardModule
           ),
       },
+      
     ],
   },
   { path: 'auth', canActivate: [AuthGuard], loadChildren: () => import('./main/components/auth/auth.module').then(m => m.AuthModule) },

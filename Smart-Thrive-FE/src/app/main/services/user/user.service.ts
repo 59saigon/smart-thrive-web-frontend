@@ -19,27 +19,27 @@ export class UserService {
   }
 
   addUser(user: User): Observable<BaseResponse> {
-    return this.http.post<BaseResponse>(`${ConstantsApi.user.baseUrl}${ConstantsApi.user.addUser}`, user);
+    return this.http.post<BaseResponse>(`${ConstantsApi.user.baseUrl}${ConstantsApi.add}`, user);
   }
 
   updateUser(user: User): Observable<BaseResponse> {
-    return this.http.put<BaseResponse>(`${ConstantsApi.user.baseUrl}${ConstantsApi.user.updateUser}`, user);
+    return this.http.put<BaseResponse>(`${ConstantsApi.user.baseUrl}${ConstantsApi.update}`, user);
   }
 
   deleteUser(userId: Guid): Observable<BaseResponse> {
-    return this.http.delete<BaseResponse>(`${ConstantsApi.user.baseUrl}${ConstantsApi.user.deleteUser}/${userId}`);
+    return this.http.delete<BaseResponse>(`${ConstantsApi.user.baseUrl}${ConstantsApi.delete}/${userId}`);
   }
 
   getAllUser(request: PaginatedRequest): Observable<PaginatedListResponse<User>> {
-    return this.http.post<PaginatedListResponse<User>>(`${ConstantsApi.user.baseUrl}${ConstantsApi.user.getAllUser}`, request);
+    return this.http.post<PaginatedListResponse<User>>(`${ConstantsApi.user.baseUrl}${ConstantsApi.getAll}`, request);
   }
 
   getAllUserSearch(request: PaginatedRequestFillter<User>): Observable<PaginatedListResponse<User>> {
-    return this.http.post<PaginatedListResponse<User>>(`${ConstantsApi.user.baseUrl}${ConstantsApi.user.getAllUserSearch}`, request);
+    return this.http.post<PaginatedListResponse<User>>(`${ConstantsApi.user.baseUrl}${ConstantsApi.getAllSearch}`, request);
   }
 
   getById(id: Guid): Observable<ItemResponse<User>> {
-    return this.http.get<ItemResponse<User>>(`${ConstantsApi.user.baseUrl}${ConstantsApi.user.getUser}/${id}`);
+    return this.http.get<ItemResponse<User>>(`${ConstantsApi.user.baseUrl}${ConstantsApi.getById}/${id}`);
   }
 
   login(model: LoginUser): Observable<LoginResponse<User>> {
