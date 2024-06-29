@@ -1,5 +1,17 @@
-.p-panel {
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+.p-panel .p-panel-header {
+    //box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    -webkit-box-shadow: 2px 6px 15px 0px rgba(69, 65, 78, 0.1);
+    -moz-box-shadow: 2px 6px 15px 0px rgba(69, 65, 78, 0.1);
+    box-shadow: 2px 6px 15px 0px rgba(69, 65, 78, 0.1);
+    border: 0px ;
+}
+
+.p-panel .p-panel-content {
+    //box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    -webkit-box-shadow: 2px 6px 15px 0px rgba(69, 65, 78, 0.1);
+    -moz-box-shadow: 2px 6px 15px 0px rgba(69, 65, 78, 0.1);
+    box-shadow: 2px 6px 15px 0px rgba(69, 65, 78, 0.1);
+    border: 0px ;
 }
 
 .p-button:enabled:focus {

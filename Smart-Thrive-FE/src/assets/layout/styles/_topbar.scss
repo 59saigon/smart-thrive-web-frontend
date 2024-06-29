@@ -1,9 +1,8 @@
 .layout-topbar {
-    position: static;
+    position: fixed;
     height: 4rem;
     z-index: 997;
-    left: 18rem;
-    top: 0;
+    
     width: 100%;
     padding: 0 2rem;
     background-color: var(--surface-card);
@@ -12,7 +11,7 @@
     display: flex;
     align-items: center;
     //box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-
+    box-shadow: 0 0 5px #121727;
     .layout-topbar-logo {
         display: flex;
         align-items: center;
@@ -45,10 +44,10 @@
         transition: background-color $transitionDuration;
         transition: background-color $transitionDuration;
 
-        &:hover {
-            color: var(--text-color);
-            background-color: var(--surface-hover);
-        }
+        // &:hover {
+        //     color: var(--text-color);
+        //     //background-color: var(--surface-hover);
+        // }
 
         // &:focus {
         //     @include focused();
