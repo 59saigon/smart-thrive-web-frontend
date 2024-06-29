@@ -8,7 +8,7 @@
 }
 
 @media (min-width: 992px) {
-    .layout-wrapper {
+    .layout-container.layout-static {
         &.layout-overlay {
             .layout-main-container {
                 margin-left: 0;
@@ -60,7 +60,7 @@
         overflow: hidden;
     }
 
-    .layout-wrapper {
+    .layout-container.layout-static {
         .layout-main-container {
             margin-left: 0;
             //padding-left: 2rem;

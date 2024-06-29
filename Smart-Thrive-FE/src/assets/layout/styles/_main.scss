@@ -10,7 +10,7 @@ html {
 body {
     font-family: var(--font-family);
     color: var(--text-color);
-    background-color: #F1F6FD;
+    background-color: var(--surface-ground);
     margin: 0;
     padding: 0;
     min-height: 100%;
@@ -23,6 +23,31 @@ a {
     color: var(--primary-color);
 }
 
-.layout-wrapper {
+.layout-container {
+    //background: #121212;
     min-height: 100vh;
 }
+
+// .layout-container:before {
+//     min-height: 100vh;
+//     height: 100%;
+//     width: 100%;
+//     content: "";
+//     display: block;
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     background-image: var(--body-image);
+//     background-repeat: no-repeat;
+//     z-index: 0;
+// }
+
+// .layout-dark {
+//     --sidebar-shadow: none;
+//     --sidebar-border: 1px solid var(--surface-border);
+//     --card-shadow: none;
+//     --body-bg: linear-gradient(180deg, #2E323F 0%, #0A061A 100%);
+//     --body-image: url(/assets/layout/images/effect-ondark.png);
+//     --root-menu-item-hover-bg: rgba(255, 255, 255, .05);
+//     --exception-pages-image: url(/assets/layout/images/pages/exception-ondark.png);
+// }

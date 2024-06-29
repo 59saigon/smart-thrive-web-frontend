@@ -16,7 +16,7 @@ export class AppConfigComponent {
     public layoutService: LayoutService,
     public menuService: MenuService
   ) {
-    this.changeTheme(ConstantsTheme.theme, '');
+    this.theme = ConstantsTheme.light;
     this.ripple = true;
   }
 
@@ -62,6 +62,20 @@ export class AppConfigComponent {
       ...config,
       ripple: _val,
     }));
+  }
+
+  get mode(): boolean {
+    var IsMode = this.layoutService.config().theme != ConstantsTheme.light ? true : false;
+
+    return IsMode;
+  }
+  set mode(_val: boolean) {
+    
+      this.layoutService.config.update((config) => ({
+        ...config,
+        theme: _val ? ConstantsTheme.dark : ConstantsTheme.light,
+      }));
+    
   }
 
   set theme(val: string) {

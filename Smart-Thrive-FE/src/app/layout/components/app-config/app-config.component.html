@@ -8,6 +8,9 @@
         <button icon="pi pi-plus"  type="button" pButton (click)="incrementScale()" class="p-button-text p-button-rounded w-2rem h-2rem ml-2" [disabled]="scale === scales[scales.length - 1]"></button>
     </div>
 
+    <h5>Light / Dark</h5>
+    <p-inputSwitch [(ngModel)]="mode"></p-inputSwitch>
+
     <ng-container *ngIf="!minimal">
         <h5>Menu Type</h5>
         <div class="field-radiobutton">
@@ -35,6 +38,7 @@
 
         <h5>Ripple Effect</h5>
         <p-inputSwitch [(ngModel)]="ripple"></p-inputSwitch>
+        
     </ng-container>
 
     <h5>My Template</h5>
