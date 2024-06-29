@@ -12,6 +12,7 @@ import { Event } from '@angular/router';
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss',
+  encapsulation: ViewEncapsulation.None
 })
 export class UserComponent implements OnInit {
   

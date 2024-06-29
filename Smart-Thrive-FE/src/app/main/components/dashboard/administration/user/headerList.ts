@@ -2,10 +2,9 @@ export default [
     {
         field: 'id',
         header: 'Id',
-        isDisabled: true,
+        isDisabled: false,
         sortIcon: true,
         sortField: true,
-        open: false
     },
     {
         field: 'username',

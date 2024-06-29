@@ -21,11 +21,26 @@
     font-weight: 600;
 }
 
-.p-button-link {
+.button-id {
     display: inline-block;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 12ch;
+    
 }
 
+a:hover {
+    text-decoration: underline;
+    color: blue;
+}
+
+p-multiSelect {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+.p-multiselect-clearable{
+    width: 100% !important;
+    max-width: 100% !important;
+}
