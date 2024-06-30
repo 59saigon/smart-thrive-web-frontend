@@ -19,3 +19,7 @@
     outline-offset: 0px;
     box-shadow: none;
 }
+
+.p-button:focus {
+    box-shadow: 0 0 0 0 !important;
+  }
