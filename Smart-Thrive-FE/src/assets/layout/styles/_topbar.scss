@@ -5,13 +5,19 @@
     
     width: 100%;
     padding: 0 2rem;
-    background-color: var(--surface-card);
-    //background-color: transparent;
+    //background-color: var(--surface-card);
+    //background-color: transparent; 1269DB
     transition: left $transitionDuration;
     display: flex;
     align-items: center;
     //box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     box-shadow: 0 0 5px #121727;
+
+
+    //border-bottom: 1px solid var(--surface-border);
+    background-color: var(--topbar-sticky-bg);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
     .layout-topbar-logo {
         display: flex;
         align-items: center;

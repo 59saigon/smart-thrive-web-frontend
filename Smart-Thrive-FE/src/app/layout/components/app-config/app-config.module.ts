@@ -6,6 +6,9 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { ButtonModule } from 'primeng/button';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { AppConfigComponent } from './app-config.component';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { RippleModule } from 'primeng/ripple';
+import { AutoFocusModule } from 'primeng/autofocus';
 
 @NgModule({
   imports: [
@@ -15,6 +18,9 @@ import { AppConfigComponent } from './app-config.component';
     RadioButtonModule,
     ButtonModule,
     InputSwitchModule,
+    SelectButtonModule,
+    RippleModule,
+    AutoFocusModule
   ],
   declarations: [AppConfigComponent],
   exports: [AppConfigComponent],

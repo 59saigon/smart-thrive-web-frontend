@@ -1,0 +1,8 @@
+.layout-config-sidebar{
+    &-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-color: var(--surface-border) !important;
+    }
+}

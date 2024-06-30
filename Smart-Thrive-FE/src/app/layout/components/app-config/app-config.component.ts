@@ -6,9 +6,12 @@ import { ConstantsTheme } from '../../../shared/constants/constant-theme';
 @Component({
   selector: 'app-config',
   templateUrl: './app-config.component.html',
+  styleUrl: './app-config.component.scss',
 })
 export class AppConfigComponent {
   @Input() minimal: boolean = false;
+
+  stateOptions: any[] = [];
 
   scales: number[] = [12, 13, 14, 15, 16];
 
@@ -16,6 +19,7 @@ export class AppConfigComponent {
     public layoutService: LayoutService,
     public menuService: MenuService
   ) {
+    this.stateOptions = [{label: 'Outlined', value: 'outlined'}, {label: 'Filled', value: 'filled'}];
     this.theme = ConstantsTheme.light;
     this.ripple = true;
   }
