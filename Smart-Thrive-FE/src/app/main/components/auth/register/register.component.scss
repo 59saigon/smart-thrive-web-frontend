@@ -9,11 +9,11 @@ $font-family: "Inter var", sans-serif;
   justify-content: center;
   align-items: center;
 }
-// all button not focus
-::ng-deep body .p-button:enabled:focus {
-  outline: 0 none;
-  outline-offset: 0px;
-  box-shadow: none;
+
+.p-calendar {
+  width: 100% !important;
+  height: 45px !important;
+  //margin-bottom: 1rem !important;
 }
 
 // Main Styles
@@ -41,66 +41,66 @@ $font-family: "Inter var", sans-serif;
     }
 
     &-main {
+      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+      border-radius: 8px 8px 0 0;
+      background-color: #fff;
+      padding: 8px 0px;
       &-title {
-        padding-bottom: 1rem;
+        padding: 1rem 0;
         h1 {
           margin-bottom: 0.5rem;
         }
       }
 
       &-register-with {
-        padding-bottom: 2rem;
-        ::ng-deep .p-button:enabled:focus {
+        padding: 1rem 0;
+        .p-button:enabled:focus {
           outline: 0 none;
           outline-offset: 0px;
           box-shadow: none;
         }
       }
 
-      &-line {
-        padding-bottom: 2rem;
-      }
-
       &-input {
+        border-top: 1px solid #dadde1;
+        padding: 16px 16px 0px 16px;
         display: flex;
         flex-direction: column;
         align-items: center;
 
-        ::ng-deep .p-inputtext {
+        .p-inputtext {
           width: 100% !important;
           height: 45px !important;
-          //margin-bottom: 1rem !important;
         }
 
-        .p-element {
-          width: 100%;
-        }
-        ::ng-deep .p-password {
+        .p-password {
           width: 100% !important;
         }
       }
 
       &-func {
+        padding: 10px 16px;
         padding-bottom: 3rem;
         display: flex;
         align-items: center;
         justify-content: space-between;
 
-        ::ng-deep .p-button-link {
+        .p-button-link {
           color: var(--surface-900);
         }
-        ::ng-deep .p-button {
+        .p-button {
           padding: 0 !important ;
         }
       }
 
       &-button {
+        padding: 10px 16px;
         display: flex;
         flex-direction: column;
         align-items: center;
         padding-bottom: 1rem;
 
-        ::ng-deep .p-element {
+        .p-element {
           width: 100% !important;
           height: 45px !important;
         }
@@ -108,6 +108,8 @@ $font-family: "Inter var", sans-serif;
 
       &-text {
         padding-bottom: 1rem;
+        text-align: start;
+        font-weight: lighter;
       }
     }
   }

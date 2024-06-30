@@ -1,10 +1,9 @@
+<p-toast position="top-left"></p-toast>
+
 <div class="main-auth-login">
     <div class="main-auth-login-content">
-        <div class="main-auth-login-content-main w-7">
-            <div class="main-auth-login-content-main-title">
-                <h1>Login to your Account</h1>
-                <span>Welcome back! Select method to log in: </span>
-            </div>
+        <div class="main-auth-login-content-main w-10 md:w-8 lg:w-5 Login" (keydown.enter)="onLogin()">
+            
 
             <div class="main-auth-login-content-main-login-with">
                 <button pButton type="button"
@@ -26,13 +25,10 @@
                  
             </div>
 
-            <div class="main-auth-login-content-main-line">
-                <span>------------- or continue with email -------------</span>
-            </div>
             <div class="main-auth-login-content-main-input">
-                <input pInputText placeholder="Email or username"
+                <input pInputText placeholder="Email or username" name="email"
                     [(ngModel)]="loginUser.usernameOrEmail" />
-                <p-password [(ngModel)]="loginUser.password" placeholder="Password"
+                <p-password [(ngModel)]="loginUser.password" placeholder="Password" name="password"
                     [toggleMask]="true" [feedback]="false" />
             </div>
 
@@ -40,7 +36,6 @@
                 <div class="main-auth-login-content-main-func-remember">
                     <p-checkbox [binary]="true" label=" Remember me"
                         [(ngModel)]="loginUser.isRemember"></p-checkbox>
-
                 </div>
 
                 <div class="main-auth-login-content-main-func-forgot">

@@ -13,6 +13,9 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { RippleModule } from 'primeng/ripple';
+import { CalendarModule } from 'primeng/calendar';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { ToastModule } from 'primeng/toast';
 
 
 @NgModule({
@@ -31,6 +34,9 @@ import { RippleModule } from 'primeng/ripple';
     InputNumberModule,
     CheckboxModule,
     FormsModule,
+    CalendarModule,
+    RadioButtonModule,
+    ToastModule
   ],
 })
 export class RegisterModule {}

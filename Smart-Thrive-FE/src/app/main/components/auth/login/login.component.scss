@@ -42,15 +42,19 @@ $font-family: "Inter var", sans-serif;
     }
 
     &-main {
+      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+      border-radius: 8px 8px 0 0;
+      background-color: #fff;
+      padding: 8px 0px;
       &-title {
-        padding-bottom: 1rem;
+        padding: 1rem 0;
         h1 {
           margin-bottom: 0.5rem;
         }
       }
 
       &-login-with {
-        padding-bottom: 2rem;
+        padding: 1rem 0;
         ::ng-deep .p-button:enabled:focus {
           outline: 0 none;
           outline-offset: 0px;
@@ -58,11 +62,9 @@ $font-family: "Inter var", sans-serif;
         }
       }
 
-      &-line {
-        padding-bottom: 2rem;
-      }
-
       &-input {
+        border-top: 1px solid #dadde1;
+        padding: 16px 16px 0px 16px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -82,6 +84,7 @@ $font-family: "Inter var", sans-serif;
       }
 
       &-func {
+        padding: 10px 16px;
         padding-bottom: 3rem;
         display: flex;
         align-items: center;
@@ -96,6 +99,7 @@ $font-family: "Inter var", sans-serif;
       }
 
       &-button {
+        padding: 10px 16px;
         display: flex;
         flex-direction: column;
         align-items: center;
