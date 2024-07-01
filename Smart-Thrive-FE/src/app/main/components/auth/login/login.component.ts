@@ -23,38 +23,57 @@ export class LoginComponent implements OnInit {
 
   }
 
-  loading = [false, false, false, false]
+  loading = [false, false, false, false];
 
   load(index: number) {
     this.loading[index] = true;
-    setTimeout(() => this.loading[index] = false, 100000);
+    this.loginLabel = "";
+  }
+
+  clearLoading(index: number) {
+    setTimeout(() => { this.loading[index] = false; this.loginLabel = "Login"; }, 1000);
   }
 
   loginLabel: string = "Login";
+
   onLogin(index: number) {
     this.load(index);
-    
+
     if (this.isUserObjectEmpty(this.loginUser)) {
-      this.messageService.add({ severity: 'warn', summary: 'Fail', detail: 'Username and password are required' });
+      setTimeout(() => {
+        this.clearLoading(index);
+        this.messageService.add({ severity: 'warn', summary: 'Fail', detail: 'Username and password are required' });
+      }, 1000);
+      return;
     }
 
     console.log(this.loginUser);
     this.userService.login(this.loginUser).subscribe({
       next: (response) => {
+          // Clear loading state when response is received
         if (response.result == null) {
-          this.messageService.add({ severity: 'warn', summary: 'Fail', detail: "Not found account: " + this.loginUser.usernameOrEmail });
+          setTimeout(() => {
+            this.clearLoading(index);
+            this.messageService.add({ severity: 'warn', summary: 'Fail', detail: "Not found account: " + this.loginUser.usernameOrEmail });
+          }, 1000);
           return;
         }
         this.user = response.result;
         this.token = response.token;
         this.userService.setToken(this.user, this.token);
-        this.router.navigateByUrl('/');
+        setTimeout(() => {this.router.navigateByUrl('/'); this.clearLoading(index);}, 2000);
+        
       },
       error: (err) => {
-        this.messageService.add({ severity: 'warn', summary: 'Fail', detail: "Server is not enable." });
+        setTimeout(() => {
+          this.clearLoading(index);
+          this.messageService.add({ severity: 'warn', summary: 'Fail', detail: "Service is not enable" });
+        }, 1000);
       },
     });
+    this.clearLoading(index);
   }
+
 
   isUserObjectEmpty(user: LoginUser): boolean {
     return !user.usernameOrEmail || !user.password;

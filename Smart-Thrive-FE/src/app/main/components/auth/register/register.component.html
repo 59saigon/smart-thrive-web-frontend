@@ -73,7 +73,7 @@
             </div>
 
             <div class="main-auth-register-content-main-button">
-                <p-button label="Register" (click)="onRegister()" [raised]="true" severity="contrast" />
+                <p-button class="w-full" [label]="registerLabel" [loading]="loading[0]" (onClick)="onRegister(0)" />
             </div>
 
             <div class="main-auth-register-content-main-text">

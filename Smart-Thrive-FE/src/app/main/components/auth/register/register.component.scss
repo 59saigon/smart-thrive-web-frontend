@@ -104,8 +104,9 @@ $font-family: "Inter var", sans-serif;
         align-items: center;
         padding-bottom: 1rem;
 
-        .p-element {
+        button {
           width: 100% !important;
+          justify-content: center;
           height: 45px !important;
         }
       }
