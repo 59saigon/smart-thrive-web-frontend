@@ -2,7 +2,7 @@
 
 <div class="main-auth-login">
     <div class="main-auth-login-content">
-        <div class="main-auth-login-content-main w-10 md:w-8 lg:w-5 Login" (keydown.enter)="onLogin()">
+        <div class="main-auth-login-content-main w-10 md:w-8 lg:w-5 Login" (keydown.enter)="onLogin(0)">
             
 
             <div class="main-auth-login-content-main-login-with">
@@ -25,11 +25,11 @@
                  
             </div>
 
-            <div class="main-auth-login-content-main-input">
+            <div class="main-auth-login-content-main-input gap-2">
                 <input pInputText placeholder="Email or username" name="email"
-                    [(ngModel)]="loginUser.usernameOrEmail" />
+                    [(ngModel)]="loginUser.usernameOrEmail" class="p-inputtext-lg" />
                 <p-password [(ngModel)]="loginUser.password" placeholder="Password" name="password"
-                    [toggleMask]="true" [feedback]="false" />
+                    [toggleMask]="true" [feedback]="false" class="p-inputtext-lg" />
             </div>
 
             <div class="main-auth-login-content-main-func">
@@ -44,8 +44,7 @@
             </div>
 
             <div class="main-auth-login-content-main-button">
-                <p-button label="Login" (click)="onLogin()" [raised]="true"
-                    severity="contrast" />
+                <p-button [label]="loginLabel" class="w-full" [loading]="loading[0]" (onClick)="onLogin(0)"></p-button>
             </div>
 
             <div class="main-auth-login-content-main-text">

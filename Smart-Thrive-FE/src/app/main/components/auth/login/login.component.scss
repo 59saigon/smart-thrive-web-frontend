@@ -9,13 +9,6 @@ $font-family: "Inter var", sans-serif;
   justify-content: center;
   align-items: center;
 }
-// all button not focus
-::ng-deep body .p-button:enabled:focus {
-  outline: 0 none;
-  outline-offset: 0px;
-  box-shadow: none;
-}
-
 
 // Main Styles
 .main-auth-login {
@@ -55,7 +48,7 @@ $font-family: "Inter var", sans-serif;
 
       &-login-with {
         padding: 1rem 0;
-        ::ng-deep .p-button:enabled:focus {
+        .p-button:enabled:focus {
           outline: 0 none;
           outline-offset: 0px;
           box-shadow: none;
@@ -69,18 +62,18 @@ $font-family: "Inter var", sans-serif;
         flex-direction: column;
         align-items: center;
 
-        ::ng-deep .p-inputtext {
+        .p-inputtext {
           width: 100% !important;
-          height: 45px !important;
-          margin-bottom: 0.5rem !important;
         }
 
-        .p-element {
-          width: 100%;
-        }
-        ::ng-deep .p-password {
+        p-password{
           width: 100% !important;
         }
+        .p-password {
+          width: 100% !important;
+        }
+        
+        
       }
 
       &-func {
@@ -90,22 +83,22 @@ $font-family: "Inter var", sans-serif;
         align-items: center;
         justify-content: space-between;
 
-        ::ng-deep .p-button-link {
+        .p-button-link {
           color: var(--surface-900);
         }
-        ::ng-deep .p-button {
+        .p-button {
           padding: 0 !important ;
         }
       }
 
       &-button {
-        padding: 10px 16px;
+        padding: 0px 16px;
         display: flex;
         flex-direction: column;
         align-items: center;
         padding-bottom: 1rem;
 
-        ::ng-deep .p-element {
+        button {
           width: 100% !important;
           height: 45px !important;
         }
@@ -114,7 +107,7 @@ $font-family: "Inter var", sans-serif;
       &-text {
         padding-bottom: 1rem;
         @include flex-center;
-        ::ng-deep .p-button-link {
+        .p-button-link {
           padding: 0;
           color: var(--surface-900);
         }
