@@ -1,74 +1,89 @@
-<div class="main-auth-register">
-    <div class="main-auth-register-img">
+<p-toast position="top-left"></p-toast>
 
-    </div>
+<div class="main-auth-register">
+
     <div class="main-auth-register-content">
-        <div class="main-auth-register-content-main w-7">
+        <div class="main-auth-register-content-main w-10 md:w-8 lg:w-6">
             <div class="main-auth-register-content-main-title">
-                <h1>Create a SmartThrive account</h1>
-                <span>Welcome back! Select method to register: </span>
+                <h1>Create new account</h1>
+                <span>Fast and easy.</span>
             </div>
 
             <div class="main-auth-register-content-main-register-with">
-                <button pButton type="button"
-                    [outlined]="true"
-                    severity="secondary"
-                    label="Google">
-                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-                        width="26" height="26" viewBox="0 0 48 48"
+                <button pButton type="button" [outlined]="true" severity="secondary" label="Google">
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="26" height="26" viewBox="0 0 48 48"
                         style="margin-right: 5px;">
                         <path fill="#FFC107"
-                            d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"></path><path
-                            fill="#FF3D00"
-                            d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"></path><path
-                            fill="#4CAF50"
-                            d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"></path><path
-                            fill="#1976D2"
-                            d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"></path>
+                            d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z">
+                        </path>
+                        <path fill="#FF3D00"
+                            d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z">
+                        </path>
+                        <path fill="#4CAF50"
+                            d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z">
+                        </path>
+                        <path fill="#1976D2"
+                            d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z">
+                        </path>
                     </svg></button>
-                 
+
             </div>
 
-            <div class="main-auth-register-content-main-line">
+            <!-- <div class="main-auth-register-content-main-line">
                 <span>------------- or continue with email -------------</span>
-            </div>
+            </div> -->
             <div class="main-auth-register-content-main-input">
-                
+
                 <div class="field flex flex-row column-gap-3 w-full">
-                    <input pInputText placeholder="First name"/>
-                    <input pInputText placeholder="Last name"/>
+                    <input [(ngModel)]="firstName" pInputText placeholder="First name" required />
+                    <input [(ngModel)]="lastName" pInputText placeholder="Last name" required />
                 </div>
-                <input class="field" pInputText placeholder="Email"/>
-                <input class="field" pInputText placeholder="Username"/>
+                <input class="field" name="email" [(ngModel)]="user.email" pInputText placeholder="Email" required/>
+                <input class="field" name="username" [(ngModel)]="user.username" pInputText placeholder="Username" required />
                 <div class="field flex flex-row column-gap-3 w-full">
-                    <p-password  placeholder="Password"
-                    [toggleMask]="true" [feedback]="false" />
-                    <p-password placeholder="Confirm"
-                    [toggleMask]="true" [feedback]="false" />
+                    <p-password placeholder="Password" [(ngModel)]="user.password" [toggleMask]="true" [feedback]="false" required />
+                    <p-password placeholder="Confirm" [(ngModel)]="confirmPassword"  [toggleMask]="true" [feedback]="false" required />
                 </div>
-            </div>
+                <p-calendar placeholder="Birthday" class="w-full" [(ngModel)]="user.dob" [iconDisplay]="'input'" [showIcon]="true"
+                    inputId="icondisplay" required />
+                <div class="flex flex-wrap justify-content-end gap-3 w-full py-3">
+                    <div class="flex align-items-center">
+                        <p-radioButton name="gender" value="Female" [(ngModel)]="user.gender" inputId="ingredient1" />
+                        <label for="ingredient1" class="ml-2">
+                            Female
+                        </label>
+                    </div>
 
-            <div class="main-auth-register-content-main-func">
-                <div class="main-auth-register-content-main-func-remember">
-                    <p-checkbox [binary]="true" label=" Remember me"
-                        ></p-checkbox>
+                    <div class="flex align-items-center">
+                        <p-radioButton name="gender" value="Male" [(ngModel)]="user.gender" inputId="ingredient2" />
+                        <label for="ingredient2" class="ml-2">
+                            Male
+                        </label>
+                    </div>
 
-                </div>
-
-                <div class="main-auth-register-content-main-func-forgot">
-                    <p-button label="Forgot Password?" [link]="true" />
+                    <div class="flex align-items-center">
+                        <p-radioButton name="gender" value="Other" [(ngModel)]="user.gender" inputId="ingredient3" />
+                        <label for="ingredient3" class="ml-2 pr-3">
+                            Other
+                        </label>
+                        <input  type="text" *ngIf="user.gender !== 'Female' && user.gender !== 'Male'"  pInputText [(ngModel)]="gender" />
+                    </div>
+                   
                 </div>
             </div>
 
             <div class="main-auth-register-content-main-button">
-                <p-button label="Register" [raised]="true"
-                    severity="contrast" />
+                <p-button class="w-full" [label]="registerLabel" [loading]="loading[0]" (onClick)="onRegister(0)" />
             </div>
 
             <div class="main-auth-register-content-main-text">
-
+                <p-button routerLink="/auth/login" label="Back to login" icon="pi pi-arrow-left" severity="secondary"
+                    [link]="true" />
             </div>
 
         </div>
+    </div>
+    <div class="main-auth-register-img">
+
     </div>
 </div>

@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { LoginUser } from '../../../../data/model/auth';
 import { UserService } from '../../../services/user/user.service';
 import { Router } from '@angular/router';
 import { User } from '../../../../data/entities/user';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
+  encapsulation: ViewEncapsulation.None
 })
 export class LoginComponent implements OnInit {
   loginUser: LoginUser = {} as LoginUser;
@@ -15,25 +17,65 @@ export class LoginComponent implements OnInit {
 
   token: string = "";
 
-  constructor(public userService: UserService, private router: Router) { }
+  constructor(public userService: UserService, private router: Router, private messageService: MessageService) { }
 
   ngOnInit(): void {
 
   }
 
-  onLogin() {
+  loading = [false, false, false, false];
+
+  load(index: number) {
+    this.loading[index] = true;
+    this.loginLabel = "";
+  }
+
+  clearLoading(index: number) {
+    setTimeout(() => { this.loading[index] = false; this.loginLabel = "Login"; }, 1000);
+  }
+
+  loginLabel: string = "Login";
+
+  onLogin(index: number) {
+    this.load(index);
+
+    if (this.isUserObjectEmpty(this.loginUser)) {
+      setTimeout(() => {
+        this.clearLoading(index);
+        this.messageService.add({ severity: 'warn', summary: 'Fail', detail: 'Username and password are required' });
+      }, 1000);
+      return;
+    }
+
     console.log(this.loginUser);
     this.userService.login(this.loginUser).subscribe({
       next: (response) => {
+          // Clear loading state when response is received
+        if (response.result == null) {
+          setTimeout(() => {
+            this.clearLoading(index);
+            this.messageService.add({ severity: 'warn', summary: 'Fail', detail: "Not found account: " + this.loginUser.usernameOrEmail });
+          }, 1000);
+          return;
+        }
         this.user = response.result;
         this.token = response.token;
         this.userService.setToken(this.user, this.token);
-        this.router.navigateByUrl('/');
-        console.table(response.result);
+        setTimeout(() => {this.router.navigateByUrl('/'); this.clearLoading(index);}, 2000);
+        
       },
       error: (err) => {
-        console.error('Error occurred:', err);
+        setTimeout(() => {
+          this.clearLoading(index);
+          this.messageService.add({ severity: 'warn', summary: 'Fail', detail: "Service is not enable" });
+        }, 1000);
       },
     });
+    this.clearLoading(index);
+  }
+
+
+  isUserObjectEmpty(user: LoginUser): boolean {
+    return !user.usernameOrEmail || !user.password;
   }
 }
