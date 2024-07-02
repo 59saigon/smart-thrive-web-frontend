@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { LoginUser, RegisterUser } from '../../../../data/model/auth';
 import { User } from '../../../../data/entities/user';
-import { UserService } from '../../../services/user/user.service';
+import { UserService } from '../../../services/services/user.service';
 import { ItemResponse } from '../../../../data/model/base-response';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';

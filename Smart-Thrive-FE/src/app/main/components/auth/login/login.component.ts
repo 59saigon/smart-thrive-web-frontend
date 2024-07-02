@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { LoginUser } from '../../../../data/model/auth';
-import { UserService } from '../../../services/user/user.service';
+import { UserService } from '../../../services/services/user.service';
 import { Router } from '@angular/router';
 import { User } from '../../../../data/entities/user';
 import { MessageService } from 'primeng/api';

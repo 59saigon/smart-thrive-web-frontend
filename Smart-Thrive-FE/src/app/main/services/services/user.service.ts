@@ -9,38 +9,18 @@ import { BaseResponse, LoginResponse, ItemResponse } from '../../../data/model/b
 import { PaginatedListResponse } from '../../../data/model/paginated-response';
 import { Guid } from 'guid-typescript';
 import { PaginatedRequest, PaginatedRequestFillter } from '../../../data/model/paginated-request';
+import { BaseService } from '../base/base.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UserService {
+export class UserService extends BaseService<User> {
   helper = new JwtHelperService();
-  constructor(public http: HttpClient) {
-  }
 
-  addUser(user: User): Observable<BaseResponse> {
-    return this.http.post<BaseResponse>(`${ConstantsApi.user.baseUrl}${ConstantsApi.add}`, user);
+  constructor(public _http: HttpClient) {
+    super(_http, "user");
   }
-
-  updateUser(user: User): Observable<BaseResponse> {
-    return this.http.put<BaseResponse>(`${ConstantsApi.user.baseUrl}${ConstantsApi.update}`, user);
-  }
-
-  deleteUser(userId: Guid): Observable<BaseResponse> {
-    return this.http.delete<BaseResponse>(`${ConstantsApi.user.baseUrl}${ConstantsApi.delete}/${userId}`);
-  }
-
-  getAllUser(request: PaginatedRequest): Observable<PaginatedListResponse<User>> {
-    return this.http.post<PaginatedListResponse<User>>(`${ConstantsApi.user.baseUrl}${ConstantsApi.getAll}`, request);
-  }
-
-  getAllUserSearch(request: PaginatedRequestFillter<User>): Observable<PaginatedListResponse<User>> {
-    return this.http.post<PaginatedListResponse<User>>(`${ConstantsApi.user.baseUrl}${ConstantsApi.getAllSearch}`, request);
-  }
-
-  getById(id: Guid): Observable<ItemResponse<User>> {
-    return this.http.get<ItemResponse<User>>(`${ConstantsApi.user.baseUrl}${ConstantsApi.getById}/${id}`);
-  }
+  
 
   login(model: LoginUser): Observable<LoginResponse<User>> {
     return this.http.post<LoginResponse<User>>(`${ConstantsApi.user.baseUrl}${ConstantsApi.user.login}`, model);

@@ -2,7 +2,7 @@ import { AfterViewInit, ElementRef, HostListener, OnInit, ViewChild, ViewEncapsu
 import { Component } from '@angular/core';
 import { Menu } from 'primeng/menu';
 import { LayoutService } from '../../services/app.layout/app.layout.service';
-import { UserService } from '../../../main/services/user/user.service';
+import { UserService } from '../../../main/services/services/user.service';
 
 @Component({
   selector: 'app-menu',
@@ -127,7 +127,7 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
         ],
       },
       {
-        label: 'Apps',
+        label: 'App Management',
         items: [
           {
             label: 'Package',

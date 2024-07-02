@@ -1,3 +1,5 @@
+import { User } from "../../data/entities/user";
+
 const api = 'https://localhost:7999/api';
 
 export const ConstantsApi = {
@@ -21,5 +23,6 @@ export const ConstantsApi = {
   package: {
     baseUrl: `${api}/package`,
   },
+
   
 } 

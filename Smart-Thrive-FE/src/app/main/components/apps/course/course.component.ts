@@ -5,7 +5,7 @@ import { MessageService } from 'primeng/api';
 import { Course } from '../../../../data/entities/course';
 import { PaginatedRequest } from '../../../../data/model/paginated-request';
 import { PaginatedListResponse } from '../../../../data/model/paginated-response';
-import { CourseService } from '../../../services/user/course.service';
+import { CourseService } from '../../../services/services/course.service';
 
 @Component({
   selector: 'app-course',
@@ -61,7 +61,7 @@ export class CourseComponent {
   };
   paginatedListResponse: PaginatedListResponse<Course> = {} as PaginatedListResponse<Course>;
   getListCourse(): void {
-    this.courseService.getAllCourse(this.paginatedRequest).subscribe({
+    this.courseService.getAll(this.paginatedRequest).subscribe({
       next: (response) => {
         this.paginatedListResponse = response;
         console.log("check_", this.paginatedListResponse.results);

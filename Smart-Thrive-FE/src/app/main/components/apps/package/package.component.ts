@@ -7,7 +7,7 @@ import { MessageService } from 'primeng/api';
 import { Package } from '../../../../data/entities/package';
 import { PaginatedRequest } from '../../../../data/model/paginated-request';
 import { PaginatedListResponse } from '../../../../data/model/paginated-response';
-import { PackageService } from '../../../services/user/package.service';
+import { PackageService } from '../../../services/services/package.service';
 
 @Component({
   selector: 'app-package',
@@ -64,7 +64,7 @@ export class PackageComponent implements OnInit {
   };
   paginatedListResponse: PaginatedListResponse<Package> = {} as PaginatedListResponse<Package>;
   getListPackage(): void {
-    this.packageService.getAllPackage(this.paginatedRequest).subscribe({
+    this.packageService.getAll(this.paginatedRequest).subscribe({
       next: (response) => {
         this.paginatedListResponse = response;
         console.log("check_", this.paginatedListResponse.results);

@@ -7,7 +7,7 @@ import { MessageService } from 'primeng/api';
 import { User } from '../../../../data/entities/user';
 import { PaginatedRequest } from '../../../../data/model/paginated-request';
 import { PaginatedListResponse } from '../../../../data/model/paginated-response';
-import { UserService } from '../../../services/user/user.service';
+import { UserService } from '../../../services/services/user.service';
 
 @Component({
   selector: 'app-user',
@@ -64,7 +64,7 @@ export class UserComponent implements OnInit {
   };
   paginatedListResponse: PaginatedListResponse<User> = {} as PaginatedListResponse<User>;
   getListUser(): void {
-    this.userService.getAllUser(this.paginatedRequest).subscribe({
+    this.userService.getAll(this.paginatedRequest).subscribe({
       next: (response) => {
         this.paginatedListResponse = response;
         console.log("check_", this.paginatedListResponse.results);
