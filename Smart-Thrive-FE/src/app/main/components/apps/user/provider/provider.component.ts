@@ -4,37 +4,37 @@ import headerList from './headerList';
 import { Table } from 'primeng/table';
 import { Event } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { Package } from '../../../../data/entities/package';
-import { PaginatedRequest } from '../../../../data/model/paginated-request';
-import { PaginatedListResponse } from '../../../../data/model/paginated-response';
-import { PackageService } from '../../../services/services/package.service';
+import { Provider } from '../../../../../data/entities/provider';
+import { PaginatedRequest } from '../../../../../data/model/paginated-request';
+import { PaginatedListResponse } from '../../../../../data/model/paginated-response';
+import { ProviderService } from '../../../../services/services/provider.service';
 
 @Component({
-  selector: 'app-package',
-  templateUrl: './package.component.html',
-  styleUrl: './package.component.scss',
-  encapsulation: ViewEncapsulation.None
+  selector: 'app-provider',
+  templateUrl: './provider.component.html',
+  styleUrl: './provider.component.scss',
+  encapsulation: ViewEncapsulation.None,
 })
-export class PackageComponent implements OnInit {
+export class ProviderComponent implements OnInit {
   
-  constructor(private packageService: PackageService, private messageService: MessageService) { }
+  constructor(private providerService: ProviderService, private messageService: MessageService) { }
 
   ngOnInit(): void {
-    this.getListPackage();
+    this.getListProvider();
     this.getSelectedColumns();
   }
 
-  packageDialog: boolean = false;
+  providerDialog: boolean = false;
 
-  deletePackageDialog: boolean = false;
+  deleteProviderDialog: boolean = false;
 
-  deletePackagesDialog: boolean = false;
+  deleteProvidersDialog: boolean = false;
 
-  packages: Package[] = [];
+  providers: Provider[] = [];
 
-  package: Package = {} as Package;
+  provider: Provider = {} as Provider;
 
-  selectedPackages: Package[] = [];
+  selectedProviders: Provider[] = [];
 
   submitted: boolean = false;
 
@@ -62,12 +62,11 @@ export class PackageComponent implements OnInit {
     sortField: 'CreatedDate',
     sortOrder: 1
   };
-  paginatedListResponse: PaginatedListResponse<Package> = {} as PaginatedListResponse<Package>;
-  getListPackage(): void {
-    this.packageService.getAll(this.paginatedRequest).subscribe({
+  paginatedListResponse: PaginatedListResponse<Provider> = {} as PaginatedListResponse<Provider>;
+  getListProvider(): void {
+    this.providerService.getAll(this.paginatedRequest).subscribe({
       next: (response) => {
         this.paginatedListResponse = response;
-        console.log("check_", this.paginatedListResponse.results);
         this.setPaginatedRequest();
       },
       error: (err) => {
@@ -86,7 +85,7 @@ export class PackageComponent implements OnInit {
     this.paginatedRequest.sortField = event.sortField;
     this.paginatedRequest.sortOrder = event.sortOrder;
 
-    this.getListPackage();
+    this.getListProvider();
   }
 
   setPaginatedRequest() {
@@ -103,10 +102,10 @@ export class PackageComponent implements OnInit {
 
   }
 
-  deleteSelectedPackages() {
+  deleteSelectedProviders() {
   }
 
-  deletePackage(pack: Package) {
+  deleteProvider(provider: Provider) {
   }
 
   confirmDelete() {
@@ -117,10 +116,10 @@ export class PackageComponent implements OnInit {
 
   }
 
-  editPackage(pack: Package) {
+  editProvider(provider: Provider) {
   }
 
-  savePackage() {
+  saveProvider() {
 
   }
 
@@ -128,7 +127,7 @@ export class PackageComponent implements OnInit {
 
   }
 
-  navigateAfterSelected(pack: Package) {
+  navigateAfterSelected(provider: Provider) {
 
   }
 

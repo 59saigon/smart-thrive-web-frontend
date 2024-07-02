@@ -10,6 +10,6 @@ import { Provider } from '../../../data/entities/provider';
 export class ProviderService extends BaseService<Provider>{
 
   constructor(public _http: HttpClient) {
-    super(_http, 'package')
+    super(_http, 'provider')
   }
 }

@@ -7,37 +7,23 @@ export default [
         sortField: true,
     },
     {
-        field: 'locationId',
-        header: 'Location Id',
+        field: 'user',
+        subfield: 'email',
+        header: 'User email',
         isDisabled: false,
         sortIcon: true,
         sortField: true
     },
     {
-        field: 'role',
-        subfield: 'roleName',
-        header: 'Role Id',
+        field: 'studentName',
+        header: 'Student',
         isDisabled: false,
         sortIcon: true,
         sortField: true
     },
     {
-        field: 'username',
-        header: 'User Name',
-        isDisabled: false,
-        sortIcon: true,
-        sortField: true
-    },
-    {
-        field: 'fullName',
-        header: 'Full Name',
-        isDisabled: false,
-        sortIcon: true,
-        sortField: true
-    },
-    {
-        field: 'email',
-        header: 'Email',
+        field: 'gender',
+        header: 'Gender',
         isDisabled: false,
         sortIcon: true,
         sortField: true
@@ -49,36 +35,6 @@ export default [
         sortIcon: true,
         sortField: true
     },
-    {
-        field: 'address',
-        header: 'Address',
-        isDisabled: false,
-        sortIcon: true,
-        sortField: true
-    },
-    {
-        field: 'gender',
-        header: 'Gender',
-        isDisabled: false,
-        sortIcon: false,
-        sortField: false
-    },
-    {
-        field: 'phone',
-        header: 'Phone',
-        isDisabled: false,
-        sortIcon: true,
-        sortField: true
-    },
-    {
-        field: 'status',
-        header: 'Status',
-        isDisabled: false,
-        sortIcon: true,
-        sortField: true
-    },
-    
-
     {
         field: 'createdBy',
         header: 'Created By',

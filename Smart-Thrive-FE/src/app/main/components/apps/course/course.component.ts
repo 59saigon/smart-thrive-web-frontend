@@ -54,7 +54,7 @@ export class CourseComponent {
   }
 
   paginatedRequest: PaginatedRequest = {
-    pageNumber: 0,
+    pageNumber: 1,
     pageSize: 5,
     sortField: 'CreatedDate',
     sortOrder: 1

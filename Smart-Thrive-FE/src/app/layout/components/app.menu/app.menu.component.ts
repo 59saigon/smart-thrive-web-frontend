@@ -158,12 +158,12 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
               {
                 label: 'Provider',
                 icon: 'pi pi-user',
-                routerLink: ['/apps/provider'],
+                routerLink: ['/apps/user/provider'],
               },
               {
                 label: 'Student',
                 icon: 'pi pi-user',
-                routerLink: ['/apps/student'],
+                routerLink: ['/apps/user/student'],
               },
             ]
           },
