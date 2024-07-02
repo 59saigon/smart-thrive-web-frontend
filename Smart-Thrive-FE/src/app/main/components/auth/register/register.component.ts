@@ -68,7 +68,7 @@ export class RegisterComponent implements OnInit {
 
         this.user = response.result;
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Register' });
-        setTimeout(() => {this.router.navigateByUrl('/auth/login'); this.clearLoading(index);}, 2000);
+        setTimeout(() => { this.router.navigateByUrl('/auth/login'); this.clearLoading(index); }, 2000);
       },
       error: (err) => {
         setTimeout(() => {
@@ -78,8 +78,6 @@ export class RegisterComponent implements OnInit {
       },
     });
 
-    this.clearLoading(index);
-    
   }
 
 }

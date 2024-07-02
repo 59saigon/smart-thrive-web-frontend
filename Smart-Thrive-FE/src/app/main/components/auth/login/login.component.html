@@ -1,13 +1,44 @@
 <p-toast position="top-left"></p-toast>
 
 <div class="main-auth-login">
-    <div class="main-auth-login-content">
-        <div class="main-auth-login-content-main w-10 md:w-8 lg:w-5 Login" (keydown.enter)="onLogin(0)">
+    <div class="main-auth-login-content flex flex-column">
+        <div class="">
+            <a class="sidebar-logo-link" routerLink="dashboard">
+                <img src="/assets/layout/images/logoText.png" alt="logo" />
+                <img src="/assets/layout/images/logo.png" alt="logo" />
+            </a>
+        </div>
+        <div class="main-auth-login-content-main w-10 md:w-8 lg:w-5 Login my-8" (keydown.enter)="onLogin(0)">
             
+            
+            
+
+            <div class="main-auth-login-content-main-input gap-2">
+                <input pInputText placeholder="Email or username" name="email"
+                    [(ngModel)]="loginUser.usernameOrEmail" class="p-inputtext-lg" />
+                <p-password [(ngModel)]="loginUser.password" placeholder="Password" name="password"
+                    [toggleMask]="true" [feedback]="false" class="p-inputtext-lg" />
+            </div>  
+
+            <div class="main-auth-login-content-main-func">
+                <div class="main-auth-login-content-main-func-remember">
+                    <p-checkbox [binary]="true" label=" Remember me"
+                        [(ngModel)]="loginUser.isRemember"></p-checkbox>
+                </div>
+
+                <div class="main-auth-login-content-main-func-forgot">
+                    <p-button label="Forgot Password?" [link]="true" />
+                </div>
+            </div>
+
+            <div class="main-auth-login-content-main-button">
+                <p-button [label]="loginLabel" class="w-full" [loading]="loading[0]" (onClick)="onLogin(0)"></p-button>
+            </div>
 
             <div class="main-auth-login-content-main-login-with">
                 <button pButton type="button"
                     [outlined]="true"
+                    pRipple
                     severity="secondary"
                     label="Google">
                     <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
@@ -25,34 +56,13 @@
                  
             </div>
 
-            <div class="main-auth-login-content-main-input gap-2">
-                <input pInputText placeholder="Email or username" name="email"
-                    [(ngModel)]="loginUser.usernameOrEmail" class="p-inputtext-lg" />
-                <p-password [(ngModel)]="loginUser.password" placeholder="Password" name="password"
-                    [toggleMask]="true" [feedback]="false" class="p-inputtext-lg" />
-            </div>
-
-            <div class="main-auth-login-content-main-func">
-                <div class="main-auth-login-content-main-func-remember">
-                    <p-checkbox [binary]="true" label=" Remember me"
-                        [(ngModel)]="loginUser.isRemember"></p-checkbox>
-                </div>
-
-                <div class="main-auth-login-content-main-func-forgot">
-                    <p-button label="Forgot Password?" [link]="true" />
-                </div>
-            </div>
-
-            <div class="main-auth-login-content-main-button">
-                <p-button [label]="loginLabel" class="w-full" [loading]="loading[0]" (onClick)="onLogin(0)"></p-button>
-            </div>
-
             <div class="main-auth-login-content-main-text">
                 <span>Don't have account?</span>
                 <div class="main-auth-login-content-main-func-forgot">
                     <p-button label="Create an account" [link]="true" routerLink="/auth/register" />
                 </div>
             </div>
+
 
         </div>
     </div>

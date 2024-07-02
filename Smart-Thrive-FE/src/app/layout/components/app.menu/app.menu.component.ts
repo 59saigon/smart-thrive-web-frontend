@@ -76,7 +76,7 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.resetHideMenuTimeout();
     this.setModel();
-    this.setOtherModel();
+    this.setSettingModel();
   }
 
   showAndHideMenu($ev: Event) {
@@ -89,7 +89,7 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
   onOpenConfigModule() {
     this.layoutService.showConfigSidebar();
   }
-  setOtherModel() {
+  setSettingModel() {
     this.otherModel = [
       {
         label: 'Settings',
@@ -154,7 +154,7 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
 
       {
         label: 'Application',
-        
+
         items: [
           {
             label: 'Schedule',

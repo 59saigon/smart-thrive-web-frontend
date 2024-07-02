@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
     console.log(this.loginUser);
     this.userService.login(this.loginUser).subscribe({
       next: (response) => {
-          // Clear loading state when response is received
+        // Clear loading state when response is received
         if (response.result == null) {
           setTimeout(() => {
             this.clearLoading(index);
@@ -61,8 +61,8 @@ export class LoginComponent implements OnInit {
         this.user = response.result;
         this.token = response.token;
         this.userService.setToken(this.user, this.token);
-        setTimeout(() => {this.router.navigateByUrl('/'); this.clearLoading(index);}, 2000);
-        
+        setTimeout(() => { this.clearLoading(index); this.router.navigateByUrl('/'); }, 2000);
+
       },
       error: (err) => {
         setTimeout(() => {
@@ -71,9 +71,7 @@ export class LoginComponent implements OnInit {
         }, 1000);
       },
     });
-    this.clearLoading(index);
   }
-
 
   isUserObjectEmpty(user: LoginUser): boolean {
     return !user.usernameOrEmail || !user.password;
