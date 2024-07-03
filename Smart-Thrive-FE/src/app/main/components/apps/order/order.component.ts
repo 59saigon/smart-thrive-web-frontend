@@ -64,7 +64,7 @@ export class OrderComponent implements OnInit {
   };
   paginatedListResponse: PaginatedListResponse<Order> = {} as PaginatedListResponse<Order>;
   getListOrder(): void {
-    this.orderService.getAll(this.paginatedRequest).subscribe({
+    this.orderService.getAllPagination(this.paginatedRequest).subscribe({
       next: (response) => {
         this.paginatedListResponse = response;
         console.log("check_", this.paginatedListResponse.results);

@@ -64,7 +64,7 @@ export class UserComponent implements OnInit {
   };
   paginatedListResponse: PaginatedListResponse<User> = {} as PaginatedListResponse<User>;
   getListUser(): void {
-    this.userService.getAll(this.paginatedRequest).subscribe({
+    this.userService.getAllPagination(this.paginatedRequest).subscribe({
       next: (response) => {
         this.paginatedListResponse = response;
         console.log("check_", this.paginatedListResponse.results);

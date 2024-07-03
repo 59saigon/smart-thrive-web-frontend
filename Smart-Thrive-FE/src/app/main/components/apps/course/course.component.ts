@@ -61,7 +61,7 @@ export class CourseComponent {
   };
   paginatedListResponse: PaginatedListResponse<Course> = {} as PaginatedListResponse<Course>;
   getListCourse(): void {
-    this.courseService.getAll(this.paginatedRequest).subscribe({
+    this.courseService.getAllPagination(this.paginatedRequest).subscribe({
       next: (response) => {
         this.paginatedListResponse = response;
         console.log("check_", this.paginatedListResponse.results);

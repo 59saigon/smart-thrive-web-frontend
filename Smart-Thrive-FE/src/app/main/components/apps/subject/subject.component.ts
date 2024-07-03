@@ -64,7 +64,7 @@ export class SubjectComponent implements OnInit {
   };
   paginatedListResponse: PaginatedListResponse<Subject> = {} as PaginatedListResponse<Subject>;
   getListSubject(): void {
-    this.subjectService.getAll(this.paginatedRequest).subscribe({
+    this.subjectService.getAllPagination(this.paginatedRequest).subscribe({
       next: (response) => {
         this.paginatedListResponse = response;
         console.log("check_", this.paginatedListResponse.results);

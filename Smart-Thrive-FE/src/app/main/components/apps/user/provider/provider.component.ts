@@ -64,7 +64,7 @@ export class ProviderComponent implements OnInit {
   };
   paginatedListResponse: PaginatedListResponse<Provider> = {} as PaginatedListResponse<Provider>;
   getListProvider(): void {
-    this.providerService.getAll(this.paginatedRequest).subscribe({
+    this.providerService.getAllPagination(this.paginatedRequest).subscribe({
       next: (response) => {
         this.paginatedListResponse = response;
         this.setPaginatedRequest();

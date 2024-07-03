@@ -11,18 +11,20 @@
   top: 0rem;
   left: 0rem;
   transition: transform $transitionDuration, left $transitionDuration;
-  
+
   background-color: var(--surface-overlay);
   //border-radius: $borderRadius;
   //padding: 0.5rem 1.5rem;
   padding-bottom: 0rem;
   //box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   -webkit-box-shadow: 4px 70px 10px rgba(69, 65, 78, 0.06);
-    -moz-box-shadow: 4px 70px 10px rgba(69, 65, 78, 0.06);
-    box-shadow: 4px 70px 10px rgba(69, 65, 78, 0.06);
+  -moz-box-shadow: 4px 70px 10px rgba(69, 65, 78, 0.06);
+  box-shadow: 4px 70px 10px rgba(69, 65, 78, 0.06);
+
+  
 }
 .sidebar-logo {
-  padding: 0.6rem 0rem;
+  padding: 0.57rem 0rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -30,8 +32,8 @@
   color: var(--surface-900);
   font-size: 1.5rem;
   font-weight: 500;
-  background-color: var(--custom-logo-color);
-  box-shadow: 0 0 5px #121727;
+  background-color: var(--topbar-sticky-bg);
+  backdrop-filter: blur(8px);
   //width: fit-content;
 
   img {
@@ -73,8 +75,6 @@
 }
 
 .sidebar-content {
-  
-  
   padding: 2rem 1.5rem;
   flex: 1;
   overflow-y: auto;

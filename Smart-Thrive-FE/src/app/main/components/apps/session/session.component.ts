@@ -64,7 +64,7 @@ export class SessionComponent implements OnInit {
   };
   paginatedListResponse: PaginatedListResponse<Session> = {} as PaginatedListResponse<Session>;
   getListSession(): void {
-    this.sessionService.getAll(this.paginatedRequest).subscribe({
+    this.sessionService.getAllPagination(this.paginatedRequest).subscribe({
       next: (response) => {
         this.paginatedListResponse = response;
         console.log("check_", this.paginatedListResponse.results);

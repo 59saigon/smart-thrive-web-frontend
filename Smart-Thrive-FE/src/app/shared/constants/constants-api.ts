@@ -5,7 +5,8 @@ const api = 'https://localhost:7999/api';
 export const ConstantsApi = {
   baseApi: api,
   getById: '/get-by-id',
-  getAll: '/get-all-pagination',
+  getAllPagination: '/get-all-pagination',
+  getAll: '/get-all',
   getAllSearch: '/search',
   add: '/add',
   update: '/update',

@@ -45,7 +45,7 @@
   --surface-section: #1A2035;
   --surface-card: transparent;
   --surface-overlay: transparent;
-  --custom-background: #121212;
+  --custom-background: linear-gradient(to right, #141e30, #243b55);
   --surface-border: rgba(255, 255, 255, 0.1);
   --surface-hover: rgba(255, 255, 255, 0.03);
   --focus-ring: 0 0 0 0.2rem rgba(34, 211, 238, 0.2);

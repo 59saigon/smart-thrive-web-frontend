@@ -65,7 +65,7 @@ export class StudentComponent implements OnInit {
   };
   paginatedListResponse: PaginatedListResponse<Student> = {} as PaginatedListResponse<Student>;
   getListStudent(): void {
-    this.studentService.getAll(this.paginatedRequest).subscribe({
+    this.studentService.getAllPagination(this.paginatedRequest).subscribe({
       next: (response) => {
         this.paginatedListResponse = response;
         console.log("check_student", this.paginatedListResponse.results);

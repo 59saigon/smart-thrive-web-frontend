@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Guid } from "guid-typescript";
 import { Observable } from "rxjs";
-import { BaseResponse, ItemResponse } from "../../../data/model/base-response";
+import { BaseResponse, ItemListResponse, ItemResponse } from "../../../data/model/base-response";
 import { PaginatedRequest, PaginatedRequestFillter } from "../../../data/model/paginated-request";
 import { PaginatedListResponse } from "../../../data/model/paginated-response";
 import { ConstantsApi } from "../../../shared/constants/constants-api";
@@ -33,9 +33,11 @@ export class BaseService<TEntity extends BaseEntity> {
     return this.http.delete<BaseResponse>(`${this.getBaseUrl()}${ConstantsApi.delete}/${id}`);
   }
 
-  getAll(request: PaginatedRequest): Observable<PaginatedListResponse<TEntity>> {
-    console.log(this.getBaseUrl());
-    return this.http.post<PaginatedListResponse<TEntity>>(`${this.getBaseUrl()}${ConstantsApi.getAll}`, request);
+  getAllPagination(request: PaginatedRequest): Observable<PaginatedListResponse<TEntity>> {
+    return this.http.post<PaginatedListResponse<TEntity>>(`${this.getBaseUrl()}${ConstantsApi.getAllPagination}`, request);
+  }
+  getAll(): Observable<ItemListResponse<TEntity>> {
+    return this.http.get<ItemListResponse<TEntity>>(`${this.getBaseUrl()}${ConstantsApi.getAll}`);
   }
 
   getAllSearch(request: PaginatedRequestFillter<TEntity>): Observable<PaginatedListResponse<TEntity>> {
