@@ -1,5 +1,6 @@
 import { BaseEntity } from "./baseEntity";
 import { CourseXPackage } from "./courseXpackage";
+import { Location } from "./location";
 import { Provider } from "./provider";
 import { Session } from "./session";
 import { Subject } from "./subject";

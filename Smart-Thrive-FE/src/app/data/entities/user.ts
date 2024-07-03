@@ -1,4 +1,5 @@
 import { BaseEntity } from "./baseEntity";
+import { Location } from "./location";
 import { Role } from "./role";
 
 export interface User extends BaseEntity {
@@ -14,5 +15,6 @@ export interface User extends BaseEntity {
   locationID: string;
   avatar?: string; // Nullable
   status?: string; // Nullable
-  role: Role; // Required field, assuming it's a reference to a Role object
+  role: Role; 
+  location?: Location;
 }

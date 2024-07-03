@@ -9,6 +9,6 @@ import { Order } from '../../../data/entities/order';
 export class OrderService extends BaseService<Order>{
 
   constructor(public _http: HttpClient) {
-    super(_http, 'package')
+    super(_http, 'order')
   }
 }

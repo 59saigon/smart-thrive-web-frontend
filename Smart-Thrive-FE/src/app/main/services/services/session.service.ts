@@ -9,6 +9,6 @@ import { BaseService } from '../base/base.service';
 export class SessionService extends BaseService<Session>{
 
   constructor(public _http: HttpClient) {
-    super(_http, 'package')
+    super(_http, 'session')
   }
 }

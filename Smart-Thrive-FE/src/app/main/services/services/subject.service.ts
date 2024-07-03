@@ -9,6 +9,6 @@ import { HttpClient } from '@angular/common/http';
 export class SubjectService extends BaseService<Subject>{
 
   constructor(public _http: HttpClient) {
-    super(_http, 'package')
+    super(_http, 'subject')
   }
 }

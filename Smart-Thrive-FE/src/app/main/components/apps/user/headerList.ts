@@ -16,7 +16,7 @@ export default [
     {
         field: 'role',
         subfield: 'roleName',
-        header: 'Role Id',
+        header: 'Role',
         isDisabled: false,
         sortIcon: true,
         sortField: true
