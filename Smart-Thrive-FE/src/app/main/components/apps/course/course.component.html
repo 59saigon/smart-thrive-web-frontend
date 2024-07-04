@@ -1,9 +1,5 @@
-<p-toast 
-    [showTransformOptions]="'translateY(100%)'" 
-    [showTransitionOptions]="'200ms'" 
-    [hideTransitionOptions]="'500ms'" 
-    [showTransformOptions]="'translateX(100%)'"
-     />
+<p-toast [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'200ms'" [hideTransitionOptions]="'500ms'"
+    [showTransformOptions]="'translateX(100%)'" />
 
 <p-panel header="Course List" [toggleable]="true">
     <div class="grid">
@@ -72,8 +68,8 @@
                             *ngFor="let col of columns">
                             {{ col.header }}
                             <p-sortIcon *ngIf="col.sortIcon" field="{{col.field}}" ariaLabel="Activate to sort"
-                                ariaLabelDesc="Activate to sort in descending order"
-                                ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                                ariaLabelDesc="Activate to sort in descending course"
+                                ariaLabelAsc="Activate to sort in ascending course"></p-sortIcon>
                         </th>
                         <th>Actions</th>
                     </tr>
@@ -86,25 +82,31 @@
                         </td>
 
                         <td *ngFor="let col of columns" style="width: 14%; min-width: 10rem">
-                            <ng-container *ngIf="col.field === 'id'; else otherId">
-
-                                <a [routerLink]="[]" [autoHide]="false" (click)="navigateAfterSelected(course)"  class="button-id" 
-                                    pTooltip="{{ course[col.field] }}">{{ course[col.field] }}</a>
-
+                            <ng-container *ngIf="col.subfield; else newId">
+                                {{ course[col.field][col.subfield] }}
                             </ng-container>
+
+                            <ng-template #newId>
+                                <ng-container *ngIf="col.field === 'id'; else otherId">
+                                    <a [routerLink]="[]" (click)="navigateAfterSelected(course)" class="button-id"
+                                        [autoHide]="false" [pTooltip]="course[col.field]">{{ course[col.field] }}
+                                    </a>
+                                </ng-container>
+                            </ng-template>
+
                             <ng-template #otherId>
                                 <ng-container *ngIf="col.field.includes('Id'); else otherFields">
-                        
-                                    <a [routerLink]="[]" (click)="getNewQuote()" 
-                                    class="button-other-id" 
-                                        [autoHide]="false" 
-                                        [pTooltip]="tooltipContent">{{ course[col.field] }}</a>
-                        
+
+                                    <a [routerLink]="[]" (click)="getNewQuote()" [cdkCopyToClipboard]="course[col.field]"
+                                        class="button-other-id" [autoHide]="false" [pTooltip]="tooltipContent">{{
+                                        course[col.field] }}</a>
+
                                 </ng-container>
+
                                 <ng-template #tooltipContent>
                                     {{ course[col.field] }}
-                                    <br/>
-                                    <br/>
+                                    <br />
+                                    <br />
                                     Click to copy
                                 </ng-template>
                             </ng-template>

@@ -138,7 +138,12 @@ export class AppMenuitemComponent implements OnInit, OnDestroy {
       this.item.command({ originalEvent: event, item: this.item });
     }
 
-    // toggle active state
+    // navigate directly if there's a routerLink
+    if (this.item.routerLink) {
+      this.router.navigate(this.item.routerLink);
+    }
+
+    // toggle active state for items with sub-menus
     if (this.item.items) {
       this.active = !this.active;
     }

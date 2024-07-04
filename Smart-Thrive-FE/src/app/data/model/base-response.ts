@@ -10,10 +10,10 @@ export interface LoginResponse<TResult> extends BaseResponse {
 }
 
 export interface ItemResponse<TResult> extends BaseResponse {
-  result?: TResult;
+  result: TResult;
 }
 
 export interface ItemListResponse<TResult> extends BaseResponse {
-  result?: TResult[];
+  results: TResult[];
   totalRecords: number;
 }

@@ -11,7 +11,7 @@
   --surface-e: #ffffff;
   --surface-f: #ffffff;
   --text-color: #4b5563;
-  --text-color-secondary: #ffffff;
+  --text-color-secondary: #4b5563;
   --custom-logo-color: #1572E8;
   --primary-color: #1572E8;
   --primary-color-text: #ffffff;
@@ -40,10 +40,10 @@
   --inline-spacing: 0.5rem;
   --border-radius: 6px;
   --surface-ground: #f9fafb;
-  --topbar-sticky-bg: #1269DB;
+  --topbar-sticky-bg: transparent;
   --config-sticky-bg: #ffffff;
   --surface-section: #ffffff;
-  --surface-card: #1269DB;
+  --surface-card: #ffffff;
   --surface-overlay: #ffffff;
   --surface-border: #dfe7ef;
   --surface-hover: #f6f9fc;

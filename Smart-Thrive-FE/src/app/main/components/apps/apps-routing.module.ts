@@ -14,6 +14,8 @@ const routes: Routes = [
   },
   { path: 'order', loadChildren: () => import('./order/order.module').then(m => m.OrderModule) },
   { path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule) },
+  { path: 'session', loadChildren: () => import('./session/session.module').then(m => m.SessionModule) },
+  { path: 'subject', loadChildren: () => import('./subject/subject.module').then(m => m.SubjectModule) },
 ];
 
 @NgModule({

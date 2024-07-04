@@ -23,6 +23,7 @@ import { PanelModule } from 'primeng/panel';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { TooltipModule } from 'primeng/tooltip';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 @NgModule({
   declarations: [
     PackageComponent
@@ -49,7 +50,8 @@ import { MultiSelectModule } from 'primeng/multiselect';
     PanelModule,
     PanelMenuModule,
     TooltipModule,
-    MultiSelectModule
+    MultiSelectModule,
+    ClipboardModule
   ]
 })
 export class PackageModule { }

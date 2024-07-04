@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { LoginUser, RegisterUser } from '../../../../data/model/auth';
 import { User } from '../../../../data/entities/user';
-import { UserService } from '../../../services/user/user.service';
+import { UserService } from '../../../services/services/user.service';
 import { ItemResponse } from '../../../../data/model/base-response';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -68,7 +68,7 @@ export class RegisterComponent implements OnInit {
 
         this.user = response.result;
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Register' });
-        setTimeout(() => {this.router.navigateByUrl('/auth/login'); this.clearLoading(index);}, 2000);
+        setTimeout(() => { this.router.navigateByUrl('/auth/login'); this.clearLoading(index); }, 2000);
       },
       error: (err) => {
         setTimeout(() => {
@@ -78,8 +78,6 @@ export class RegisterComponent implements OnInit {
       },
     });
 
-    this.clearLoading(index);
-    
   }
 
 }

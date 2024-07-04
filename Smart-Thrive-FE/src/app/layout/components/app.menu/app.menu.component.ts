@@ -2,7 +2,7 @@ import { AfterViewInit, ElementRef, HostListener, OnInit, ViewChild, ViewEncapsu
 import { Component } from '@angular/core';
 import { Menu } from 'primeng/menu';
 import { LayoutService } from '../../services/app.layout/app.layout.service';
-import { UserService } from '../../../main/services/user/user.service';
+import { UserService } from '../../../main/services/services/user.service';
 
 @Component({
   selector: 'app-menu',
@@ -76,7 +76,7 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.resetHideMenuTimeout();
     this.setModel();
-    this.setOtherModel();
+    this.setSettingModel();
   }
 
   showAndHideMenu($ev: Event) {
@@ -89,7 +89,7 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
   onOpenConfigModule() {
     this.layoutService.showConfigSidebar();
   }
-  setOtherModel() {
+  setSettingModel() {
     this.otherModel = [
       {
         label: 'Settings',
@@ -127,7 +127,7 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
         ],
       },
       {
-        label: 'Apps',
+        label: 'App Management',
         items: [
           {
             label: 'Package',
@@ -136,25 +136,48 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
           },
           {
             label: 'Course',
-            icon: 'pi pi-book',
+            icon: 'pi pi-objects-column',
             routerLink: ['/apps/course'],
           },
           {
+            label: 'Session',
+            icon: 'pi pi-bookmark',
+            routerLink: ['/apps/session'],
+          },
+          {
             label: 'Order',
-            icon: 'pi pi-wallet',
+            icon: 'pi pi-shopping-cart',
             routerLink: ['/apps/order'],
           },
           {
             label: 'User',
             icon: 'pi pi-user',
             routerLink: ['/apps/user'],
+            items: [
+            
+              {
+                label: 'Provider',
+                icon: 'pi pi-user',
+                routerLink: ['/apps/user/provider'],
+              },
+              {
+                label: 'Student',
+                icon: 'pi pi-user',
+                routerLink: ['/apps/user/student'],
+              },
+            ]
+          },
+          {
+            label: 'Subject',
+            icon: 'pi pi-book',
+            routerLink: ['/apps/subject'],
           },
         ]
       },
 
       {
         label: 'Application',
-        
+
         items: [
           {
             label: 'Schedule',

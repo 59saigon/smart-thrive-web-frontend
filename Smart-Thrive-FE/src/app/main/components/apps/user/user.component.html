@@ -1,9 +1,5 @@
-<p-toast 
-    [showTransformOptions]="'translateY(100%)'" 
-    [showTransitionOptions]="'200ms'" 
-    [hideTransitionOptions]="'500ms'" 
-    [showTransformOptions]="'translateX(100%)'"
-     />
+<p-toast [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'200ms'" [hideTransitionOptions]="'500ms'"
+    [showTransformOptions]="'translateX(100%)'" />
 
 <p-panel header="User List" [toggleable]="true">
     <div class="grid">
@@ -86,25 +82,31 @@
                         </td>
 
                         <td *ngFor="let col of columns" style="width: 14%; min-width: 10rem">
-                            <ng-container *ngIf="col.field === 'id'; else otherId">
-                                <a [routerLink]="[]" (click)="navigateAfterSelected(user)" class="button-id"
-                                    [autoHide]="false" [pTooltip]="user[col.field]">{{ user[col.field] }}
-                                </a>
+                            <ng-container *ngIf="col.subfield; else newId">
+                                {{ user[col.field][col.subfield] }}
                             </ng-container>
+
+                            <ng-template #newId>
+                                <ng-container *ngIf="col.field === 'id'; else otherId">
+                                    <a [routerLink]="[]" (click)="navigateAfterSelected(user)" class="button-id"
+                                        [autoHide]="false" [pTooltip]="user[col.field]">{{ user[col.field] }}
+                                    </a>
+                                </ng-container>
+                            </ng-template>
+
                             <ng-template #otherId>
                                 <ng-container *ngIf="col.field.includes('Id'); else otherFields">
 
-                                    <a [routerLink]="[]" (click)="getNewQuote()" 
-                                    [cdkCopyToClipboard]="user[col.field]" class="button-other-id" 
-                                    [autoHide]="false" [pTooltip]="tooltipContent">{{
+                                    <a [routerLink]="[]" (click)="getNewQuote()" [cdkCopyToClipboard]="user[col.field]"
+                                        class="button-other-id" [autoHide]="false" [pTooltip]="tooltipContent">{{
                                         user[col.field] }}</a>
 
                                 </ng-container>
-                                
+
                                 <ng-template #tooltipContent>
                                     {{ user[col.field] }}
-                                    <br/>
-                                    <br/>
+                                    <br />
+                                    <br />
                                     Click to copy
                                 </ng-template>
                             </ng-template>
