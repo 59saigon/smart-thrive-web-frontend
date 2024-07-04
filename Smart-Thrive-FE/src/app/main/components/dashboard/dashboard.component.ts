@@ -10,6 +10,9 @@ import { User } from '../../../data/entities/user';
 import { StudentService } from '../../services/services/student.service';
 import { Student } from '../../../data/entities/student';
 import { ChartOptions } from 'chart.js';
+import { CourseService } from '../../services/services/course.service';
+import { Course } from '../../../data/entities/course';
+import { PaginatedRequest } from '../../../data/model/paginated-request';
 
 @Component({
   templateUrl: './dashboard.component.html',
@@ -17,27 +20,39 @@ import { ChartOptions } from 'chart.js';
 export class DashboardComponent implements OnInit, OnDestroy {
 
   items!: MenuItem[];
-
   orders: Order[] = [];
-
   users: User[] = [];
-
   students: Student[] = [];
+  courses: Course[] = [];
+
+  paginatedRequest: PaginatedRequest = {
+    pageNumber: 1,
+    pageSize: 10,
+    sortField: 'sold_product',
+    sortOrder: -1
+  };
+
+
+  paginatedOrderRequest: PaginatedRequest = {
+    pageNumber: 1,
+    pageSize: 10,
+    sortField: 'CreatedDate',
+    sortOrder: -1
+  };
 
   itemListResponse: ItemListResponse<Order> = {} as ItemListResponse<Order>;
 
   chartData: any;
-
   chartOptions: ChartOptions | undefined;
-
   subscription!: Subscription;
 
   constructor(private orderService: OrderService
     , private userService: UserService
     , private studentService: StudentService
+    , private courseService: CourseService
     , public layoutService: LayoutService) {
     this.subscription = this.layoutService.configUpdate$
-      .pipe(debounceTime(25))
+      .pipe()
       .subscribe((config) => {
         this.initChart();
       });
@@ -48,6 +63,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.getListOrder();
     this.getListUser();
     this.getListStudent();
+    this.getListCourse();
+    
 
     this.items = [
       { label: 'Add New', icon: 'pi pi-fw pi-plus' },
@@ -56,16 +73,53 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   getListOrder() {
-    this.orderService.getAll().subscribe({
+    this.orderService.getAllPagination(this.paginatedOrderRequest).subscribe({
       next: (response) => {
         this.itemListResponse = response;
         this.orders = this.itemListResponse.results;
+        this.initChart();
+        console.log("check_order",this.orders)
       },
       error: (err) => {
         console.log("check_error", err);
       },
     });
   }
+
+  averagePriceMonthlyOrders(): number[] {
+    const currentYear = new Date().getFullYear();
+    const monthlySums = Array(12).fill(0);
+    const monthlyCounts = Array(12).fill(0);
+
+    this.orders.forEach((order) => {
+      const orderDate = new Date(order.createdDate);
+      if (orderDate.getFullYear() === currentYear) {
+        const month = orderDate.getMonth(); // 0 = January, 1 = February, ...
+        monthlySums[month] += order.totalPrice ? order.totalPrice : 0;
+        monthlyCounts[month]++;
+      }
+    });
+
+    return monthlySums;
+  }
+  
+  averageQuantityMonthlyOrders(): number[] {
+    const currentYear = new Date().getFullYear();
+    const monthlySums = Array(12).fill(0);
+    const monthlyCounts = Array(12).fill(0);
+
+    this.orders.forEach((order) => {
+      const orderDate = new Date(order.createdDate);
+      if (orderDate.getFullYear() === currentYear) {
+        const month = orderDate.getMonth(); // 0 = January, 1 = February, ...
+        monthlySums[month] += order ? 1 : 0;
+        monthlyCounts[month]++;
+      }
+    });
+
+    return monthlySums;
+  }
+
 
   getListUser() {
     this.userService.getAll().subscribe({
@@ -88,6 +142,18 @@ export class DashboardComponent implements OnInit, OnDestroy {
       },
     });
   }
+  
+  getListCourse() {
+    this.courseService.getAllPagination(this.paginatedRequest).subscribe({
+      next: (response) => {
+        this.courses = response.results;
+        console.log(this.courses);
+      },
+      error: (err) => {
+        console.log("check_error", err);
+      },
+    });
+  }
 
   revenueFromOrders(): number {
     var totalRevenue = 0;
@@ -104,30 +170,33 @@ export class DashboardComponent implements OnInit, OnDestroy {
     const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
     const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
+    const averagePriceOrders = this.averagePriceMonthlyOrders();
+    console.log('check_priceavg',averagePriceOrders);
+    const averageQuantityOrders = this.averageQuantityMonthlyOrders();
+
     this.chartData = {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
       datasets: [
         {
-          label: 'First Dataset',
-          data: [65, 59, 80, 81, 56, 55, 40],
+          label: 'Average Price Orders',
+          data: averagePriceOrders,
           fill: false,
-          backgroundColor: documentStyle.getPropertyValue('--bluegray-700'),
-          borderColor: documentStyle.getPropertyValue('--bluegray-700'),
+          backgroundColor: documentStyle.getPropertyValue('--teal-600'),
+          borderColor: documentStyle.getPropertyValue('--teal-600'),
           tension: .4
         },
-        {
-          label: 'Second Dataset',
-          data: [28, 48, 40, 19, 86, 27, 90],
-          fill: false,
-          backgroundColor: documentStyle.getPropertyValue('--green-600'),
-          borderColor: documentStyle.getPropertyValue('--green-600'),
-          tension: .4
-        }
+        // {
+        //   label: 'Average Quantity Orders',
+        //   data: averageQuantityOrders,
+        //   fill: false,
+        //   backgroundColor: documentStyle.getPropertyValue('--green-600'),
+        //   borderColor: documentStyle.getPropertyValue('--green-600'),
+        //   tension: .4
+        // }
       ]
     };
 
     this.chartOptions = {
-
       plugins: {
         legend: {
           labels: {
@@ -142,7 +211,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
           },
           grid: {
             color: surfaceBorder,
-            //draw: false
           }
         },
         y: {
@@ -151,7 +219,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
           },
           grid: {
             color: surfaceBorder,
-            //drawBorder: false
           }
         }
       }

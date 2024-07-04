@@ -14,7 +14,7 @@ export interface Course extends BaseEntity {
     description?: string;
     price?: number;
     quantity?: number;
-    soldProduct?: number;
+    sold_product?: number;
     totalSlot?: number;
     isApproved?: boolean;
     isActive?: boolean;
