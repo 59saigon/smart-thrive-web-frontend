@@ -6,8 +6,6 @@
         label="Toggle 1st"></p-button>
     <p-button [icon]="activeState[1] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(1)" styleClass="p-button-text ml-2"
         label="Toggle 2st"></p-button>
-    <p-button [icon]="activeState[2] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(2)" styleClass="p-button-text ml-2"
-        label="Toggle 3st"></p-button>
 </div>
 
 <p-accordion [multiple]="true">
@@ -140,18 +138,11 @@
             </div>
         </div>
     </p-accordionTab>
-    <p-accordionTab header="Header II" [(selected)]="activeState[1]">
+    <p-accordionTab header="Session List" [(selected)]="activeState[1]">
         <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
             aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
             architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
             odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
             voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.</p>
-    </p-accordionTab>
-    <p-accordionTab header="Header III" [(selected)]="activeState[2]">
-        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti
-            atque corrupti quos dolores et quas molestias excepturi sint occaecati
-            cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et
-            dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-            Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
     </p-accordionTab>
 </p-accordion>

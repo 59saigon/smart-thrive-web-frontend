@@ -4,6 +4,7 @@ import { MenuItem } from 'primeng/api';
 import { AppBreadcumbService } from '../../services/app.breadcumb.service';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { ConstantsTheme } from '../../../shared/constants/constant-theme';
 
 @Component({
   selector: 'app-topbar',
@@ -67,6 +68,20 @@ export class AppTopbarComponent implements OnInit {
       // Optionally, prepend the home breadcrumb
       this.items = [this.dashboard, ...this.items];
     }
+  }
+
+  get mode(): boolean {
+    var IsMode = this.layoutService.config().theme != ConstantsTheme.light ? true : false;
+
+    return IsMode;
+  }
+  set mode(_val: boolean) {
+    
+      this.layoutService.config.update((config) => ({
+        ...config,
+        theme: _val ? ConstantsTheme.dark : ConstantsTheme.light,
+      }));
+    
   }
 
   toggleMenu() {
