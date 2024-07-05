@@ -45,6 +45,12 @@ export class CourseComponent {
 
   _selectedColumns: any[] = [];
 
+  activeState: boolean[] = [true, false, false];
+
+  toggle(index: number) {
+    this.activeState[index] = !this.activeState[index];
+  }
+
   @Input() get selectedColumns(): any[] {
     return this._selectedColumns;
   }
@@ -79,7 +85,7 @@ export class CourseComponent {
 
   loadPatientListing(event: any) {
     this.paginatedRequest.pageSize = event.rows;
-    this.paginatedRequest.pageNumber = event.first/event.rows + 1;
+    this.paginatedRequest.pageNumber = event.first / event.rows + 1;
     this.paginatedRequest.sortField = event.sortField;
     this.paginatedRequest.sortOrder = event.sortOrder;
 
@@ -93,7 +99,7 @@ export class CourseComponent {
   }
 
   getNewQuote() {
-    this.messageService.add({severity:'success', summary: 'Success', detail: 'Copied'});
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Copied' });
   }
 
   openNew() {

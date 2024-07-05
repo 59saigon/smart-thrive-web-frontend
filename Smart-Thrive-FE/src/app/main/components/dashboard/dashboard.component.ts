@@ -9,10 +9,10 @@ import { UserService } from '../../services/services/user.service';
 import { User } from '../../../data/entities/user';
 import { StudentService } from '../../services/services/student.service';
 import { Student } from '../../../data/entities/student';
-import { ChartOptions } from 'chart.js';
 import { CourseService } from '../../services/services/course.service';
 import { Course } from '../../../data/entities/course';
 import { PaginatedRequest } from '../../../data/model/paginated-request';
+import { ChartOptions } from 'chart.js';
 
 @Component({
   templateUrl: './dashboard.component.html',
@@ -42,8 +42,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   itemListResponse: ItemListResponse<Order> = {} as ItemListResponse<Order>;
 
-  chartData: any;
-  chartOptions: ChartOptions | undefined;
+  chartOrder: any;
+  chartCourse: any;
+  chartOrderOptions: ChartOptions | undefined;
+  chartCourseOptions: ChartOptions | undefined;
   subscription!: Subscription;
 
   constructor(private orderService: OrderService
@@ -64,7 +66,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.getListUser();
     this.getListStudent();
     this.getListCourse();
-    
+
 
     this.items = [
       { label: 'Add New', icon: 'pi pi-fw pi-plus' },
@@ -78,7 +80,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.itemListResponse = response;
         this.orders = this.itemListResponse.results;
         this.initChart();
-        console.log("check_order",this.orders)
+        console.log("check_order", this.orders)
       },
       error: (err) => {
         console.log("check_error", err);
@@ -102,7 +104,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     return monthlySums;
   }
-  
+
   averageQuantityMonthlyOrders(): number[] {
     const currentYear = new Date().getFullYear();
     const monthlySums = Array(12).fill(0);
@@ -142,7 +144,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       },
     });
   }
-  
+
   getListCourse() {
     this.courseService.getAllPagination(this.paginatedRequest).subscribe({
       next: (response) => {
@@ -171,10 +173,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
     const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
     const averagePriceOrders = this.averagePriceMonthlyOrders();
-    console.log('check_priceavg',averagePriceOrders);
+    console.log('check_priceavg', averagePriceOrders);
     const averageQuantityOrders = this.averageQuantityMonthlyOrders();
 
-    this.chartData = {
+    this.chartOrder = {
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
       datasets: [
         {
@@ -185,18 +187,18 @@ export class DashboardComponent implements OnInit, OnDestroy {
           borderColor: documentStyle.getPropertyValue('--teal-600'),
           tension: .4
         },
-        // {
-        //   label: 'Average Quantity Orders',
-        //   data: averageQuantityOrders,
-        //   fill: false,
-        //   backgroundColor: documentStyle.getPropertyValue('--green-600'),
-        //   borderColor: documentStyle.getPropertyValue('--green-600'),
-        //   tension: .4
-        // }
+        {
+          label: 'Average Quantity Orders',
+          data: averageQuantityOrders,
+          fill: false,
+          backgroundColor: documentStyle.getPropertyValue('--green-600'),
+          borderColor: documentStyle.getPropertyValue('--green-600'),
+          tension: .4
+        }
       ]
     };
 
-    this.chartOptions = {
+    this.chartOrderOptions = {
       plugins: {
         legend: {
           labels: {
@@ -223,7 +225,55 @@ export class DashboardComponent implements OnInit, OnDestroy {
         }
       }
     };
+
+    this.getListCourse();
+    this.chartCourse = {
+      labels: this.courses.map(course => course.courseName || 'Unknown Course'),
+      datasets: [
+        {
+          data: this.courses.map(course => this.calculatePercentage(course.sold_product? course.sold_product : 0, this.calculateTotalSoldProduct())),
+          backgroundColor: [
+            "#36BA98",
+            "#3FA2F6",
+            "#FFF078",
+            "#973131",
+            "#F19ED2",
+            "#FF6969",
+            "#06D001",
+            "#102C57",
+            "#FFB1B1",
+            "#686D76",
+          ],
+          
+        },
+
+      ]
+    };
+
+    this.chartOrderOptions = {
+      plugins: {
+        legend: {
+          labels: {
+            color: textColor,
+          }
+        },
+      },
+
+    };
   }
+
+  calculateTotalSoldProduct(): number {
+    return this.courses.reduce((sum, course) => sum + (course.sold_product ?? 0), 0);
+  }
+  
+  calculatePercentage(value: number, total: number): number {
+    if (total === 0) {
+      return 0;
+    }
+    return (value / total) * 100;
+  }
+  
+  
 
   ngOnDestroy() {
     if (this.subscription) {
