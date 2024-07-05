@@ -25,28 +25,24 @@ export class SubjectComponent implements OnInit {
   }
 
   subjectDialog: boolean = false;
-
   deleteSubjectDialog: boolean = false;
-
   deleteSubjectsDialog: boolean = false;
 
   subjects: Subject[] = [];
-
   subject: Subject = {} as Subject;
-
   selectedSubjects: Subject[] = [];
 
   submitted: boolean = false;
-
   cols: any[] = [];
-
   rowsPerPageOptions = [5, 10, 20, 50];
-
   showDetails = false;
-
   statuses: any[] = [];
-
   _selectedColumns: any[] = [];
+  activeState: boolean[] = [true, false, false];
+
+  toggle(index: number) {
+    this.activeState[index] = !this.activeState[index];
+  }
 
   @Input() get selectedColumns(): any[] {
     return this._selectedColumns;

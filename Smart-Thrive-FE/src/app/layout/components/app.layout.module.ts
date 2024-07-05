@@ -26,6 +26,7 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { AppMenuitemComponent } from './app.menu-item/app.menu-item.component';
 import { AppConfigComponent } from './app-config/app-config.component';
 import { AppConfigModule } from './app-config/app-config.module';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { AppConfigModule } from './app-config/app-config.module';
     ToastModule,
     TableModule,
     AutoCompleteModule,
-    AppConfigModule
+    AppConfigModule,
+    BreadcrumbModule
   ],
   exports: [AppLayoutComponent],
 })

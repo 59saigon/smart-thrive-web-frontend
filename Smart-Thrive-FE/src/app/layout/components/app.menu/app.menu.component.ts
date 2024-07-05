@@ -119,11 +119,6 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
             icon: 'pi pi-chart-line',
             routerLink: ['/dashboard'],
           },
-          {
-            label: 'Reports',
-            icon: 'pi pi-chart-pie',
-            routerLink: ['/report'],
-          },
         ],
       },
       {
@@ -150,6 +145,11 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
             routerLink: ['/apps/order'],
           },
           {
+            label: 'Subject',
+            icon: 'pi pi-book',
+            routerLink: ['/apps/subject'],
+          },
+          {
             label: 'User',
             icon: 'pi pi-user',
             routerLink: ['/apps/user'],
@@ -167,11 +167,7 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
               },
             ]
           },
-          {
-            label: 'Subject',
-            icon: 'pi pi-book',
-            routerLink: ['/apps/subject'],
-          },
+          
         ]
       },
 

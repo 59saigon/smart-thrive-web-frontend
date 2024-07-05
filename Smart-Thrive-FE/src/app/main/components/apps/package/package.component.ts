@@ -47,7 +47,11 @@ export class PackageComponent implements OnInit {
   statuses: any[] = [];
 
   _selectedColumns: any[] = [];
+  activeState: boolean[] = [true, false, false];
 
+  toggle(index: number) {
+    this.activeState[index] = !this.activeState[index];
+  }
   @Input() get selectedColumns(): any[] {
     return this._selectedColumns;
   }

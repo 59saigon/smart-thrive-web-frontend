@@ -24,6 +24,7 @@ import { PanelMenuModule } from 'primeng/panelmenu';
 import { TooltipModule } from 'primeng/tooltip';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ClipboardModule } from '@angular/cdk/clipboard';
+import {AccordionModule} from 'primeng/accordion';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
     PanelMenuModule,
     TooltipModule,
     MultiSelectModule,
-    ClipboardModule
+    ClipboardModule,
+    AccordionModule,
   ]
 })
 export class CourseModule { }

@@ -25,28 +25,24 @@ export class ProviderComponent implements OnInit {
   }
 
   providerDialog: boolean = false;
-
   deleteProviderDialog: boolean = false;
-
   deleteProvidersDialog: boolean = false;
 
   providers: Provider[] = [];
-
   provider: Provider = {} as Provider;
-
   selectedProviders: Provider[] = [];
 
   submitted: boolean = false;
-
   cols: any[] = [];
-
   rowsPerPageOptions = [5, 10, 20, 50];
-
   showDetails = false;
-
   statuses: any[] = [];
-
   _selectedColumns: any[] = [];
+  activeState: boolean[] = [true, false, false];
+
+  toggle(index: number) {
+    this.activeState[index] = !this.activeState[index];
+  }
 
   @Input() get selectedColumns(): any[] {
     return this._selectedColumns;

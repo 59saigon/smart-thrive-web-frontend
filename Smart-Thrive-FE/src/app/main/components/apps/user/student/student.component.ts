@@ -26,28 +26,24 @@ export class StudentComponent implements OnInit {
   }
 
   studentDialog: boolean = false;
-
   deleteStudentDialog: boolean = false;
-
   deleteStudentsDialog: boolean = false;
 
   students: Student[] = [];
-
   student: Student = {} as Student;
-
   selectedStudents: Student[] = [];
 
   submitted: boolean = false;
-
   cols: any[] = [];
-
   rowsPerPageOptions = [5, 10, 20, 50];
-
   showDetails = false;
-
   statuses: any[] = [];
-
   _selectedColumns: any[] = [];
+  activeState: boolean[] = [true, false, false];
+
+  toggle(index: number) {
+    this.activeState[index] = !this.activeState[index];
+  }
 
   @Input() get selectedColumns(): any[] {
     return this._selectedColumns;

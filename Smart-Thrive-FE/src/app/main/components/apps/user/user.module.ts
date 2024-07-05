@@ -25,6 +25,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { MultiSelectModule } from 'primeng/multiselect';
 
 import {ClipboardModule} from '@angular/cdk/clipboard';
+import { AccordionModule } from 'primeng/accordion';
 @NgModule({
   declarations: [
     UserComponent
@@ -53,6 +54,7 @@ import {ClipboardModule} from '@angular/cdk/clipboard';
     TooltipModule,
     MultiSelectModule,
     ClipboardModule,
+    AccordionModule
   ]
 })
 export class UserModule { }
