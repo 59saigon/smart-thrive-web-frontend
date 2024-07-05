@@ -25,28 +25,24 @@ export class OrderComponent implements OnInit {
   }
 
   orderDialog: boolean = false;
-
   deleteOrderDialog: boolean = false;
-
   deleteOrdersDialog: boolean = false;
 
   orders: Order[] = [];
-
   order: Order = {} as Order;
-
   selectedOrders: Order[] = [];
 
   submitted: boolean = false;
-
   cols: any[] = [];
-
   rowsPerPageOptions = [5, 10, 20, 50];
-
   showDetails = false;
-
   statuses: any[] = [];
-
   _selectedColumns: any[] = [];
+  activeState: boolean[] = [true, false, false];
+
+  toggle(index: number) {
+    this.activeState[index] = !this.activeState[index];
+  }
 
   @Input() get selectedColumns(): any[] {
     return this._selectedColumns;

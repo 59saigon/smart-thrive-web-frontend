@@ -23,6 +23,7 @@ import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
+import { AccordionModule } from 'primeng/accordion';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import { TooltipModule } from 'primeng/tooltip';
     TooltipModule,
     MultiSelectModule,
     ClipboardModule,
+    AccordionModule
   ]
 })
 export class SessionModule { }

@@ -23,6 +23,7 @@ import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
 import { ClipboardModule } from '@angular/cdk/clipboard';
+import { AccordionModule } from 'primeng/accordion';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
     PanelMenuModule,
     TooltipModule,
     MultiSelectModule,
-    ClipboardModule
+    ClipboardModule,
+    AccordionModule
   ]
 })
 export class OrderModule { }

@@ -25,28 +25,24 @@ export class UserComponent implements OnInit {
   }
 
   userDialog: boolean = false;
-
   deleteUserDialog: boolean = false;
-
   deleteUsersDialog: boolean = false;
 
   users: User[] = [];
-
   user: User = {} as User;
-
   selectedUsers: User[] = [];
 
   submitted: boolean = false;
-
   cols: any[] = [];
-
   rowsPerPageOptions = [5, 10, 20, 50];
-
   showDetails = false;
-
   statuses: any[] = [];
-
   _selectedColumns: any[] = [];
+  activeState: boolean[] = [true, false, false];
+
+  toggle(index: number) {
+    this.activeState[index] = !this.activeState[index];
+  }
 
   @Input() get selectedColumns(): any[] {
     return this._selectedColumns;

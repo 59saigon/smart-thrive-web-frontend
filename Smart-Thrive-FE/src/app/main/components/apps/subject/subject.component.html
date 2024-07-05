@@ -1,131 +1,148 @@
 <p-toast [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'200ms'" [hideTransitionOptions]="'500ms'"
     [showTransformOptions]="'translateX(100%)'" />
 
-<p-panel header="Subject List" [toggleable]="true">
-    <div class="grid">
-        <div class="col-12">
-            <p-toolbar styleClass="mb-4">
+<div class="py-3">
+    <p-button [icon]="activeState[0] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(0)" styleClass="p-button-text"
+        label="Subject List"></p-button>
+    <p-button [icon]="activeState[1] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(1)" styleClass="p-button-text ml-2"
+        label="Course List"></p-button>
+</div>
 
-                <ng-template pTemplate="left">
-                    <div class="my-2">
-                        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"
-                            (click)="openNew()"></button>
-                        <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger"
-                            (click)="deleteSelectedSubjects()" [disabled]="
-                                !selectedSubjects || !selectedSubjects.length
-                            "></button>
-                    </div>
-                </ng-template>
+<p-accordion [multiple]="true">
+    <p-accordionTab header="Subject List" [(selected)]="activeState[0]">
+        <div class="grid">
+            <div class="col-12">
+                <p-toolbar styleClass="mb-4">
 
-                <ng-template pTemplate="right">
-                    <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import"
-                        chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload>
-                    <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"
-                        (click)="dt.exportCSV()"></button>
-                </ng-template>
-
-            </p-toolbar>
-
-            <p-table #dt [value]="paginatedListResponse.results" styleClass="p-datatable-sm" responsiveLayout="stack"
-                [breakpoint]="'960px'" [columns]="selectedColumns" responsiveLayout="scroll"
-                [globalFilterFields]="['eventName']" [paginator]="true" [rowsPerPageOptions]="rowsPerPageOptions"
-                [showCurrentPageReport]="true"
-                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                [(selection)]="selectedSubjects" selectionMode="multiple" [rowHover]="true" dataKey="id"
-                [totalRecords]="paginatedListResponse.totalRecords" [lazy]="true" [rows]="paginatedRequest.pageSize"
-                [sortField]="paginatedRequest.sortField" (onLazyLoad)="loadPatientListing($event)">
-
-                <ng-template pTemplate="caption">
-                    <div class="flex flex-wrap gap-2 w-full">
-                        <div
-                            class="flex flex-column md:flex-row md:justify-content-between md:align-items-center w-full">
-                            <!-- <h5 class="m-0">Manage Subjects</h5> -->
-
-                            <span class="block mt-2 md:mt-0 p-input-icon-left w-full">
-                                <i class="pi pi-search"></i>
-                                <!-- (input)="onGlobalFilter(dt, $event)" -->
-                                <input pInputText type="text" placeholder="Search..." class="md:w-full sm:w-auto" />
-                            </span>
+                    <ng-template pTemplate="left">
+                        <div class="my-2">
+                            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"
+                                (click)="openNew()"></button>
+                            <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger"
+                                (click)="deleteSelectedSubjects()" [disabled]="
+                                        !selectedSubjects || !selectedSubjects.length
+                                    "></button>
                         </div>
+                    </ng-template>
 
-                        <div
-                            class="flex flex-column md:flex-row md:justify-content-between md:align-items-center w-full">
-                            <p-multiSelect inputId="multiselect" [options]="cols" [(ngModel)]="selectedColumns"
-                                optionLabel="header" [maxSelectedLabels]="99" selectedItemsLabel="{0} columns selected"
-                                placeholder="Choose Columns" [showClear]="true" [filter]="true"
-                                [panelStyle]="{'width':'250px'}" />
-                        </div>
-                    </div>
-                </ng-template>
+                    <ng-template pTemplate="right">
+                        <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import"
+                            chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload>
+                        <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"
+                            (click)="dt.exportCSV()"></button>
+                    </ng-template>
 
-                <ng-template pTemplate="header" let-columns>
-                    <tr>
-                        <th style="width: 3rem">
-                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                        </th>
+                </p-toolbar>
 
-                        <th pSortableColumn="{{col.field}}" [pSortableColumnDisabled]="!col.sortField ? true : false"
-                            *ngFor="let col of columns">
-                            {{ col.header }}
-                            <p-sortIcon *ngIf="col.sortIcon" field="{{col.field}}" ariaLabel="Activate to sort"
-                                ariaLabelDesc="Activate to sort in descending order"
-                                ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
-                        </th>
-                        <th>Actions</th>
-                    </tr>
-                </ng-template>
+                <p-table #dt [value]="paginatedListResponse.results" styleClass="p-datatable-sm"
+                    responsiveLayout="stack" [breakpoint]="'960px'" [columns]="selectedColumns"
+                    responsiveLayout="scroll" [globalFilterFields]="['eventName']" [paginator]="true"
+                    [rowsPerPageOptions]="rowsPerPageOptions" [showCurrentPageReport]="true"
+                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                    [(selection)]="selectedSubjects" selectionMode="multiple" [rowHover]="true" dataKey="id"
+                    [totalRecords]="paginatedListResponse.totalRecords" [lazy]="true" [rows]="paginatedRequest.pageSize"
+                    [sortField]="paginatedRequest.sortField" (onLazyLoad)="loadPatientListing($event)">
 
-                <ng-template pTemplate="body" let-subject let-columns="columns">
-                    <tr>
-                        <td>
-                            <p-tableCheckbox [value]="subject"></p-tableCheckbox>
-                        </td>
+                    <ng-template pTemplate="caption">
+                        <div class="flex flex-wrap gap-2 w-full">
+                            <div
+                                class="flex flex-column md:flex-row md:justify-content-between md:align-items-center w-full">
+                                <!-- <h5 class="m-0">Manage Subjects</h5> -->
 
-                        <td *ngFor="let col of columns" style="width: 14%; min-width: 10rem">
-                            <ng-container *ngIf="col.subfield; else newId">
-                                {{ subject[col.field][col.subfield] }}
-                            </ng-container>
-
-                            <ng-template #newId>
-                                <ng-container *ngIf="col.field === 'id'; else otherId">
-                                    <a [routerLink]="[]" (click)="navigateAfterSelected(subject)" class="button-id"
-                                        [autoHide]="false" [pTooltip]="subject[col.field]">{{ subject[col.field] }}
-                                    </a>
-                                </ng-container>
-                            </ng-template>
-
-                            <ng-template #otherId>
-                                <ng-container *ngIf="col.field.includes('Id'); else otherFields">
-
-                                    <a [routerLink]="[]" (click)="getNewQuote()" [cdkCopyToClipboard]="subject[col.field]"
-                                        class="button-other-id" [autoHide]="false" [pTooltip]="tooltipContent">{{
-                                        subject[col.field] }}</a>
-
-                                </ng-container>
-
-                                <ng-template #tooltipContent>
-                                    {{ subject[col.field] }}
-                                    <br />
-                                    <br />
-                                    Click to copy
-                                </ng-template>
-                            </ng-template>
-                            <ng-template #otherFields>
-                                {{ subject[col.field] }}
-                            </ng-template>
-                        </td>
-                        <td>
-                            <div class="flex">
-                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-text"
-                                    (click)="editSubject(subject)"></button>
-                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-text"
-                                    (click)="deleteSubject(subject)"></button>
+                                <span class="block mt-2 md:mt-0 p-input-icon-left w-full">
+                                    <i class="pi pi-search"></i>
+                                    <!-- (input)="onGlobalFilter(dt, $event)" -->
+                                    <input pInputText type="text" placeholder="Search..." class="md:w-full sm:w-auto" />
+                                </span>
                             </div>
-                        </td>
-                    </tr>
-                </ng-template>
-            </p-table>
 
+                            <div
+                                class="flex flex-column md:flex-row md:justify-content-between md:align-items-center w-full">
+                                <p-multiSelect inputId="multiselect" [options]="cols" [(ngModel)]="selectedColumns"
+                                    optionLabel="header" [maxSelectedLabels]="99"
+                                    selectedItemsLabel="{0} columns selected" placeholder="Choose Columns"
+                                    [showClear]="true" [filter]="true" [panelStyle]="{'width':'250px'}" />
+                            </div>
+                        </div>
+                    </ng-template>
+
+                    <ng-template pTemplate="header" let-columns>
+                        <tr>
+                            <th style="width: 3rem">
+                                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                            </th>
+
+                            <th pSortableColumn="{{col.field}}"
+                                [pSortableColumnDisabled]="!col.sortField ? true : false" *ngFor="let col of columns">
+                                {{ col.header }}
+                                <p-sortIcon *ngIf="col.sortIcon" field="{{col.field}}" ariaLabel="Activate to sort"
+                                    ariaLabelDesc="Activate to sort in descending order"
+                                    ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </th>
+                            <th>Actions</th>
+                        </tr>
+                    </ng-template>
+
+                    <ng-template pTemplate="body" let-subject let-columns="columns">
+                        <tr>
+                            <td>
+                                <p-tableCheckbox [value]="subject"></p-tableCheckbox>
+                            </td>
+
+                            <td *ngFor="let col of columns" style="width: 14%; min-width: 10rem">
+                                <ng-container *ngIf="col.subfield; else newId">
+                                    {{ subject[col.field][col.subfield] }}
+                                </ng-container>
+
+                                <ng-template #newId>
+                                    <ng-container *ngIf="col.field === 'id'; else otherId">
+                                        <a [routerLink]="[]" (click)="navigateAfterSelected(subject)" class="button-id"
+                                            [autoHide]="false" [pTooltip]="subject[col.field]">{{ subject[col.field] }}
+                                        </a>
+                                    </ng-container>
+                                </ng-template>
+
+                                <ng-template #otherId>
+                                    <ng-container *ngIf="col.field.includes('Id'); else otherFields">
+
+                                        <a [routerLink]="[]" (click)="getNewQuote()"
+                                            [cdkCopyToClipboard]="subject[col.field]" class="button-other-id"
+                                            [autoHide]="false" [pTooltip]="tooltipContent">{{
+                                            subject[col.field] }}</a>
+
+                                    </ng-container>
+
+                                    <ng-template #tooltipContent>
+                                        {{ subject[col.field] }}
+                                        <br />
+                                        <br />
+                                        Click to copy
+                                    </ng-template>
+                                </ng-template>
+                                <ng-template #otherFields>
+                                    {{ subject[col.field] }}
+                                </ng-template>
+                            </td>
+                            <td>
+                                <div class="flex">
+                                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-text"
+                                        (click)="editSubject(subject)"></button>
+                                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-text"
+                                        (click)="deleteSubject(subject)"></button>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+
+            </div>
         </div>
-    </div>
-</p-panel>
+    </p-accordionTab>
+    <p-accordionTab header="Course List" [(selected)]="activeState[1]">
+        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
+            aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+            architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
+            odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+            voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.</p>
+    </p-accordionTab>
+</p-accordion>
