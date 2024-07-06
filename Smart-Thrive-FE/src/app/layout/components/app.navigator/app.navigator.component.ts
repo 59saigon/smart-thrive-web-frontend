@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { AppBreadcumbService } from '../../services/app.breadcumb.service';
@@ -8,7 +8,8 @@ import { MenuItem } from 'primeng/api';
 @Component({
   selector: 'app-navigator',
   templateUrl: './app.navigator.component.html',
-  styleUrl: './app.navigator.component.scss'
+  styleUrl: './app.navigator.component.scss',
+  encapsulation: ViewEncapsulation.None
 })
 export class AppNavigatorComponent {
   constructor(
