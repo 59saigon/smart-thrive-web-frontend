@@ -10,6 +10,8 @@ $font-family: "Inter var", sans-serif;
   align-items: center;
 }
 
+
+
 .p-calendar {
   width: 100% !important;
   height: 45px !important;
@@ -57,11 +59,18 @@ $font-family: "Inter var", sans-serif;
       }
 
       &-register-with {
-        padding: 1rem 0;
-        .p-button:enabled:focus {
-          outline: 0 none;
-          outline-offset: 0px;
-          box-shadow: none;
+        padding: 0px 16px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 1rem;
+        .p-button-label {
+          flex: 0;
+        }
+        button {
+          width: 100% !important;
+          justify-content: center;
+          height: 45px !important;
         }
       }
 

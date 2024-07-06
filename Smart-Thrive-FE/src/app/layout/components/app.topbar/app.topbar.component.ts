@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { LayoutService } from '../../services/app.layout/app.layout.service';
 import { MenuItem } from 'primeng/api';
 import { AppBreadcumbService } from '../../services/app.breadcumb.service';
@@ -10,6 +10,7 @@ import { ConstantsTheme } from '../../../shared/constants/constant-theme';
   selector: 'app-topbar',
   templateUrl: './app.topbar.component.html',
   styleUrls: ['./app.topbar.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class AppTopbarComponent implements OnInit {
   @ViewChild('menubutton') menuButton!: ElementRef;

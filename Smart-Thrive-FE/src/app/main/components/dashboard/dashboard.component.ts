@@ -231,7 +231,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       labels: this.courses.map(course => course.courseName || 'Unknown Course'),
       datasets: [
         {
-          data: this.courses.map(course => this.calculatePercentage(course.sold_product? course.sold_product : 0, this.calculateTotalSoldProduct())),
+          data: this.courses.map(course => this.calculatePercentage(course.quantity? course.quantity : 0, this.calculateTotalSoldProduct())),
           backgroundColor: [
             "#36BA98",
             "#3FA2F6",
@@ -263,7 +263,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   calculateTotalSoldProduct(): number {
-    return this.courses.reduce((sum, course) => sum + (course.sold_product ?? 0), 0);
+    return this.courses.reduce((sum, course) => sum + (course.quantity ?? 0), 0);
   }
   
   calculatePercentage(value: number, total: number): number {

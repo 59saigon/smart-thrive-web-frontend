@@ -27,6 +27,7 @@ import { AppMenuitemComponent } from './app.menu-item/app.menu-item.component';
 import { AppConfigComponent } from './app-config/app-config.component';
 import { AppConfigModule } from './app-config/app-config.module';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { AppNavigatorComponent } from './app.navigator/app.navigator.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
     AppMenuitemComponent,
     AppLayoutComponent,
     AppFooterComponent,
+    AppNavigatorComponent,
   ],
   imports: [
     BrowserModule,
