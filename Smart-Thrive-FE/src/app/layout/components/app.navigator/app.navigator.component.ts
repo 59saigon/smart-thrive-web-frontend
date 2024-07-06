@@ -41,10 +41,17 @@ export class AppNavigatorComponent {
     this.items = segments.map((segment, index) => {
       const url = '/' + segments.slice(0, index + 1).join('/');
       if (indexLastSegment != index) {
-        return {
-          label: segment,
-          url: url
-        };
+        if (segment != 'apps') {
+          return {
+            label: segment,
+            url: url
+          };
+        } else{
+          return {
+            label: segment,
+            url: '/'
+          };
+        }
       }
 
       return {
