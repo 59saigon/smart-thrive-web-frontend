@@ -39,7 +39,7 @@ a {
     left: 0;
     background-image: var(--body-image);
     background-repeat: no-repeat;
-    z-index: 0;
+    z-index: -1; // 0 -> bật vảy cá 
 }
 
 .layout-dark {
