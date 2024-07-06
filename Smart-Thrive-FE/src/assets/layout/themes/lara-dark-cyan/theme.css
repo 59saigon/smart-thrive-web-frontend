@@ -4,21 +4,21 @@
   font-variation-settings: normal;
   --font-family: "Inter var", sans-serif;
   --font-feature-settings: "cv02", "cv03", "cv04", "cv11";
-  --surface-a: #202940;
+  --surface-a: #1C1D21;
   --surface-b: #1A2035;
   --surface-c: rgba(255, 255, 255, 0.03);
   --topbar-sticky-bg: rgba(0,0,0,.1);
   --config-sticky-bg: rgba(0,0,0,.3);
   --surface-d: #424b57;
-  --surface-e: #202940;
-  --surface-f: #202940;
+  --surface-e: #1C1D21;
+  --surface-f: #1C1D21;
   --text-color: rgba(255, 255, 255, 0.87);
   --custom-logo-color: transparent;
   --text-color-secondary: rgba(255, 255, 255, 0.6);
   --primary-color: #1572E8;
   --primary-color-text: #030712;
   --surface-0: #1A2035;
-  --surface-50: #202940;
+  --surface-50: #1C1D21;
   --surface-100: #374151;
   --surface-200: #4b5563;
   --surface-300: #6b7280;
@@ -36,15 +36,15 @@
   --gray-500: #6b7280;
   --gray-600: #4b5563;
   --gray-700: #374151;
-  --gray-800: #202940;
+  --gray-800: #1C1D21;
   --gray-900: #1A2035;
   --content-padding: 1.25rem;
   --inline-spacing: 0.5rem;
   --border-radius: 6px;
-  --surface-ground: #1A2035;
+  --surface-ground: #212428;
   --surface-section: #1A2035;
-  --surface-card: transparent;
-  --surface-overlay: transparent;
+  --surface-card: #1F2025;
+  --surface-overlay: #1F2025;
   /* --custom-background: linear-gradient(to right, #141e30, #243b55); */
   --surface-border: rgba(255, 255, 255, 0.1);
   --surface-hover: rgba(255, 255, 255, 0.03);
@@ -195,7 +195,7 @@
 }
 
 .p-editor-container .p-editor-toolbar {
-  background: #202940;
+  background: #1C1D21;
   border-top-right-radius: 6px;
   border-top-left-radius: 6px;
 }
@@ -231,7 +231,7 @@
   fill: rgba(255, 255, 255, 0.87);
 }
 .p-editor-container .p-editor-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options {
-  background: #202940;
+  background: #1C1D21;
   border: 1px solid #424b57;
   box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
   border-radius: 6px;
@@ -416,7 +416,7 @@
   }
 
   .p-autocomplete-panel {
-    background: #202940;
+    background: #1C1D21;
     color: rgba(255, 255, 255, 0.87);
     border: 1px solid #424b57;
     border-radius: 6px;
@@ -495,23 +495,23 @@
 
   .p-datepicker {
     padding: 0.5rem;
-    background: #202940;
+    background: #1C1D21;
     color: rgba(255, 255, 255, 0.87);
     border: 1px solid #424b57;
     border-radius: 6px;
   }
   .p-datepicker:not(.p-datepicker-inline) {
-    background: #202940;
+    background: #1C1D21;
     border: 1px solid #424b57;
     box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
   }
   .p-datepicker:not(.p-datepicker-inline) .p-datepicker-header {
-    background: #202940;
+    background: #1C1D21;
   }
   .p-datepicker .p-datepicker-header {
     padding: 0.5rem;
     color: rgba(255, 255, 255, 0.87);
-    background: #202940;
+    background: #1C1D21;
     font-weight: 700;
     margin: 0;
     border-bottom: 1px solid #424b57;
@@ -758,7 +758,7 @@
   }
 
   .p-cascadeselect-panel {
-    background: #202940;
+    background: #1C1D21;
     color: rgba(255, 255, 255, 0.87);
     border: 1px solid #424b57;
     border-radius: 6px;
@@ -956,7 +956,7 @@
   }
 
   .p-colorpicker-panel {
-    background: #202940;
+    background: #1C1D21;
     border: 1px solid #424b57;
   }
   .p-colorpicker-panel .p-colorpicker-color-handle,
@@ -1013,7 +1013,7 @@
   }
 
   .p-dropdown-panel {
-    background: #202940;
+    background: #1C1D21;
     color: rgba(255, 255, 255, 0.87);
     border: 1px solid #424b57;
     border-radius: 6px;
@@ -1023,7 +1023,7 @@
     padding: 0.75rem 1.25rem;
     border-bottom: 1px solid #424b57;
     color: rgba(255, 255, 255, 0.87);
-    background: #202940;
+    background: #1C1D21;
     margin: 0;
     border-top-right-radius: 6px;
     border-top-left-radius: 6px;
@@ -1103,7 +1103,7 @@
   }
 
   .p-inputgroup-addon {
-    background: #202940;
+    background: #1C1D21;
     color: rgba(255, 255, 255, 0.6);
     border-top: 1px solid #424b57;
     border-left: 1px solid #424b57;
@@ -1291,6 +1291,7 @@
   .p-inputtext.ng-dirty.ng-invalid {
     border-color: #fca5a5;
   }
+  
   .p-inputtext.p-inputtext-sm {
     font-size: 0.875rem;
     padding: 0.65625rem 0.65625rem;
@@ -1383,7 +1384,7 @@
   }
 
   .p-listbox {
-    background: #202940;
+    background: #1C1D21;
     color: rgba(255, 255, 255, 0.87);
     border: 1px solid #424b57;
     border-radius: 6px;
@@ -1393,7 +1394,7 @@
     padding: 0.75rem 1.25rem;
     border-bottom: 1px solid #424b57;
     color: rgba(255, 255, 255, 0.87);
-    background: #202940;
+    background: #1C1D21;
     margin: 0;
     border-top-right-radius: 6px;
     border-top-left-radius: 6px;
@@ -1521,7 +1522,7 @@
   }
 
   .p-multiselect-panel {
-    background: #202940;
+    background: #1C1D21;
     color: rgba(255, 255, 255, 0.87);
     border: 1px solid #424b57;
     border-radius: 6px;
@@ -1531,7 +1532,7 @@
     padding: 0.75rem 1.25rem;
     border-bottom: 1px solid #424b57;
     color: rgba(255, 255, 255, 0.87);
-    background: #202940;
+    background: #1C1D21;
     margin: 0;
     border-top-right-radius: 6px;
     border-top-left-radius: 6px;
@@ -1632,7 +1633,7 @@
 
   .p-password-panel {
     padding: 1.25rem;
-    background: #202940;
+    background: #1C1D21;
     color: rgba(255, 255, 255, 0.87);
     border: 1px solid #424b57;
     box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
@@ -1766,7 +1767,7 @@
   }
 
   .p-selectbutton .p-button {
-    background: #202940;
+    background: #1C1D21;
     border: 1px solid #424b57;
     color: rgba(255, 255, 255, 0.87);
     transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
@@ -1860,7 +1861,7 @@
   }
 
   .p-togglebutton.p-button {
-    background: #202940;
+    background: #1C1D21;
     border: 1px solid #424b57;
     color: rgba(255, 255, 255, 0.87);
     transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
@@ -1947,7 +1948,7 @@
   }
 
   .p-treeselect-panel {
-    background: #202940;
+    background: #1C1D21;
     color: rgba(255, 255, 255, 0.87);
     border: 1px solid #424b57;
     border-radius: 6px;
@@ -1957,7 +1958,7 @@
     padding: 0.75rem 1.25rem;
     border-bottom: 1px solid #424b57;
     color: rgba(255, 255, 255, 0.87);
-    background: #202940;
+    background: #1C1D21;
     margin: 0;
     border-top-right-radius: 6px;
     border-top-left-radius: 6px;
@@ -2685,11 +2686,12 @@
     border-radius: 0;
   }
   .p-datatable .p-paginator-bottom {
+    background: #1F2025;
     border-width: 0 0 1px 0;
     border-radius: 0;
   }
   .p-datatable .p-datatable-header {
-    background: #202940;
+    background: #1F2025;
     color: rgba(255, 255, 255, 0.6);
     border: 1px solid #424b57;
     border-width: 0 0 1px 0;
@@ -2697,7 +2699,7 @@
     font-weight: 700;
   }
   .p-datatable .p-datatable-footer {
-    background: #202940;
+    background: #1F2025;
     color: rgba(255, 255, 255, 0.87);
     border: 1px solid #424b57;
     border-width: 0 0 1px 0;
@@ -2711,7 +2713,7 @@
     border-width: 0 0 1px 0;
     font-weight: 700;
     color: rgba(255, 255, 255, 0.87);
-    background: #202940;
+    background: #1F2025;
     transition: box-shadow 0.2s;
   }
   .p-datatable .p-datatable-tfoot > tr > td {
@@ -2721,7 +2723,7 @@
     border-width: 0 0 1px 0;
     font-weight: 700;
     color: rgba(255, 255, 255, 0.87);
-    background: #202940;
+    background: #1F2025;
   }
   .p-datatable .p-sortable-column .p-sortable-column-icon {
     color: rgba(255, 255, 255, 0.6);
@@ -2733,7 +2735,7 @@
     min-width: 1.143rem;
     line-height: 1.143rem;
     color: rgba(255, 255, 255, 0.87);
-    background: rgba(34, 211, 238, 0.16);
+    background: #1F2025;
     margin-left: 0.5rem;
   }
   .p-datatable .p-sortable-column:not(.p-highlight):hover {
@@ -2744,7 +2746,7 @@
     color: rgba(255, 255, 255, 0.87);
   }
   .p-datatable .p-sortable-column.p-highlight {
-    background: rgba(34, 211, 238, 0.16);
+    background: #1F2025;
     color: rgba(255, 255, 255, 0.87);
   }
   .p-datatable .p-sortable-column.p-highlight .p-sortable-column-icon {
@@ -2762,7 +2764,7 @@
     outline: 0 none;
   }
   .p-datatable .p-datatable-tbody > tr {
-    background: #202940;
+    background: #1F2025;
     color: rgba(255, 255, 255, 0.87);
     transition: box-shadow 0.2s;
   }
@@ -2826,12 +2828,12 @@
   }
   .p-datatable .p-datatable-scrollable-header,
 .p-datatable .p-datatable-scrollable-footer {
-    background: #202940;
+    background: #1C1D21;
   }
   .p-datatable.p-datatable-scrollable > .p-datatable-wrapper > .p-datatable-table > .p-datatable-thead,
 .p-datatable.p-datatable-scrollable > .p-datatable-wrapper > .p-datatable-table > .p-datatable-tfoot, .p-datatable.p-datatable-scrollable > .p-datatable-wrapper > .p-scroller-viewport > .p-scroller > .p-datatable-table > .p-datatable-thead,
 .p-datatable.p-datatable-scrollable > .p-datatable-wrapper > .p-scroller-viewport > .p-scroller > .p-datatable-table > .p-datatable-tfoot {
-    background-color: #202940;
+    background-color: #1C1D21;
   }
   .p-datatable .p-datatable-loading-icon {
     font-size: 2rem;
@@ -2943,7 +2945,7 @@
     border-radius: 0;
   }
   .p-dataview .p-dataview-header {
-    background: #202940;
+    background: #1C1D21;
     color: rgba(255, 255, 255, 0.6);
     border: 1px solid #424b57;
     border-width: 0 0 1px 0;
@@ -2951,13 +2953,13 @@
     font-weight: 700;
   }
   .p-dataview .p-dataview-content {
-    background: #202940;
+    background: #1C1D21;
     color: rgba(255, 255, 255, 0.87);
     border: 0 none;
     padding: 0;
   }
   .p-dataview .p-dataview-footer {
-    background: #202940;
+    background: #1C1D21;
     color: rgba(255, 255, 255, 0.87);
     border: 1px solid #424b57;
     border-width: 0 0 1px 0;
@@ -3027,7 +3029,7 @@
   }
 
   .p-column-filter-overlay {
-    background: #202940;
+    background: #1C1D21;
     color: rgba(255, 255, 255, 0.87);
     border: 1px solid #424b57;
     border-radius: 6px;
@@ -3071,7 +3073,7 @@
     padding: 0.75rem 1.25rem;
     border-bottom: 1px solid #424b57;
     color: rgba(255, 255, 255, 0.87);
-    background: #202940;
+    background: #1C1D21;
     margin: 0;
     border-top-right-radius: 6px;
     border-top-left-radius: 6px;
@@ -3103,7 +3105,7 @@
     margin-bottom: 0.5rem;
   }
   .p-orderlist .p-orderlist-list-container {
-    background: #202940;
+    background: #1C1D21;
     border: 1px solid #424b57;
     border-radius: 6px;
     transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
@@ -3125,7 +3127,7 @@
   }
   .p-orderlist .p-orderlist-filter-container {
     padding: 1.25rem;
-    background: #202940;
+    background: #1C1D21;
     border: 1px solid #424b57;
     border-bottom: 0 none;
   }
@@ -3190,7 +3192,7 @@
     box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
     border: 0 none;
     color: rgba(255, 255, 255, 0.87);
-    background: #202940;
+    background: #1C1D21;
     margin: 0;
   }
 
@@ -3218,7 +3220,7 @@
   }
   .p-organizationchart .p-organizationchart-node-content {
     border: 1px solid #424b57;
-    background: #202940;
+    background: #1C1D21;
     color: rgba(255, 255, 255, 0.87);
     padding: 1.25rem;
   }
@@ -3234,7 +3236,7 @@
   }
 
   .p-paginator {
-    background: #202940;
+    background: #1C1D21;
     color: rgba(255, 255, 255, 0.6);
     border: solid #424b57;
     border-width: 1px;
@@ -3322,7 +3324,7 @@
     margin-bottom: 0.5rem;
   }
   .p-picklist .p-picklist-list-wrapper {
-    background: #202940;
+    background: #1C1D21;
     border: 1px solid #424b57;
     border-radius: 6px;
     transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
@@ -3344,7 +3346,7 @@
   }
   .p-picklist .p-picklist-filter-container {
     padding: 1.25rem;
-    background: #202940;
+    background: #1C1D21;
     border: 1px solid #424b57;
     border-bottom: 0 none;
   }
@@ -3409,7 +3411,7 @@
     box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
     border: 0 none;
     color: rgba(255, 255, 255, 0.87);
-    background: #202940;
+    background: #1C1D21;
     margin: 0;
   }
 
@@ -3440,7 +3442,7 @@
 
   .p-tree {
     border: 1px solid #424b57;
-    background: #202940;
+    background: #1C1D21;
     color: rgba(255, 255, 255, 0.87);
     padding: 1.25rem;
     border-radius: 6px;
@@ -3536,7 +3538,7 @@
   .p-tree.p-tree-horizontal .p-treenode .p-treenode-content {
     border-radius: 6px;
     border: 1px solid #424b57;
-    background-color: #202940;
+    background-color: #1C1D21;
     color: rgba(255, 255, 255, 0.87);
     padding: 0.5rem;
     transition: box-shadow 0.2s;
@@ -3581,7 +3583,7 @@
     border-radius: 0;
   }
   .p-treetable .p-treetable-header {
-    background: #202940;
+    background: #1C1D21;
     color: rgba(255, 255, 255, 0.6);
     border: 1px solid #424b57;
     border-width: 0 0 1px 0;
@@ -3589,7 +3591,7 @@
     font-weight: 700;
   }
   .p-treetable .p-treetable-footer {
-    background: #202940;
+    background: #1C1D21;
     color: rgba(255, 255, 255, 0.87);
     border: 1px solid #424b57;
     border-width: 0 0 1px 0;
@@ -3603,7 +3605,7 @@
     border-width: 0 0 1px 0;
     font-weight: 700;
     color: rgba(255, 255, 255, 0.87);
-    background: #202940;
+    background: #1C1D21;
     transition: box-shadow 0.2s;
   }
   .p-treetable .p-treetable-tfoot > tr > td {
@@ -3613,7 +3615,7 @@
     border-width: 0 0 1px 0;
     font-weight: 700;
     color: rgba(255, 255, 255, 0.87);
-    background: #202940;
+    background: #1C1D21;
   }
   .p-treetable .p-sortable-column {
     outline-color: rgba(34, 211, 238, 0.2);
@@ -3646,7 +3648,7 @@
     color: rgba(255, 255, 255, 0.87);
   }
   .p-treetable .p-treetable-tbody > tr {
-    background: #202940;
+    background: #1C1D21;
     color: rgba(255, 255, 255, 0.87);
     transition: box-shadow 0.2s;
   }
@@ -3712,7 +3714,7 @@
   }
   .p-treetable .p-treetable-scrollable-header,
 .p-treetable .p-treetable-scrollable-footer {
-    background: #202940;
+    background: #1C1D21;
   }
   .p-treetable .p-treetable-loading-icon {
     font-size: 2rem;
@@ -3774,7 +3776,7 @@
   }
 
   .p-virtualscroller .p-virtualscroller-header {
-    background: #202940;
+    background: #1C1D21;
     color: rgba(255, 255, 255, 0.6);
     border: 1px solid #424b57;
     border-width: 0 0 1px 0;
@@ -3782,13 +3784,13 @@
     font-weight: 700;
   }
   .p-virtualscroller .p-virtualscroller-content {
-    background: #202940;
+    background: #1C1D21;
     color: rgba(255, 255, 255, 0.87);
     border: 0 none;
     padding: 0;
   }
   .p-virtualscroller .p-virtualscroller-footer {
-    background: #202940;
+    background: #1C1D21;
     color: rgba(255, 255, 255, 0.87);
     border: 1px solid #424b57;
     border-width: 0 0 1px 0;
@@ -3800,9 +3802,9 @@
 
   .p-accordion .p-accordion-header .p-accordion-header-link {
     padding: 1.25rem;
-    border: 1px solid #424b57;
+    /* border: 1px solid #424b57; */
     color: rgba(255, 255, 255, 0.87);
-    background: #202940;
+    background: #202226;
     font-weight: 700;
     border-radius: 6px;
     transition: box-shadow 0.2s;
@@ -3821,7 +3823,7 @@
     color: rgba(255, 255, 255, 0.87);
   }
   .p-accordion .p-accordion-header:not(.p-disabled).p-highlight .p-accordion-header-link {
-    background: #202940;
+    background: #202226;
     border-color: #424b57;
     color: rgba(255, 255, 255, 0.87);
     border-bottom-right-radius: 0;
@@ -3834,8 +3836,8 @@
   }
   .p-accordion .p-accordion-content {
     padding: 1.25rem;
-    border: 1px solid #424b57;
-    background: #202940;
+    /* border: 1px solid #424b57; */
+    background: #202226;
     color: rgba(255, 255, 255, 0.87);
     border-top: 0;
     border-top-right-radius: 0;
@@ -3847,8 +3849,12 @@
     margin-bottom: 4px;
   }
 
+  .card {
+    background: #1F2025; 
+  }
+
   .p-card {
-    background: #202940;
+    background: #1F2025;
     color: rgba(255, 255, 255, 0.87);
     box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
     border-radius: 6px;
@@ -3874,7 +3880,7 @@
   }
 
   .p-divider .p-divider-content {
-    background-color: #202940;
+    background-color: #1C1D21;
   }
   .p-divider.p-divider-horizontal {
     margin: 1.25rem 0;
@@ -3899,7 +3905,7 @@
 
   .p-fieldset {
     border: 1px solid #424b57;
-    background: #202940;
+    background: #1C1D21;
     color: rgba(255, 255, 255, 0.87);
     border-radius: 6px;
   }
@@ -3907,7 +3913,7 @@
     padding: 1.25rem;
     border: 1px solid #424b57;
     color: rgba(255, 255, 255, 0.87);
-    background: #202940;
+    background: #1C1D21;
     font-weight: 700;
     border-radius: 6px;
   }
@@ -3941,7 +3947,7 @@
   .p-panel .p-panel-header {
     border: 1px solid #424b57;
     padding: 1.25rem;
-    background: #202940;
+    background: #1C1D21;
     color: rgba(255, 255, 255, 0.87);
     border-top-right-radius: 6px;
     border-top-left-radius: 6px;
@@ -3974,7 +3980,7 @@
   .p-panel .p-panel-content {
     padding: 1.25rem;
     border: 1px solid #424b57;
-    background: #202940;
+    background: #1C1D21;
     color: rgba(255, 255, 255, 0.87);
     border-top: 0 none;
   }
@@ -3985,7 +3991,7 @@
   .p-panel .p-panel-footer {
     padding: 0.75rem 1.25rem;
     border: 1px solid #424b57;
-    background: #202940;
+    background: #1C1D21;
     color: rgba(255, 255, 255, 0.87);
     border-bottom-right-radius: 6px;
     border-bottom-left-radius: 6px;
@@ -4018,7 +4024,7 @@
 
   .p-splitter {
     border: 1px solid #424b57;
-    background: #202940;
+    background: #1C1D21;
     border-radius: 6px;
     color: rgba(255, 255, 255, 0.87);
   }
@@ -4157,7 +4163,7 @@
     background-color: #1572E8;
   }
   .p-stepper .p-stepper-panels {
-    background: #202940;
+    background: #1C1D21;
     padding: 1.25rem;
     color: rgba(255, 255, 255, 0.87);
   }
@@ -4175,7 +4181,7 @@
   .p-stepper.p-stepper-vertical .p-stepper-toggleable-content {
     display: flex;
     flex: 1 1 auto;
-    background: #202940;
+    background: #1C1D21;
     color: rgba(255, 255, 255, 0.87);
   }
   .p-stepper.p-stepper-vertical .p-stepper-panel {
@@ -4221,7 +4227,7 @@
     border: solid #424b57;
     border-width: 0 0 2px 0;
     border-color: transparent transparent #424b57 transparent;
-    background: #202940;
+    background: #1C1D21;
     color: rgba(255, 255, 255, 0.6);
     padding: 1.25rem;
     font-weight: 700;
@@ -4236,12 +4242,12 @@
     box-shadow: inset 0 0 0 0.2rem rgba(34, 211, 238, 0.2);
   }
   .p-tabview .p-tabview-nav li:not(.p-highlight):not(.p-disabled):hover .p-tabview-nav-link {
-    background: #202940;
+    background: #1C1D21;
     border-color: #1572E8;
     color: rgba(255, 255, 255, 0.87);
   }
   .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-    background: #202940;
+    background: #1C1D21;
     border-color: #1572E8;
     color: #1572E8;
   }
@@ -4255,7 +4261,7 @@
     margin-left: 0.5rem;
   }
   .p-tabview .p-tabview-nav-btn.p-link {
-    background: #202940;
+    background: #1C1D21;
     color: #1572E8;
     width: 3rem;
     box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
@@ -4267,7 +4273,7 @@
     box-shadow: inset 0 0 0 0.2rem rgba(34, 211, 238, 0.2);
   }
   .p-tabview .p-tabview-panels {
-    background: #202940;
+    background: #1C1D21;
     padding: 1.25rem;
     border: 0 none;
     color: rgba(255, 255, 255, 0.87);
@@ -4276,7 +4282,7 @@
   }
 
   .p-toolbar {
-    background: #202940;
+    background: #1F2025;
     border: 1px solid #424b57;
     padding: 1.25rem;
     border-radius: 6px;
@@ -4287,7 +4293,7 @@
   }
 
   .p-confirm-popup {
-    background: #202940;
+    background: #1C1D21;
     color: rgba(255, 255, 255, 0.87);
     border: 1px solid #424b57;
     border-radius: 6px;
@@ -4310,7 +4316,7 @@
   .p-confirm-popup:after {
     border: solid transparent;
     border-color: rgba(31, 41, 55, 0);
-    border-bottom-color: #202940;
+    border-bottom-color: #1C1D21;
   }
   .p-confirm-popup:before {
     border: solid transparent;
@@ -4318,7 +4324,7 @@
     border-bottom-color: #424b57;
   }
   .p-confirm-popup.p-confirm-popup-flipped:after {
-    border-top-color: #202940;
+    border-top-color: #1C1D21;
   }
   .p-confirm-popup.p-confirm-popup-flipped:before {
     border-top-color: #424b57;
@@ -4341,7 +4347,7 @@
   }
   .p-dialog .p-dialog-header {
     border-bottom: 0 none;
-    background: #202940;
+    background: #1C1D21;
     color: rgba(255, 255, 255, 0.87);
     padding: 1.5rem;
     border-top-right-radius: 6px;
@@ -4375,7 +4381,7 @@
     margin-right: 0;
   }
   .p-dialog .p-dialog-content {
-    background: #202940;
+    background: #1C1D21;
     color: rgba(255, 255, 255, 0.87);
     padding: 0 1.5rem 2rem 1.5rem;
   }
@@ -4385,7 +4391,7 @@
   }
   .p-dialog .p-dialog-footer {
     border-top: 0 none;
-    background: #202940;
+    background: #1C1D21;
     color: rgba(255, 255, 255, 0.87);
     padding: 0 1.5rem 1.5rem 1.5rem;
     text-align: right;
@@ -4408,7 +4414,7 @@
   }
 
   .p-overlaypanel {
-    background: #202940;
+    background: #1C1D21;
     color: rgba(255, 255, 255, 0.87);
     border: 1px solid #424b57;
     border-radius: 6px;
@@ -4435,7 +4441,7 @@
   .p-overlaypanel:after {
     border: solid transparent;
     border-color: rgba(31, 41, 55, 0);
-    border-bottom-color: #202940;
+    border-bottom-color: #1C1D21;
   }
   .p-overlaypanel:before {
     border: solid transparent;
@@ -4443,14 +4449,14 @@
     border-bottom-color: #3f4753;
   }
   .p-overlaypanel.p-overlaypanel-flipped:after {
-    border-top-color: #202940;
+    border-top-color: #1C1D21;
   }
   .p-overlaypanel.p-overlaypanel-flipped:before {
     border-top-color: #424b57;
   }
 
   .p-sidebar {
-    background: #202940;
+    background: #1C1D21;
     color: rgba(255, 255, 255, 0.87);
     border: 1px solid #424b57;
     box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
@@ -4511,7 +4517,7 @@
   }
 
   .p-fileupload .p-fileupload-buttonbar {
-    background: #202940;
+    background: #1C1D21;
     padding: 1.25rem;
     border: 1px solid #424b57;
     color: rgba(255, 255, 255, 0.87);
@@ -4528,7 +4534,7 @@
     box-shadow: 0 0 0 0.2rem rgba(34, 211, 238, 0.2);
   }
   .p-fileupload .p-fileupload-content {
-    background: #202940;
+    background: #1C1D21;
     padding: 2rem 1rem;
     border: 1px solid #424b57;
     color: rgba(255, 255, 255, 0.87);
@@ -5178,7 +5184,7 @@
   .p-panelmenu .p-panelmenu-header .p-panelmenu-header-content {
     border: 1px solid #424b57;
     color: rgba(255, 255, 255, 0.87);
-    background: #202940;
+    background: #1C1D21;
     border-radius: 6px;
     transition: box-shadow 0.2s;
   }
@@ -5204,7 +5210,7 @@
     color: rgba(255, 255, 255, 0.87);
   }
   .p-panelmenu .p-panelmenu-header:not(.p-disabled).p-highlight .p-panelmenu-header-content {
-    background: #202940;
+    background: #1C1D21;
     border-color: #424b57;
     color: rgba(255, 255, 255, 0.87);
     border-bottom-right-radius: 0;
@@ -5219,7 +5225,7 @@
   .p-panelmenu .p-panelmenu-content {
     padding: 0.25rem 0;
     border: 1px solid #424b57;
-    background: #202940;
+    background: #1C1D21;
     color: rgba(255, 255, 255, 0.87);
     border-top: 0;
     border-top-right-radius: 0;
@@ -5485,7 +5491,7 @@
     border: solid #424b57;
     border-width: 0 0 2px 0;
     border-color: transparent transparent #424b57 transparent;
-    background: #202940;
+    background: #1C1D21;
     color: rgba(255, 255, 255, 0.6);
     padding: 1.25rem;
     font-weight: 700;
@@ -5503,12 +5509,12 @@
     box-shadow: inset 0 0 0 0.2rem rgba(34, 211, 238, 0.2);
   }
   .p-tabmenu .p-tabmenu-nav .p-tabmenuitem:not(.p-highlight):not(.p-disabled):hover .p-menuitem-link {
-    background: #202940;
+    background: #1C1D21;
     border-color: #1572E8;
     color: rgba(255, 255, 255, 0.87);
   }
   .p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link {
-    background: #202940;
+    background: #1C1D21;
     border-color: #1572E8;
     color: #1572E8;
   }
@@ -5519,7 +5525,7 @@
     margin-left: 0.5rem;
   }
   .p-tabmenu .p-tabmenu-nav-btn.p-link {
-    background: #202940;
+    background: #1C1D21;
     color: #1572E8;
     width: 3rem;
     box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
@@ -6026,7 +6032,7 @@
   }
 
   .p-avatar-group .p-avatar {
-    border: 2px solid #202940;
+    border: 2px solid #1C1D21;
   }
 
   .p-badge {
@@ -6299,7 +6305,7 @@
   }
 
   .p-terminal {
-    background: #202940;
+    background: #1C1D21;
     color: rgba(255, 255, 255, 0.87);
     border: 1px solid #424b57;
     padding: 1.25rem;

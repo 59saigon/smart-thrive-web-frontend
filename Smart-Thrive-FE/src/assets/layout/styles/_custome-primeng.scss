@@ -1,15 +1,36 @@
-.p-accordion .p-accordion-header-link {
-  box-shadow: 2px 6px 15px 0px rgba(69, 65, 78, 0.1);
+.p-accordion .p-accordion-header {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .p-accordion .p-accordion-content {
-  box-shadow: 2px 6px 15px 0px rgba(69, 65, 78, 0.1);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .p-button:enabled:focus {
   outline: 0 none;
   outline-offset: 0px;
   box-shadow: none;
+}
+
+.p-button.p-button-text {
+  color: var(--surface-900);
+}
+
+a {
+  text-decoration: none;
+  color: var(--text-color-secondary);
+} // header in .p-accordion
+
+.card {
+  padding: 2rem;
+  border: 0px;
+  margin-bottom: 2rem;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: $borderRadius;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
 .p-button:focus {
@@ -22,4 +43,33 @@
   border-bottom: 1px solid var(--surface-border);
   margin-bottom: 1rem;
   width: fit-content !important;
+}
+
+.custom-input {
+  //border-radius: 2rem;
+  border: 0px;
+}
+
+.p-inputtext:enabled:focus {
+  box-shadow: none !important;
+}
+
+.p-multiselect-clearable {
+  border-radius: 2rem;
+}
+
+.p-inputtext {
+  background: transparent;
+}
+
+.p-multiselect {
+  background: transparent;
+}
+
+.p-dropdown {
+  background: transparent;
+}
+
+.p-toolbar {
+  border: 0px;
 }
