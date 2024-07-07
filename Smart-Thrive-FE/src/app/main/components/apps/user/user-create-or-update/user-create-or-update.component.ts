@@ -95,7 +95,7 @@ export class UserCreateOrUpdateComponent implements OnInit {
         },
       });
     } else {
-      this.userService.add(this.user).subscribe({
+      this.userService.register(this.user).subscribe({
         next: (response) => {
           this.messageService.add({ severity: 'success', summary: 'Success', detail: response.message });
           this.userService.triggerRefresh();

@@ -1,8 +1,7 @@
 <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
 
 
-<p-dialog [(visible)]="userDialog" [style]="{width: '450px'}" [header]="title" [modal]="true" 
-    styleClass="p-fluid" >
+<p-dialog [(visible)]="userDialog" [style]="{width: '450px'}" [header]="title" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="content">
         <!-- <img [src]="'assets/showcase/images/demo/user/' + user.image" [alt]="user.image" class="user-image" *ngIf="user.image"> -->
         <span class="p-text-secondary block mb-5">{{ information }}</span>
@@ -24,12 +23,19 @@
             <label for="username" class="font-semibold w-6rem">Username</label>
             <input pInputText id="username" [(ngModel)]="user.username" class="flex-auto" autocomplete="off" />
         </div>
-        
+
+        <ng-container *ngIf="user.id == null">
+            <div class="mb-3">
+                <label for="password" class="font-semibold w-6rem">Password</label>
+                <input pInputText id="password" [(ngModel)]="user.password" class="flex-auto" autocomplete="off" />
+            </div>
+        </ng-container>
+
 
         <div class="mb-3">
             <label for="birthday" class="font-semibold w-6rem">Birthday</label>
-            <p-calendar appendTo="body" id="birthday" [(ngModel)]="user.dob" dateFormat="dd/mm/yy" class="flex-auto" autocomplete="off"
-                 [showIcon]="true" inputId="icondisplay" />
+            <p-calendar appendTo="body" id="birthday" [(ngModel)]="user.dob" dateFormat="dd/mm/yy" class="flex-auto"
+                autocomplete="off" [showIcon]="true" inputId="icondisplay" />
         </div>
 
         <div class="flex flex-wrap justify-content-end gap-3 mb-5">
