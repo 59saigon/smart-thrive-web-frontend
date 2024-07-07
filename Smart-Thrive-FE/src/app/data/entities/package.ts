@@ -1,4 +1,6 @@
 import { BaseEntity } from "./baseEntity";
+import { CourseXPackage } from "./courseXpackage";
+import { Student } from "./student";
 
 export interface Package extends BaseEntity {
     studentId?: string; // Assuming Guid is represented as string in TypeScript
@@ -15,9 +17,9 @@ export interface Package extends BaseEntity {
 
     isActive?: boolean;
 
-    // student?: StudentModel;
+    student?: Student;
 
-    // courseXPackages?: CourseXPackage[];
+    courseXPackages?: CourseXPackage[];
 
     // orders?: OrderModel[];
   }

@@ -25,9 +25,15 @@ import { TooltipModule } from 'primeng/tooltip';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { AccordionModule } from 'primeng/accordion';
+import { PackageDetailComponent } from './package-detail/package-detail.component';
+import { PackageCreateOrUpdateComponent } from './package-create-or-update/package-create-or-update.component';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { InputSwitchModule } from 'primeng/inputswitch';
 @NgModule({
   declarations: [
-    PackageComponent
+    PackageComponent,
+    PackageDetailComponent,
+    PackageCreateOrUpdateComponent
   ],
   imports: [
     CommonModule,
@@ -53,7 +59,9 @@ import { AccordionModule } from 'primeng/accordion';
     TooltipModule,
     MultiSelectModule,
     ClipboardModule,
-    AccordionModule
+    AccordionModule,
+    ConfirmDialogModule,
+    InputSwitchModule
   ]
 })
 export class PackageModule { }

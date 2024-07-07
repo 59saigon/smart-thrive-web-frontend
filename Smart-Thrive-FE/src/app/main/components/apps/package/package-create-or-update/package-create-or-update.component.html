@@ -1,0 +1,40 @@
+<button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+
+
+<p-dialog [(visible)]="packageDialog" [style]="{width: '450px'}" [header]="title" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <!-- <img [src]="'assets/showcase/images/demo/package/' + package.image" [alt]="package.image" class="package-image" *ngIf="package.image"> -->
+        <div class="mb-3">
+            <label for="subjectName" class="font-semibold w-6rem">Provider Website</label>
+            <input pInputText id="subjectName" [(ngModel)]="package.packageName" class="flex-auto" autocomplete="off" />
+        </div>
+    
+        <div class="mb-3">
+            <label for="totalPrice" class="font-semibold w-6rem">Total Price</label>
+            <p-inputNumber id="totalPrice" [(ngModel)]="package.totalPrice" class="flex-auto" autocomplete="off" />
+        </div>
+        <div class="mb-3">
+            <label for="isActive" class="font-semibold w-6rem">Is Active</label>
+            <p-inputSwitch id="isActive" [(ngModel)]="package.isActive" class="flex-auto" autocomplete="off" />
+        </div>
+        <div class="mb-3">
+            <label for="startDate" class="font-semibold w-6rem">Start Date</label>
+            <p-calendar appendTo="body" id="startDate" [(ngModel)]="startDate" dateFormat="dd/mm/yy" class="flex-auto"
+                autocomplete="off" [showIcon]="true" inputId="icondisplay" />
+        </div>
+        <div class="mb-3">
+            <label for="endDate" class="font-semibold w-6rem">End Date</label>
+            <p-calendar appendTo="body" id="endDate" [(ngModel)]="endDate" dateFormat="dd/mm/yy" class="flex-auto"
+                autocomplete="off" [showIcon]="true" inputId="icondisplay" />
+        </div>
+
+
+        <div class="flex justify-content-end gap-2">
+            <p-button label="Cancel" severity="secondary" (click)="hideDialog()" />
+            <p-button label="Save" (click)="savePackage()" />
+        </div>
+
+    </ng-template>
+
+
+</p-dialog>

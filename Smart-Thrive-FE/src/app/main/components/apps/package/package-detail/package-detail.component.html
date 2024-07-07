@@ -1,0 +1,29 @@
+<div class="p-fluid">
+    <div class="mb-3">
+        <label for="subjectName" class="font-semibold w-6rem">Student Name</label>
+        <input pInputText id="subjectName" [(ngModel)]="student.studentName" class="flex-auto" autocomplete="off" />
+    </div>
+    <div class="mb-3">
+        <label for="subjectName" class="font-semibold w-6rem">Package Name</label>
+        <input pInputText id="subjectName" [(ngModel)]="package.packageName" class="flex-auto" autocomplete="off" />
+    </div>
+
+    <div class="mb-3">
+        <label for="totalPrice" class="font-semibold w-6rem">Total Price</label>
+        <p-inputNumber id="totalPrice" [(ngModel)]="package.totalPrice" class="flex-auto" autocomplete="off" />
+    </div>
+    <div class="mb-3">
+        <label for="isActive" class="font-semibold w-6rem">Is Active</label>
+        <p-inputSwitch id="isActive" [(ngModel)]="package.isActive" class="flex-auto" autocomplete="off" />
+    </div>
+    <div class="mb-3">
+        <label for="startDate" class="font-semibold w-6rem">Start Date</label>
+        <p-calendar appendTo="body" id="startDate" [(ngModel)]="startDate" dateFormat="dd/mm/yy" class="flex-auto"
+            autocomplete="off" [showIcon]="true" inputId="icondisplay" />
+    </div>
+    <div class="mb-3">
+        <label for="endDate" class="font-semibold w-6rem">End Date</label>
+        <p-calendar appendTo="body" id="endDate" [(ngModel)]="endDate" dateFormat="dd/mm/yy" class="flex-auto"
+            autocomplete="off" [showIcon]="true" inputId="icondisplay" />
+    </div>
+</div>
