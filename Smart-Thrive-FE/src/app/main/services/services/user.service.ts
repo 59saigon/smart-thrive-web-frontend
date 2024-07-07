@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { User } from '../../../data/entities/user';
 import { ConstantsApi } from '../../../shared/constants/constants-api';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { LoginUser } from '../../../data/model/auth';
 import { BaseResponse, LoginResponse, ItemResponse } from '../../../data/model/base-response';
@@ -15,12 +15,20 @@ import { BaseService } from '../base/base.service';
   providedIn: 'root',
 })
 export class UserService extends BaseService<User> {
+  private refreshUserComponent = new Subject<void>();
+
+  refreshUserComponent$ = this.refreshUserComponent.asObservable();
+
+  triggerRefresh() {
+    this.refreshUserComponent.next();
+  }
+
   helper = new JwtHelperService();
 
   constructor(public _http: HttpClient) {
     super(_http, "user");
   }
-  
+
 
   login(model: LoginUser): Observable<LoginResponse<User>> {
     return this.http.post<LoginResponse<User>>(`${ConstantsApi.user.baseUrl}${ConstantsApi.user.login}`, model);

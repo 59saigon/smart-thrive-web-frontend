@@ -30,7 +30,7 @@ export class BaseService<TEntity extends BaseEntity> {
   }
 
   delete(id: Guid): Observable<BaseResponse> {
-    return this.http.delete<BaseResponse>(`${this.getBaseUrl()}${ConstantsApi.delete}/${id}`);
+    return this.http.put<BaseResponse>(`${this.getBaseUrl()}${ConstantsApi.delete}/?id=${id}`, null);
   }
 
   getAllPagination(request: PaginatedRequest): Observable<PaginatedListResponse<TEntity>> {

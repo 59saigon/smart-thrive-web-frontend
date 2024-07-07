@@ -1,0 +1,110 @@
+<button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+
+
+<p-dialog [(visible)]="userDialog" [style]="{width: '450px'}" [header]="title" [modal]="true" 
+    styleClass="p-fluid" >
+    <ng-template pTemplate="content">
+        <!-- <img [src]="'assets/showcase/images/demo/user/' + user.image" [alt]="user.image" class="user-image" *ngIf="user.image"> -->
+        <span class="p-text-secondary block mb-5">{{ information }}</span>
+        <div class="flex gap-3 justify-content-between align-items-center mb-3">
+            <div>
+                <label for="firstName" class="font-semibold w-6rem">First name</label>
+                <input pInputText id="firstName" [(ngModel)]="user.firstName" class="flex-auto" autocomplete="off" />
+            </div>
+            <div>
+                <label for="lastName" class="font-semibold w-6rem">Last name</label>
+                <input pInputText id="lastname" [(ngModel)]="user.lastName" class="flex-auto" autocomplete="off" />
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="font-semibold w-6rem">Email</label>
+            <input pInputText id="email" [(ngModel)]="user.email" class="flex-auto" autocomplete="off" />
+        </div>
+        <div class="mb-3">
+            <label for="username" class="font-semibold w-6rem">Username</label>
+            <input pInputText id="username" [(ngModel)]="user.username" class="flex-auto" autocomplete="off" />
+        </div>
+        
+
+        <div class="mb-3">
+            <label for="birthday" class="font-semibold w-6rem">Birthday</label>
+            <p-calendar appendTo="body" id="birthday" [(ngModel)]="user.dob" dateFormat="dd/mm/yy" class="flex-auto" autocomplete="off"
+                 [showIcon]="true" inputId="icondisplay" />
+        </div>
+
+        <div class="flex flex-wrap justify-content-end gap-3 mb-5">
+            <div class="flex align-items-center">
+                <p-radioButton name="gender" value="Female" [(ngModel)]="selectedGender" inputId="ingredient1" />
+                <label for="ingredient1" class="ml-2">
+                    Female
+                </label>
+            </div>
+
+            <div class="flex align-items-center">
+                <p-radioButton name="gender" value="Male" [(ngModel)]="selectedGender" inputId="ingredient2" />
+                <label for="ingredient2" class="ml-2">
+                    Male
+                </label>
+            </div>
+
+            <div class="flex align-items-center">
+                <p-radioButton name="gender" value="Other" [(ngModel)]="selectedGender" inputId="ingredient3" />
+                <label for="ingredient3" class="ml-2 pr-3">
+                    Other
+                </label>
+                <input type="text" *ngIf="selectedGender !== 'Female' && selectedGender !== 'Male'" pInputText
+                    [(ngModel)]="genderOther" />
+            </div>
+
+        </div>
+
+        <div class="flex justify-content-end gap-2">
+            <p-button label="Cancel" severity="secondary" (click)="hideDialog()" />
+            <p-button label="Save" (click)="saveUser()" />
+        </div>
+
+        <!-- <div class="field">
+            <label for="inventoryStatus">Inventory Status</label>
+            <p-dropdown [(ngModel)]="user.inventoryStatus" inputId="inventoryStatus" [options]="statuses" placeholder="Select">
+                <ng-template let-option pTemplate="item">
+                    <span [class]="'user-badge status-' + option.value">{{option.label}}</span>
+                </ng-template>
+            </p-dropdown>
+        </div> -->
+
+        <!-- <div class="field">
+            <label class="mb-3">Category</label>
+            <div class="formgrid grid">
+                <div class="field-radiobutton col-6">
+                    <p-radioButton id="category1" name="category" value="Accessories" [(ngModel)]="user.category"></p-radioButton>
+                    <label for="category1">Accessories</label>
+                </div>
+                <div class="field-radiobutton col-6">
+                    <p-radioButton id="category2" name="category" value="Clothing" [(ngModel)]="user.category"></p-radioButton>
+                    <label for="category2">Clothing</label>
+                </div>
+                <div class="field-radiobutton col-6">
+                    <p-radioButton id="category3" name="category" value="Electronics" [(ngModel)]="user.category"></p-radioButton>
+                    <label for="category3">Electronics</label>
+                </div>
+                <div class="field-radiobutton col-6">
+                    <p-radioButton id="category4" name="category" value="Fitness" [(ngModel)]="user.category"></p-radioButton>
+                    <label for="category4">Fitness</label>
+                </div>
+            </div>
+        </div> -->
+
+        <!-- <div class="formgrid grid">
+            <div class="field col">
+                <label for="price">Price</label>
+                <p-inputNumber id="price" [(ngModel)]="user.price" mode="currency" currency="USD" locale="en-US"></p-inputNumber>
+            </div>
+            <div class="field col">
+                <label for="quantity">Quantity</label>
+                <p-inputNumber id="quantity" [(ngModel)]="user.quantity"></p-inputNumber>
+            </div>
+        </div> -->
+    </ng-template>
+
+
+</p-dialog>

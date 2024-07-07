@@ -64,7 +64,6 @@ export class StudentComponent implements OnInit {
     this.studentService.getAllPagination(this.paginatedRequest).subscribe({
       next: (response) => {
         this.paginatedListResponse = response;
-        console.log("check_student", this.paginatedListResponse.results);
         this.setPaginatedRequest();
       },
       error: (err) => {

@@ -71,7 +71,6 @@ export class PackageComponent implements OnInit {
     this.packageService.getAllPagination(this.paginatedRequest).subscribe({
       next: (response) => {
         this.paginatedListResponse = response;
-        console.log("check_", this.paginatedListResponse.results);
         this.setPaginatedRequest();
       },
       error: (err) => {
