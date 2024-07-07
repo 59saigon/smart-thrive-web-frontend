@@ -7,14 +7,6 @@ export default [
         sortField: true,
     },
     {
-        field: 'user',
-        subfield: 'email',
-        header: 'User email',
-        isDisabled: false,
-        sortIcon: true,
-        sortField: true
-    },
-    {
         field: 'companyName',
         header: 'Company',
         isDisabled: false,

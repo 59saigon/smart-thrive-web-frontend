@@ -24,11 +24,17 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { AccordionModule } from 'primeng/accordion';
+import { OrderDetailComponent } from './order-detail/order-detail.component';
+import { OrderCreateOrUpdateComponent } from './order-create-or-update/order-create-or-update.component';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { InputSwitchModule } from 'primeng/inputswitch';
 
 
 @NgModule({
   declarations: [
-    OrderComponent
+    OrderComponent,
+    OrderDetailComponent,
+    OrderCreateOrUpdateComponent
   ],
   imports: [
     CommonModule,
@@ -54,7 +60,9 @@ import { AccordionModule } from 'primeng/accordion';
     TooltipModule,
     MultiSelectModule,
     ClipboardModule,
-    AccordionModule
+    AccordionModule,
+    ConfirmDialogModule,
+    InputSwitchModule
   ]
 })
 export class OrderModule { }

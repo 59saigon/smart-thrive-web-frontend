@@ -1,9 +1,11 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Console } from 'console';
 import headerList from './headerList';
 import { Table } from 'primeng/table';
-import { Event } from '@angular/router';
-import { MessageService } from 'primeng/api';
+import { ActivatedRoute, Event, Router } from '@angular/router';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { StudentCreateOrUpdateComponent } from './student-create-or-update/student-create-or-update.component';
+import { StudentDetailComponent } from './student-detail/student-detail.component';
 import { Student } from '../../../../../data/entities/student';
 import { PaginatedRequest } from '../../../../../data/model/paginated-request';
 import { PaginatedListResponse } from '../../../../../data/model/paginated-response';
@@ -16,13 +18,36 @@ import { StudentService } from '../../../../services/services/student.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class StudentComponent implements OnInit {
-  
-  constructor(private studentService: StudentService, private messageService: MessageService) { }
+  @ViewChild(StudentCreateOrUpdateComponent) studentCreateOrUpdateComponent!: StudentCreateOrUpdateComponent;
+  @ViewChild(StudentDetailComponent) studentDetailComponent!: StudentDetailComponent;
+
+  constructor(
+    private studentService: StudentService,
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
+    this.initialize();
+    this.isShowDetail = false;
+
+    this.studentService.refreshComponent$.subscribe(() => {
+      this.initialize();
+    });
+  }
+
+  initialize(): void {
+    this.clear();
     this.getListStudent();
     this.getSelectedColumns();
-    this.student.user?.email
+  }
+
+  clear() {
+    this.student = {} as Student;
+    this.students = [];
+    this.selectedStudents = [];
   }
 
   studentDialog: boolean = false;
@@ -36,7 +61,6 @@ export class StudentComponent implements OnInit {
   submitted: boolean = false;
   cols: any[] = [];
   rowsPerPageOptions = [5, 10, 20, 50];
-  showDetails = false;
   statuses: any[] = [];
   _selectedColumns: any[] = [];
   activeState: boolean[] = [true, false, false];
@@ -59,6 +83,7 @@ export class StudentComponent implements OnInit {
     sortField: 'CreatedDate',
     sortOrder: 1
   };
+
   paginatedListResponse: PaginatedListResponse<Student> = {} as PaginatedListResponse<Student>;
   getListStudent(): void {
     this.studentService.getAllPagination(this.paginatedRequest).subscribe({
@@ -78,7 +103,7 @@ export class StudentComponent implements OnInit {
 
   loadPatientListing(event: any) {
     this.paginatedRequest.pageSize = event.rows;
-    this.paginatedRequest.pageNumber = event.first/event.rows + 1;
+    this.paginatedRequest.pageNumber = event.first / event.rows + 1;
     this.paginatedRequest.sortField = event.sortField;
     this.paginatedRequest.sortOrder = event.sortOrder;
 
@@ -92,43 +117,64 @@ export class StudentComponent implements OnInit {
   }
 
   getNewQuote() {
-    this.messageService.add({severity:'success', summary: 'Success', detail: 'Copied'});
-  }
-
-  openNew() {
-
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Copied' });
   }
 
   deleteSelectedStudents() {
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete the selected students?',
+      header: 'Confirm',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        //call api
+
+        this.selectedStudents.forEach((m) => {
+          this.studentService.delete(m.id).subscribe({
+            next: (response) => {
+              this.ngOnInit();
+            },
+            error: (err) => {
+            },
+          });
+        });
+
+        this.selectedStudents = [];
+        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Students Deleted', life: 3000 });
+      }
+    });
   }
 
   deleteStudent(student: Student) {
-  }
-
-  confirmDelete() {
-
-  }
-
-  confirmDeleteSelected() {
-
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete ' + student.id + '?',
+      header: 'Confirm',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.studentService.delete(student.id).subscribe({
+          next: (response) => {
+            this.ngOnInit();
+          },
+          error: (err) => {
+          },
+        });
+        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Student Deleted', life: 3000 });
+      }
+    });
   }
 
   editStudent(student: Student) {
+    this.studentCreateOrUpdateComponent.student = student;
+    this.studentCreateOrUpdateComponent.ngOnInit();
+    this.studentCreateOrUpdateComponent.editStudent(student);
   }
 
-  saveStudent() {
-
-  }
-
-  hideDialog() {
-
-  }
-
+  isShowDetail: boolean = false;
   navigateAfterSelected(student: Student) {
-
+    this.activeState[1] = true;
+    this.isShowDetail = true;
+    this.studentDetailComponent.student = student;
+    this.studentDetailComponent.ngOnInit();
   }
 
-  onGlobalFilter(table: Table, event: Event) {
-
-  }
+  onGlobalFilter(table: Table, event: Event) { }
 }

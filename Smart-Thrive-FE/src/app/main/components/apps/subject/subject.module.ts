@@ -24,11 +24,16 @@ import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
 import { AccordionModule } from 'primeng/accordion';
+import { SubjectCreateOrUpdateComponent } from './subject-create-or-update/subject-create-or-update.component';
+import { SubjectDetailComponent } from './subject-detail/subject-detail.component';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 
 @NgModule({
   declarations: [
-    SubjectComponent
+    SubjectComponent,
+    SubjectCreateOrUpdateComponent,
+    SubjectDetailComponent
   ],
   imports: [
     CommonModule,
@@ -54,7 +59,8 @@ import { AccordionModule } from 'primeng/accordion';
     TooltipModule,
     MultiSelectModule,
     ClipboardModule,
-    AccordionModule
+    AccordionModule,
+    ConfirmDialogModule
   ]
 })
 export class SubjectModule { }

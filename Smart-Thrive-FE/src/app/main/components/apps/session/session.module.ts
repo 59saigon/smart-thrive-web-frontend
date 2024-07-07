@@ -24,11 +24,16 @@ import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
 import { AccordionModule } from 'primeng/accordion';
+import { SessionCreateOrUpdateComponent } from './session-create-or-update/session-create-or-update.component';
+import { SessionDetailComponent } from './session-detail/session-detail.component';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 
 @NgModule({
   declarations: [
-    SessionComponent
+    SessionComponent,
+    SessionCreateOrUpdateComponent,
+    SessionDetailComponent
   ],
   imports: [
     CommonModule,
@@ -54,7 +59,8 @@ import { AccordionModule } from 'primeng/accordion';
     TooltipModule,
     MultiSelectModule,
     ClipboardModule,
-    AccordionModule
+    AccordionModule,
+    ConfirmDialogModule
   ]
 })
 export class SessionModule { }

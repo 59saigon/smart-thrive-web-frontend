@@ -1,0 +1,47 @@
+<div class="p-fluid">
+    <!-- <img [src]="'assets/showcase/images/demo/student/' + student.image" [alt]="student.image" class="student-image" *ngIf="student.image"> -->
+    <div class="mb-3">
+        <label for="fullname" class="font-semibold w-6rem">Parent name</label>
+        <input pInputText id="fullname" [(ngModel)]="user.fullName" class="flex-auto" autocomplete="off" />
+    </div>
+    <div class="mb-3">
+        <label for="email" class="font-semibold w-6rem">Parent email</label>
+        <input pInputText id="email" [(ngModel)]="user.email" class="flex-auto" autocomplete="off" />
+    </div>
+    <div class="mb-3">
+        <label for="studentName" class="font-semibold w-6rem">Student name</label>
+        <input pInputText id="studentName" [(ngModel)]="student.studentName" class="flex-auto" autocomplete="off" />
+    </div>
+
+    <div class="mb-3">
+        <label for="birthday" class="font-semibold w-6rem">Birthday</label>
+        <p-calendar appendTo="body" id="birthday" [(ngModel)]="dob" dateFormat="dd/mm/yy" class="flex-auto"
+            autocomplete="off" [showIcon]="true" inputId="icondisplay" />
+    </div>
+
+    <div class="flex flex-wrap justify-content-end gap-3 mb-5">
+        <div class="flex align-items-center">
+            <p-radioButton name="gender" value="Female" [(ngModel)]="selectedGender" inputId="ingredient1" />
+            <label for="ingredient1" class="ml-2">
+                Female
+            </label>
+        </div>
+
+        <div class="flex align-items-center">
+            <p-radioButton name="gender" value="Male" [(ngModel)]="selectedGender" inputId="ingredient2" />
+            <label for="ingredient2" class="ml-2">
+                Male
+            </label>
+        </div>
+
+        <div class="flex align-items-center">
+            <p-radioButton name="gender" value="Other" [(ngModel)]="selectedGender" inputId="ingredient3" />
+            <label for="ingredient3" class="ml-2 pr-3">
+                Other
+            </label>
+            <input type="text" *ngIf="selectedGender !== 'Female' && selectedGender !== 'Male'" pInputText
+                [(ngModel)]="genderOther" />
+        </div>
+
+    </div>
+</div>

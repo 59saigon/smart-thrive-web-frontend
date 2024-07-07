@@ -1,0 +1,65 @@
+<div class="p-fluid">
+    <div class="mb-3">
+        <label for="subjectName" class="font-semibold w-6rem">Provider Company</label>
+        <input pInputText id="subjectName" [(ngModel)]="provider.companyName" class="flex-auto" autocomplete="off" />
+    </div>
+    <div class="mb-3">
+        <label for="subjectName" class="font-semibold w-6rem">Provider Website</label>
+        <input pInputText id="subjectName" [(ngModel)]="provider.website" class="flex-auto" autocomplete="off" />
+    </div>
+    <div class="mb-3">
+        <label for="subjectName" class="font-semibold w-6rem">Location</label>
+        <input pInputText id="subjectName" [(ngModel)]="addressLocation" class="flex-auto" autocomplete="off" />
+    </div>
+    <div class="mb-3">
+        <label for="subjectName" class="font-semibold w-6rem">Subject Name</label>
+        <input pInputText id="subjectName" [(ngModel)]="subject.subjectName" class="flex-auto" autocomplete="off" />
+    </div>
+    <div class="mb-3">
+        <label for="courseCode" class="font-semibold w-6rem">Course #</label>
+        <input pInputText id="courseCode" [(ngModel)]="course.code" class="flex-auto" autocomplete="off" />
+    </div>
+    <div class="mb-3">
+        <label for="courseName" class="font-semibold w-6rem">Course Name</label>
+        <input pInputText id="courseName" [(ngModel)]="course.courseName" class="flex-auto" autocomplete="off" />
+    </div>
+    <div class="mb-3">
+        <label for="description" class="font-semibold w-6rem">Description</label>
+        <input pInputText id="description" [(ngModel)]="course.description" class="flex-auto" autocomplete="off" />
+    </div>
+    <div class="mb-3">
+        <label for="price" class="font-semibold w-6rem">Price</label>
+        <p-inputNumber id="price" [(ngModel)]="course.price" class="flex-auto" autocomplete="off" />
+    </div>
+    <div class="mb-3">
+        <label for="quantity" class="font-semibold w-6rem">Quantity</label>
+        <p-inputNumber id="quantity" [(ngModel)]="course.quantity" class="flex-auto" autocomplete="off" />
+    </div>
+    <div class="mb-3">
+        <label for="sold_product" class="font-semibold w-6rem">Solded Course</label>
+        <p-inputNumber id="sold_product" [(ngModel)]="course.sold_product" class="flex-auto" autocomplete="off" />
+    </div>
+    <div class="mb-3">
+        <label for="totalSlot" class="font-semibold w-6rem">Total Slot</label>
+        <p-inputNumber id="totalSlot" [(ngModel)]="course.totalSlot" class="flex-auto" autocomplete="off" />
+    </div>
+    <div class="mb-3">
+        <label for="isApproved" class="font-semibold w-6rem">Is Approved</label>
+        <p-inputSwitch id="isApproved" [(ngModel)]="course.isApproved" class="flex-auto" autocomplete="off" />
+    </div>
+    <div class="mb-3">
+        <label for="isActive" class="font-semibold w-6rem">Is Active</label>
+        <p-inputSwitch id="isActive" [(ngModel)]="course.isActive" class="flex-auto" autocomplete="off" />
+    </div>
+    
+    <div class="mb-3">
+        <label for="startDate" class="font-semibold w-6rem">Learn Date</label>
+        <p-calendar appendTo="body" id="startDate" [(ngModel)]="startDate" dateFormat="dd/mm/yy" class="flex-auto"
+            autocomplete="off" [showIcon]="true" inputId="icondisplay" />
+    </div>
+    <div class="mb-3">
+        <label for="endDate" class="font-semibold w-6rem">Learn Date</label>
+        <p-calendar appendTo="body" id="endDate" [(ngModel)]="endDate" dateFormat="dd/mm/yy" class="flex-auto"
+            autocomplete="off" [showIcon]="true" inputId="icondisplay" />
+    </div>
+</div>

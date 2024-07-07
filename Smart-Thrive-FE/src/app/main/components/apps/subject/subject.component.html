@@ -1,40 +1,39 @@
 <p-toast [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'200ms'" [hideTransitionOptions]="'500ms'"
     [showTransformOptions]="'translateX(100%)'" />
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
 
 <div class="py-3">
     <p-button [icon]="activeState[0] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(0)" styleClass="p-button-text"
         label="Subject List"></p-button>
     <p-button [icon]="activeState[1] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(1)" styleClass="p-button-text ml-2"
-        label="Course List"></p-button>
+        label="Subject List"></p-button>
 </div>
 
 <p-accordion [multiple]="true">
     <p-accordionTab header="Subject List" [(selected)]="activeState[0]">
         <div class="grid">
             <div class="col-12">
-                <p-toolbar styleClass="mb-4">
+                <div class="card">
+                    <p-toolbar styleClass="mb-4">
 
-                    <ng-template pTemplate="left">
-                        <div class="my-2">
-                            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"
-                                (click)="openNew()"></button>
-                            <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger"
-                                (click)="deleteSelectedSubjects()" [disabled]="
+                        <ng-template pTemplate="left">
+                            <div class="my-2">
+                                <app-subject-create-or-update></app-subject-create-or-update>
+                                <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger"
+                                    (click)="deleteSelectedSubjects()" [disabled]="
                                         !selectedSubjects || !selectedSubjects.length
                                     "></button>
-                        </div>
-                    </ng-template>
+                            </div>
+                        </ng-template>
 
-                    <ng-template pTemplate="right">
-                        <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import"
-                            chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload>
-                        <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"
-                            (click)="dt.exportCSV()"></button>
-                    </ng-template>
+                        <ng-template pTemplate="right">
+                            <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import"
+                                chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload>
+                            <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"
+                                (click)="dt.exportCSV()"></button>
+                        </ng-template>
 
-                </p-toolbar>
-
-                <div class="card">
+                    </p-toolbar>
                     <p-table #dt [value]="paginatedListResponse.results" styleClass="p-datatable-sm"
                         responsiveLayout="stack" [breakpoint]="'960px'" [columns]="selectedColumns"
                         responsiveLayout="scroll" [globalFilterFields]="['eventName']" [paginator]="true"
@@ -103,9 +102,8 @@
 
                                     <ng-template #newId>
                                         <ng-container *ngIf="col.field === 'id'; else otherId">
-                                            <a [routerLink]="[]" (click)="navigateAfterSelected(subject)"
-                                                class="button-id" [autoHide]="false" [pTooltip]="subject[col.field]">{{
-                                                subject[col.field] }}
+                                            <a [routerLink]="[]" (click)="navigateAfterSelected(subject)" class="button-id"
+                                                [autoHide]="false" [pTooltip]="subject[col.field]">{{ subject[col.field] }}
                                             </a>
                                         </ng-container>
                                     </ng-template>
@@ -134,26 +132,21 @@
                                 <td>
                                     <div class="flex">
                                         <button pButton pRipple icon="pi pi-pencil"
-                                            class="p-button-rounded p-button-text"
-                                            (click)="editSubject(subject)"></button>
+                                            class="p-button-rounded p-button-text" (click)="editSubject(subject)"></button>
                                         <button pButton pRipple icon="pi pi-trash"
-                                            class="p-button-rounded p-button-text"
-                                            (click)="deleteSubject(subject)"></button>
+                                            class="p-button-rounded p-button-text" (click)="deleteSubject(subject)"></button>
                                     </div>
                                 </td>
                             </tr>
                         </ng-template>
                     </p-table>
                 </div>
-
             </div>
         </div>
     </p-accordionTab>
-    <p-accordionTab header="Course List" [(selected)]="activeState[1]">
-        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
-            aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-            architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
-            odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
-            voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.</p>
+    <p-accordionTab header="Subject Details" [(selected)]="activeState[1]">
+        <div [ngClass]="{'hidden': !isShowDetail}">
+            <app-subject-detail></app-subject-detail>
+        </div>
     </p-accordionTab>
 </p-accordion>

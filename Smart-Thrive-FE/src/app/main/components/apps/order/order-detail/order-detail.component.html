@@ -1,0 +1,27 @@
+<div class="p-fluid">
+    <div class="mb-3">
+        <label for="subjectName" class="font-semibold w-6rem">Package Name</label>
+        <input pInputText id="subjectName" [(ngModel)]="package.packageName" class="flex-auto" autocomplete="off" />
+    </div>
+    <div class="mb-3">
+        <label for="orderName" class="font-semibold w-6rem">Order Name</label>
+        <input pInputText id="orderName" [(ngModel)]="order.paymentMethod" class="flex-auto" autocomplete="off" />
+    </div>
+    <div class="mb-3">
+        <label for="totalPrice" class="font-semibold w-6rem">Amount</label>
+        <p-inputNumber id="totalPrice" [(ngModel)]="order.amount" class="flex-auto" autocomplete="off" />
+    </div>
+    <div class="mb-3">
+        <label for="totalPrice" class="font-semibold w-6rem">Total Price</label>
+        <p-inputNumber id="totalPrice" [(ngModel)]="order.totalPrice" class="flex-auto" autocomplete="off" />
+    </div>
+    <div class="mb-3">
+        <label for="description" class="font-semibold w-6rem">Description</label>
+        <input pInputText id="description" [(ngModel)]="order.description" class="flex-auto" autocomplete="off" />
+    </div>
+    <div class="mb-3">
+        <label for="status" class="font-semibold w-6rem">Status</label>
+        <p-inputSwitch id="status" [(ngModel)]="order.status" class="flex-auto" autocomplete="off" />
+    </div>
+
+</div>
