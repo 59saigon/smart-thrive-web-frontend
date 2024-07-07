@@ -1,9 +1,11 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Console } from 'console';
 import headerList from './headerList';
 import { Table } from 'primeng/table';
-import { Event } from '@angular/router';
-import { MessageService } from 'primeng/api';
+import { ActivatedRoute, Event, Router } from '@angular/router';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ProviderCreateOrUpdateComponent } from './provider-create-or-update/provider-create-or-update.component';
+import { ProviderDetailComponent } from './provider-detail/provider-detail.component';
 import { Provider } from '../../../../../data/entities/provider';
 import { PaginatedRequest } from '../../../../../data/model/paginated-request';
 import { PaginatedListResponse } from '../../../../../data/model/paginated-response';
@@ -16,12 +18,36 @@ import { ProviderService } from '../../../../services/services/provider.service'
   encapsulation: ViewEncapsulation.None,
 })
 export class ProviderComponent implements OnInit {
-  
-  constructor(private providerService: ProviderService, private messageService: MessageService) { }
+  @ViewChild(ProviderCreateOrUpdateComponent) providerCreateOrUpdateComponent!: ProviderCreateOrUpdateComponent;
+  @ViewChild(ProviderDetailComponent) providerDetailComponent!: ProviderDetailComponent;
+
+  constructor(
+    private providerService: ProviderService,
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
+    this.initialize();
+    this.isShowDetail = false;
+
+    this.providerService.refreshComponent$.subscribe(() => {
+      this.initialize();
+    });
+  }
+
+  initialize(): void {
+    this.clear();
     this.getListProvider();
     this.getSelectedColumns();
+  }
+
+  clear() {
+    this.provider = {} as Provider;
+    this.providers = [];
+    this.selectedProviders = [];
   }
 
   providerDialog: boolean = false;
@@ -35,7 +61,6 @@ export class ProviderComponent implements OnInit {
   submitted: boolean = false;
   cols: any[] = [];
   rowsPerPageOptions = [5, 10, 20, 50];
-  showDetails = false;
   statuses: any[] = [];
   _selectedColumns: any[] = [];
   activeState: boolean[] = [true, false, false];
@@ -58,6 +83,7 @@ export class ProviderComponent implements OnInit {
     sortField: 'CreatedDate',
     sortOrder: 1
   };
+
   paginatedListResponse: PaginatedListResponse<Provider> = {} as PaginatedListResponse<Provider>;
   getListProvider(): void {
     this.providerService.getAllPagination(this.paginatedRequest).subscribe({
@@ -77,7 +103,7 @@ export class ProviderComponent implements OnInit {
 
   loadPatientListing(event: any) {
     this.paginatedRequest.pageSize = event.rows;
-    this.paginatedRequest.pageNumber = event.first/event.rows + 1;
+    this.paginatedRequest.pageNumber = event.first / event.rows + 1;
     this.paginatedRequest.sortField = event.sortField;
     this.paginatedRequest.sortOrder = event.sortOrder;
 
@@ -91,43 +117,64 @@ export class ProviderComponent implements OnInit {
   }
 
   getNewQuote() {
-    this.messageService.add({severity:'success', summary: 'Success', detail: 'Copied'});
-  }
-
-  openNew() {
-
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Copied' });
   }
 
   deleteSelectedProviders() {
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete the selected providers?',
+      header: 'Confirm',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        //call api
+
+        this.selectedProviders.forEach((m) => {
+          this.providerService.delete(m.id).subscribe({
+            next: (response) => {
+              this.ngOnInit();
+            },
+            error: (err) => {
+            },
+          });
+        });
+
+        this.selectedProviders = [];
+        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Providers Deleted', life: 3000 });
+      }
+    });
   }
 
   deleteProvider(provider: Provider) {
-  }
-
-  confirmDelete() {
-
-  }
-
-  confirmDeleteSelected() {
-
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete ' + provider.id + '?',
+      header: 'Confirm',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.providerService.delete(provider.id).subscribe({
+          next: (response) => {
+            this.ngOnInit();
+          },
+          error: (err) => {
+          },
+        });
+        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Provider Deleted', life: 3000 });
+      }
+    });
   }
 
   editProvider(provider: Provider) {
+    this.providerCreateOrUpdateComponent.provider = provider;
+    this.providerCreateOrUpdateComponent.ngOnInit();
+    this.providerCreateOrUpdateComponent.editProvider(provider);
   }
 
-  saveProvider() {
-
-  }
-
-  hideDialog() {
-
-  }
-
+  isShowDetail: boolean = false;
   navigateAfterSelected(provider: Provider) {
-
+    this.activeState[1] = true;
+    this.isShowDetail = true;
+    this.providerDetailComponent.provider = provider;
+    this.providerDetailComponent.ngOnInit();
   }
 
-  onGlobalFilter(table: Table, event: Event) {
-
-  }
+  onGlobalFilter(table: Table, event: Event) { }
 }

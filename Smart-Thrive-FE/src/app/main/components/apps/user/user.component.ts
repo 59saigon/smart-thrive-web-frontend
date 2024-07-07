@@ -33,7 +33,7 @@ export class UserComponent implements OnInit {
     this.initialize();
     this.isShowDetail = false;
 
-    this.userService.refreshUserComponent$.subscribe(() => {
+    this.userService.refreshComponent$.subscribe(() => {
       this.initialize();
     });
   }

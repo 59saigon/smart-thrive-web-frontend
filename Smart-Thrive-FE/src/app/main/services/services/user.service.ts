@@ -15,12 +15,12 @@ import { BaseService } from '../base/base.service';
   providedIn: 'root',
 })
 export class UserService extends BaseService<User> {
-  private refreshUserComponent = new Subject<void>();
+  private refreshComponent = new Subject<void>();
 
-  refreshUserComponent$ = this.refreshUserComponent.asObservable();
+  refreshComponent$ = this.refreshComponent.asObservable();
 
   triggerRefresh() {
-    this.refreshUserComponent.next();
+    this.refreshComponent.next();
   }
 
   helper = new JwtHelperService();

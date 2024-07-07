@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ConstantsApi } from '../../../shared/constants/constants-api';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Package } from '../../../data/entities/package';
 import { Guid } from 'guid-typescript';
@@ -13,6 +13,15 @@ import { BaseService } from '../base/base.service';
   providedIn: 'root',
 })
 export class PackageService extends BaseService<Package> {
+
+  private refreshComponent = new Subject<void>();
+
+  refreshComponent$ = this.refreshComponent.asObservable();
+
+  triggerRefresh() {
+    this.refreshComponent.next();
+  }
+
   constructor(public _http: HttpClient) {
     super(_http, 'package')
   }
