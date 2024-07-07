@@ -1,13 +1,15 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Console } from 'console';
 import headerList from './headerList';
 import { Table } from 'primeng/table';
-import { Event } from '@angular/router';
-import { MessageService } from 'primeng/api';
+import { ActivatedRoute, Event, Router } from '@angular/router';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { SubjectCreateOrUpdateComponent } from './subject-create-or-update/subject-create-or-update.component';
+import { SubjectDetailComponent } from './subject-detail/subject-detail.component';
+import { SubjectService } from '../../../services/services/subject.service';
 import { Subject } from '../../../../data/entities/subject';
 import { PaginatedRequest } from '../../../../data/model/paginated-request';
 import { PaginatedListResponse } from '../../../../data/model/paginated-response';
-import { SubjectService } from '../../../services/services/subject.service';
 
 @Component({
   selector: 'app-subject',
@@ -16,12 +18,36 @@ import { SubjectService } from '../../../services/services/subject.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class SubjectComponent implements OnInit {
-  
-  constructor(private subjectService: SubjectService, private messageService: MessageService) { }
+  @ViewChild(SubjectCreateOrUpdateComponent) subjectCreateOrUpdateComponent!: SubjectCreateOrUpdateComponent;
+  @ViewChild(SubjectDetailComponent) subjectDetailComponent!: SubjectDetailComponent;
+
+  constructor(
+    private subjectService: SubjectService,
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
+    this.initialize();
+    this.isShowDetail = false;
+
+    this.subjectService.refreshComponent$.subscribe(() => {
+      this.initialize();
+    });
+  }
+
+  initialize(): void {
+    this.clear();
     this.getListSubject();
     this.getSelectedColumns();
+  }
+
+  clear() {
+    this.subject = {} as Subject;
+    this.subjects = [];
+    this.selectedSubjects = [];
   }
 
   subjectDialog: boolean = false;
@@ -35,7 +61,6 @@ export class SubjectComponent implements OnInit {
   submitted: boolean = false;
   cols: any[] = [];
   rowsPerPageOptions = [5, 10, 20, 50];
-  showDetails = false;
   statuses: any[] = [];
   _selectedColumns: any[] = [];
   activeState: boolean[] = [true, false, false];
@@ -58,6 +83,7 @@ export class SubjectComponent implements OnInit {
     sortField: 'CreatedDate',
     sortOrder: 1
   };
+
   paginatedListResponse: PaginatedListResponse<Subject> = {} as PaginatedListResponse<Subject>;
   getListSubject(): void {
     this.subjectService.getAllPagination(this.paginatedRequest).subscribe({
@@ -77,7 +103,7 @@ export class SubjectComponent implements OnInit {
 
   loadPatientListing(event: any) {
     this.paginatedRequest.pageSize = event.rows;
-    this.paginatedRequest.pageNumber = event.first/event.rows + 1;
+    this.paginatedRequest.pageNumber = event.first / event.rows + 1;
     this.paginatedRequest.sortField = event.sortField;
     this.paginatedRequest.sortOrder = event.sortOrder;
 
@@ -91,43 +117,64 @@ export class SubjectComponent implements OnInit {
   }
 
   getNewQuote() {
-    this.messageService.add({severity:'success', summary: 'Success', detail: 'Copied'});
-  }
-
-  openNew() {
-
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Copied' });
   }
 
   deleteSelectedSubjects() {
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete the selected subjects?',
+      header: 'Confirm',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        //call api
+
+        this.selectedSubjects.forEach((m) => {
+          this.subjectService.delete(m.id).subscribe({
+            next: (response) => {
+              this.ngOnInit();
+            },
+            error: (err) => {
+            },
+          });
+        });
+
+        this.selectedSubjects = [];
+        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Subjects Deleted', life: 3000 });
+      }
+    });
   }
 
   deleteSubject(subject: Subject) {
-  }
-
-  confirmDelete() {
-
-  }
-
-  confirmDeleteSelected() {
-
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete ' + subject.id + '?',
+      header: 'Confirm',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.subjectService.delete(subject.id).subscribe({
+          next: (response) => {
+            this.ngOnInit();
+          },
+          error: (err) => {
+          },
+        });
+        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Subject Deleted', life: 3000 });
+      }
+    });
   }
 
   editSubject(subject: Subject) {
+    this.subjectCreateOrUpdateComponent.subject = subject;
+    this.subjectCreateOrUpdateComponent.ngOnInit();
+    this.subjectCreateOrUpdateComponent.editSubject(subject);
   }
 
-  saveSubject() {
-
-  }
-
-  hideDialog() {
-
-  }
-
+  isShowDetail: boolean = false;
   navigateAfterSelected(subject: Subject) {
-
+    this.activeState[1] = true;
+    this.isShowDetail = true;
+    this.subjectDetailComponent.subject = subject;
+    this.subjectDetailComponent.ngOnInit();
   }
 
-  onGlobalFilter(table: Table, event: Event) {
-
-  }
+  onGlobalFilter(table: Table, event: Event) { }
 }

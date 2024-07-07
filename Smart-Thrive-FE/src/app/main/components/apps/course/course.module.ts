@@ -25,10 +25,16 @@ import { TooltipModule } from 'primeng/tooltip';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import {AccordionModule} from 'primeng/accordion';
+import { CourseCreateOrUpdateComponent } from './course-create-or-update/course-create-or-update.component';
+import { CourseDetailComponent } from './course-detail/course-detail.component';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { InputSwitchModule } from 'primeng/inputswitch';
 
 @NgModule({
   declarations: [
-    CourseComponent
+    CourseComponent,
+    CourseCreateOrUpdateComponent,
+    CourseDetailComponent
   ],
   imports: [
     CommonModule,
@@ -55,6 +61,8 @@ import {AccordionModule} from 'primeng/accordion';
     MultiSelectModule,
     ClipboardModule,
     AccordionModule,
+    ConfirmDialogModule,
+    InputSwitchModule
   ]
 })
 export class CourseModule { }
