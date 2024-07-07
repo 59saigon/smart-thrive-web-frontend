@@ -1,0 +1,190 @@
+<div class="p-fluid">
+        <!-- <img [src]="'assets/showcase/images/demo/user/' + user.image" [alt]="user.image" class="user-image" *ngIf="user.image"> -->
+        <div class="flex gap-3 justify-content-between align-items-center mb-3">
+            <div>
+                <label for="firstName" class="font-semibold w-6rem">First name</label>
+                <input pInputText id="firstName" [(ngModel)]="user.firstName" class="flex-auto" autocomplete="off" />
+            </div>
+            <div>
+                <label for="lastName" class="font-semibold w-6rem">Last name</label>
+                <input pInputText id="lastname" [(ngModel)]="user.lastName" class="flex-auto" autocomplete="off" />
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="font-semibold w-6rem">Email</label>
+            <input pInputText id="email" [(ngModel)]="user.email" class="flex-auto" autocomplete="off" />
+        </div>
+        <div class="mb-3">
+            <label for="username" class="font-semibold w-6rem">Username</label>
+            <input pInputText id="username" [(ngModel)]="user.username" class="flex-auto" autocomplete="off" />
+        </div>
+
+        <ng-container *ngIf="user.id == null">
+            <div class="mb-3">
+                <label for="password" class="font-semibold w-6rem">Password</label>
+                <input pInputText id="password" [(ngModel)]="user.password" class="flex-auto" autocomplete="off" />
+            </div>
+        </ng-container>
+
+
+        <div class="mb-3">
+            <label for="birthday" class="font-semibold w-6rem">Birthday</label>
+            <p-calendar appendTo="body" id="birthday" [(ngModel)]="dob" dateFormat="dd/mm/yy" class="flex-auto"
+                autocomplete="off" [showIcon]="true" inputId="icondisplay" />
+        </div>
+
+        <div class="flex flex-wrap justify-content-end gap-3 mb-5">
+            <div class="flex align-items-center">
+                <p-radioButton name="gender" value="Female" [(ngModel)]="selectedGender" inputId="ingredient1" />
+                <label for="ingredient1" class="ml-2">
+                    Female
+                </label>
+            </div>
+
+            <div class="flex align-items-center">
+                <p-radioButton name="gender" value="Male" [(ngModel)]="selectedGender" inputId="ingredient2" />
+                <label for="ingredient2" class="ml-2">
+                    Male
+                </label>
+            </div>
+
+            <div class="flex align-items-center">
+                <p-radioButton name="gender" value="Other" [(ngModel)]="selectedGender" inputId="ingredient3" />
+                <label for="ingredient3" class="ml-2 pr-3">
+                    Other
+                </label>
+                <input type="text" *ngIf="selectedGender !== 'Female' && selectedGender !== 'Male'" pInputText
+                    [(ngModel)]="genderOther" />
+            </div>
+
+        </div>
+</div>
+
+<div class="grid">
+    <div class="col-12">
+        <p-toolbar styleClass="mb-4">
+
+            <ng-template pTemplate="left">
+                <div class="my-2">
+                    <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"
+                        (click)="openNew()"></button>
+                    <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger"
+                        (click)="deleteSelectedStudents()" [disabled]="
+                                !selectedStudents || !selectedStudents.length
+                            "></button>
+                </div>
+            </ng-template>
+
+        </p-toolbar>
+
+        <div class="card">
+            <p-table #dt [value]="paginatedListResponse.results" styleClass="p-datatable-sm"
+                responsiveLayout="stack" [breakpoint]="'960px'"
+                [columns]="selectedColumns" responsiveLayout="scroll"
+                [rows]="10" [globalFilterFields]="['eventName']"
+                [paginator]="true" [rowsPerPageOptions]="[10, 20, 30]"
+                [showCurrentPageReport]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [(selection)]="selectedStudents" selectionMode="multiple"
+                [rowHover]="true" dataKey="id">
+
+
+                <ng-template pTemplate="caption">
+                    <div class="flex justify-content-between">
+                        <div
+                            class="flex flex-column md:flex-row md:justify-content-between md:align-items-center w-4">
+                            <!-- <h5 class="m-0">Manage Courses</h5> -->
+
+                            <span class="block mt-2 md:mt-0 p-input-icon-left w-full">
+                                <i class="pi pi-search"></i>
+                                <!-- (input)="onGlobalFilter(dt, $event)" -->
+                                <input style="border-radius: 2rem !important;" pInputText type="text"
+                                    placeholder="Search..." class="custom-input md:w-full sm:w-auto" />
+                            </span>
+                        </div>
+                        <div class="flex flex-wrap  gap-2 w-4">
+
+
+                            <div
+                                class="flex flex-column md:flex-row md:justify-content-between md:align-items-center w-full">
+                                <p-multiSelect inputId="multiselect" [options]="cols"
+                                    [(ngModel)]="selectedColumns" optionLabel="header" [maxSelectedLabels]="99"
+                                    selectedItemsLabel="{0} columns selected" placeholder="Choose Columns"
+                                    [showClear]="true" [filter]="true" [panelStyle]="{'width':'250px'}" />
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+
+                        <th pSortableColumn="{{col.field}}"
+                            [pSortableColumnDisabled]="!col.sortField ? true : false"
+                            *ngFor="let col of columns">
+                            {{ col.header }}
+                            <p-sortIcon *ngIf="col.sortIcon" field="{{col.field}}" ariaLabel="Activate to sort"
+                                ariaLabelDesc="Activate to sort in descending order"
+                                ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                        </th>
+                        <th>Actions</th>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-student let-columns="columns">
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="student"></p-tableCheckbox>
+                        </td>
+
+                        <td *ngFor="let col of columns" style="width: 14%; min-width: 10rem">
+                            <ng-container *ngIf="col.subfield; else newId">
+                                {{ student[col.field][col.subfield] }}
+                            </ng-container>
+
+                            <ng-template #newId>
+                                <ng-container *ngIf="col.field === 'id'; else otherId">
+                                    <a
+                                        class="button-id" [autoHide]="false" [pTooltip]="student[col.field]">{{
+                                        student[col.field] }}
+                                    </a>
+                                </ng-container>
+                            </ng-template>
+
+                            <ng-template #otherId>
+                                <ng-container *ngIf="col.field.includes('Id'); else otherFields">
+
+                                    <a (click)="getNewQuote()"
+                                        [cdkCopyToClipboard]="student[col.field]" class="button-other-id"
+                                        [autoHide]="false" [pTooltip]="tooltipContent">{{
+                                        student[col.field] }}</a>
+
+                                </ng-container>
+
+                                <ng-template #tooltipContent>
+                                    {{ student[col.field] }}
+                                    <br />
+                                    <br />
+                                    Click to copy
+                                </ng-template>
+                            </ng-template>
+                            <ng-template #otherFields>
+                                {{ student[col.field] }}
+                            </ng-template>
+                        </td>
+                        <td>
+                            <div class="flex">
+                                <button pButton pRipple icon="pi pi-trash"
+                                    class="p-button-rounded p-button-text"
+                                    (click)="deleteStudent(student)"></button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>

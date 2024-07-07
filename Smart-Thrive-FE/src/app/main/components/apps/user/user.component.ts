@@ -2,13 +2,14 @@ import { Component, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular
 import { Console } from 'console';
 import headerList from './headerList';
 import { Table } from 'primeng/table';
-import { Event } from '@angular/router';
+import { ActivatedRoute, Event, Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { User } from '../../../../data/entities/user';
 import { PaginatedRequest } from '../../../../data/model/paginated-request';
 import { PaginatedListResponse } from '../../../../data/model/paginated-response';
 import { UserService } from '../../../services/services/user.service';
 import { UserCreateOrUpdateComponent } from './user-create-or-update/user-create-or-update.component';
+import { UserDetailComponent } from './user-detail/user-detail.component';
 
 @Component({
   selector: 'app-user',
@@ -18,15 +19,19 @@ import { UserCreateOrUpdateComponent } from './user-create-or-update/user-create
 })
 export class UserComponent implements OnInit {
   @ViewChild(UserCreateOrUpdateComponent) userCreateOrUpdateComponent!: UserCreateOrUpdateComponent;
+  @ViewChild(UserDetailComponent) userDetailComponent!: UserDetailComponent;
 
   constructor(
     private userService: UserService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.initialize();
+    this.isShowDetail = false;
 
     this.userService.refreshUserComponent$.subscribe(() => {
       this.initialize();
@@ -56,7 +61,6 @@ export class UserComponent implements OnInit {
   submitted: boolean = false;
   cols: any[] = [];
   rowsPerPageOptions = [5, 10, 20, 50];
-  showDetails = false;
   statuses: any[] = [];
   _selectedColumns: any[] = [];
   activeState: boolean[] = [true, false, false];
@@ -164,7 +168,14 @@ export class UserComponent implements OnInit {
     this.userCreateOrUpdateComponent.editUser(user);
   }
 
-  navigateAfterSelected(user: User) { }
+  isShowDetail: boolean = false;
+  navigateAfterSelected(user: User) {
+    this.activeState[1] = true;
+    this.isShowDetail = true;
+    this.userDetailComponent.user = user;
+    console.log("check_user", user);
+    this.userDetailComponent.ngOnInit();
+  }
 
   onGlobalFilter(table: Table, event: Event) { }
 }

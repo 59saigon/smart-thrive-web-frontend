@@ -29,10 +29,12 @@ import {ClipboardModule} from '@angular/cdk/clipboard';
 import { AccordionModule } from 'primeng/accordion';
 import { UserCreateOrUpdateComponent } from './user-create-or-update/user-create-or-update.component';
 import { PasswordModule } from 'primeng/password';
+import { UserDetailComponent } from './user-detail/user-detail.component';
 @NgModule({
   declarations: [
     UserComponent,
-    UserCreateOrUpdateComponent
+    UserCreateOrUpdateComponent,
+    UserDetailComponent
   ],
   imports: [
     CommonModule,

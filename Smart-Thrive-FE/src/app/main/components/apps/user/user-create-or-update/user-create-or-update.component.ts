@@ -12,7 +12,6 @@ import { DatePipe } from '@angular/common';
 })
 export class UserCreateOrUpdateComponent implements OnInit {
 
-  @ViewChild(UserComponent) userComponent!: UserComponent;
   user: User = {} as User;
   genderOther!: string;
   selectedGender!: string;
@@ -32,7 +31,6 @@ export class UserCreateOrUpdateComponent implements OnInit {
 
   ngOnInit(): void {
     this.setTitleAndInformation();
-    
   }
 
   setTitleAndInformation() {

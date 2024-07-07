@@ -1,6 +1,7 @@
 import { BaseEntity } from "./baseEntity";
 import { Location } from "./location";
 import { Role } from "./role";
+import { Student } from "./student";
 
 export interface User extends BaseEntity {
   firstName: string; // Required field, not nullable
@@ -19,4 +20,5 @@ export interface User extends BaseEntity {
   status?: string; // Nullable
   role: Role; 
   location?: Location;
+  students?: Student[];
 }
