@@ -15,9 +15,8 @@ import { MessageService } from 'primeng/api';
 export class RegisterComponent implements OnInit {
 
   user: User = {} as User;
-  firstName!: string;
-  lastName!: string;
   gender!: string;
+  dob!: Date;
   confirmPassword!: string;
 
   constructor(public userService: UserService, private router: Router, private messageService: MessageService) { }
@@ -51,7 +50,7 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
-    this.user.fullName = this.firstName + " " + this.lastName;
+    this.user.fullName = this.user.firstName + " " + this.user.lastName;
     if (this.gender) {
       this.user.gender = this.gender;
     }

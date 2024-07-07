@@ -80,7 +80,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.itemListResponse = response;
         this.orders = this.itemListResponse.results;
         this.initChart();
-        console.log("check_order", this.orders)
       },
       error: (err) => {
         console.log("check_error", err);
@@ -173,7 +172,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
     const averagePriceOrders = this.averagePriceMonthlyOrders();
-    console.log('check_priceavg', averagePriceOrders);
     const averageQuantityOrders = this.averageQuantityMonthlyOrders();
 
     this.chartOrder = {

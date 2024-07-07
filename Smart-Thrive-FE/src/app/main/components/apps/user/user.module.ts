@@ -23,12 +23,16 @@ import { PanelModule } from 'primeng/panel';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { TooltipModule } from 'primeng/tooltip';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 import {ClipboardModule} from '@angular/cdk/clipboard';
 import { AccordionModule } from 'primeng/accordion';
+import { UserCreateOrUpdateComponent } from './user-create-or-update/user-create-or-update.component';
+import { PasswordModule } from 'primeng/password';
 @NgModule({
   declarations: [
-    UserComponent
+    UserComponent,
+    UserCreateOrUpdateComponent
   ],
   imports: [
     CommonModule,
@@ -54,7 +58,9 @@ import { AccordionModule } from 'primeng/accordion';
     TooltipModule,
     MultiSelectModule,
     ClipboardModule,
-    AccordionModule
+    AccordionModule,
+    ConfirmDialogModule,
+    PasswordModule
   ]
 })
 export class UserModule { }

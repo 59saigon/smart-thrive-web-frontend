@@ -17,8 +17,8 @@
             <div class="main-auth-register-content-main-input">
 
                 <div class="field flex flex-row column-gap-3 w-full">
-                    <input [(ngModel)]="firstName" pInputText placeholder="First name" required />
-                    <input [(ngModel)]="lastName" pInputText placeholder="Last name" required />
+                    <input [(ngModel)]="user.firstName" pInputText placeholder="First name" required />
+                    <input [(ngModel)]="user.lastName" pInputText placeholder="Last name" required />
                 </div>
                 <input class="field" name="email" [(ngModel)]="user.email" pInputText placeholder="Email" required/>
                 <input class="field" name="username" [(ngModel)]="user.username" pInputText placeholder="Username" required />

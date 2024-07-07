@@ -3,6 +3,8 @@ import { Location } from "./location";
 import { Role } from "./role";
 
 export interface User extends BaseEntity {
+  firstName: string; // Required field, not nullable
+  lastName: string; // Required field, not nullable
   fullName: string; // Required field, not nullable
   email?: string; // Nullable
   dob: Date; // Required field

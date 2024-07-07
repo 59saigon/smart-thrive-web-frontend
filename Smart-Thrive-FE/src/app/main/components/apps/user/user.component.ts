@@ -1,13 +1,14 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Console } from 'console';
 import headerList from './headerList';
 import { Table } from 'primeng/table';
 import { Event } from '@angular/router';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { User } from '../../../../data/entities/user';
 import { PaginatedRequest } from '../../../../data/model/paginated-request';
 import { PaginatedListResponse } from '../../../../data/model/paginated-response';
 import { UserService } from '../../../services/services/user.service';
+import { UserCreateOrUpdateComponent } from './user-create-or-update/user-create-or-update.component';
 
 @Component({
   selector: 'app-user',
@@ -16,12 +17,32 @@ import { UserService } from '../../../services/services/user.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class UserComponent implements OnInit {
-  
-  constructor(private userService: UserService, private messageService: MessageService) { }
+  @ViewChild(UserCreateOrUpdateComponent) userCreateOrUpdateComponent!: UserCreateOrUpdateComponent;
+
+  constructor(
+    private userService: UserService,
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService,
+  ) { }
 
   ngOnInit(): void {
+    this.initialize();
+
+    this.userService.refreshUserComponent$.subscribe(() => {
+      this.initialize();
+    });
+  }
+
+  initialize(): void {
+    this.clear();
     this.getListUser();
     this.getSelectedColumns();
+  }
+
+  clear() {
+    this.user = {} as User;
+    this.users = [];
+    this.selectedUsers = [];
   }
 
   userDialog: boolean = false;
@@ -58,12 +79,12 @@ export class UserComponent implements OnInit {
     sortField: 'CreatedDate',
     sortOrder: 1
   };
+
   paginatedListResponse: PaginatedListResponse<User> = {} as PaginatedListResponse<User>;
   getListUser(): void {
     this.userService.getAllPagination(this.paginatedRequest).subscribe({
       next: (response) => {
         this.paginatedListResponse = response;
-        console.log("check_", this.paginatedListResponse.results);
         this.setPaginatedRequest();
       },
       error: (err) => {
@@ -78,7 +99,7 @@ export class UserComponent implements OnInit {
 
   loadPatientListing(event: any) {
     this.paginatedRequest.pageSize = event.rows;
-    this.paginatedRequest.pageNumber = event.first/event.rows + 1;
+    this.paginatedRequest.pageNumber = event.first / event.rows + 1;
     this.paginatedRequest.sortField = event.sortField;
     this.paginatedRequest.sortOrder = event.sortOrder;
 
@@ -92,43 +113,58 @@ export class UserComponent implements OnInit {
   }
 
   getNewQuote() {
-    this.messageService.add({severity:'success', summary: 'Success', detail: 'Copied'});
-  }
-
-  openNew() {
-
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Copied' });
   }
 
   deleteSelectedUsers() {
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete the selected users?',
+      header: 'Confirm',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        //call api
+
+        this.selectedUsers.forEach((m) => {
+          this.userService.delete(m.id).subscribe({
+            next: (response) => {
+              this.ngOnInit();
+            },
+            error: (err) => {
+            },
+          });
+        });
+
+        this.selectedUsers = [];
+        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Users Deleted', life: 3000 });
+      }
+    });
   }
 
   deleteUser(user: User) {
-  }
-
-  confirmDelete() {
-
-  }
-
-  confirmDeleteSelected() {
-
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete ' + user.email + '?',
+      header: 'Confirm',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.userService.delete(user.id).subscribe({
+          next: (response) => {
+            this.ngOnInit();
+          },
+          error: (err) => {
+          },
+        });
+        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'User Deleted', life: 3000 });
+      }
+    });
   }
 
   editUser(user: User) {
+    this.userCreateOrUpdateComponent.user = user;
+    this.userCreateOrUpdateComponent.ngOnInit();
+    this.userCreateOrUpdateComponent.editUser(user);
   }
 
-  saveUser() {
+  navigateAfterSelected(user: User) { }
 
-  }
-
-  hideDialog() {
-
-  }
-
-  navigateAfterSelected(user: User) {
-
-  }
-
-  onGlobalFilter(table: Table, event: Event) {
-
-  }
+  onGlobalFilter(table: Table, event: Event) { }
 }

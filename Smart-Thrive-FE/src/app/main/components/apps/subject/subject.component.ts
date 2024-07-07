@@ -63,7 +63,6 @@ export class SubjectComponent implements OnInit {
     this.subjectService.getAllPagination(this.paginatedRequest).subscribe({
       next: (response) => {
         this.paginatedListResponse = response;
-        console.log("check_", this.paginatedListResponse.results);
         this.setPaginatedRequest();
       },
       error: (err) => {
