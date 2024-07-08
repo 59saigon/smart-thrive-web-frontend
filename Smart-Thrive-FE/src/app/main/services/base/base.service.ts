@@ -22,7 +22,7 @@ export class BaseService<TEntity extends BaseEntity> {
   }
 
   add(entity: TEntity): Observable<BaseResponse> {
-    return this.http.post<BaseResponse>(`${this.getBaseUrl}${ConstantsApi.add}`, entity);
+    return this.http.post<BaseResponse>(`${this.getBaseUrl()}${ConstantsApi.add}`, entity);
   }
 
   update(entity: TEntity): Observable<BaseResponse> {

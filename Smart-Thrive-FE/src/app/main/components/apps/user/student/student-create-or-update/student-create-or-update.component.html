@@ -6,13 +6,30 @@
         <!-- <img [src]="'assets/showcase/images/demo/student/' + student.image" [alt]="student.image" class="student-image" *ngIf="student.image"> -->
         <span class="p-text-secondary block mb-5">{{ information }}</span>
         <div class="mb-3">
+            <label for="email" class="font-semibold w-6rem">Parent email</label>
+            <p-dropdown appendTo="body" [filter]="true" filterBy="label" optionLabel="label" [options]="items"
+                [(ngModel)]="selectedItem" placeholder="Select Item">
+                <ng-template pTemplate="selectedItem">
+                    <div class="user-item user-item-value" *ngIf="selectedItem">
+                        <div>{{selectedItem.label}}</div>
+                    </div>
+                </ng-template>
+                <ng-template let-user pTemplate="item">
+                    <div class="user-item">
+                        <div>{{user.label}}</div>
+                    </div>
+                </ng-template>
+            </p-dropdown>
+        </div>
+
+        <div class="mb-3">
             <label for="studentName" class="font-semibold w-6rem">Student name</label>
             <input pInputText id="studentName" [(ngModel)]="student.studentName" class="flex-auto" autocomplete="off" />
         </div>
 
         <div class="mb-3">
             <label for="birthday" class="font-semibold w-6rem">Birthday</label>
-            <p-calendar appendTo="body" id="birthday" [(ngModel)]="student.dob" dateFormat="dd/mm/yy" class="flex-auto"
+            <p-calendar appendTo="body" id="birthday" [(ngModel)]="dob" dateFormat="dd/mm/yy" class="flex-auto"
                 autocomplete="off" [showIcon]="true" inputId="icondisplay" />
         </div>
 
