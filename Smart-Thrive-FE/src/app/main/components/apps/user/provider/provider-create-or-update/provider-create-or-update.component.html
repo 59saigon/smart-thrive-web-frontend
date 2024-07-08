@@ -5,6 +5,22 @@
     <ng-template pTemplate="content">
         <!-- <img [src]="'assets/showcase/images/demo/provider/' + provider.image" [alt]="provider.image" class="provider-image" *ngIf="provider.image"> -->
         <div class="mb-3">
+            <label for="email" class="font-semibold w-6rem">Provider email</label>
+            <p-dropdown appendTo="body" [filter]="true" filterBy="label" optionLabel="label" [options]="items"
+                [(ngModel)]="selectedItem" placeholder="Select Item">
+                <ng-template pTemplate="selectedItem">
+                    <div class="user-item user-item-value" *ngIf="selectedItem">
+                        <div>{{selectedItem.label}}</div>
+                    </div>
+                </ng-template>
+                <ng-template let-user pTemplate="item">
+                    <div class="user-item">
+                        <div>{{user.label}}</div>
+                    </div>
+                </ng-template>
+            </p-dropdown>
+        </div>
+        <div class="mb-3">
             <label for="website" class="font-semibold w-6rem">WebSite</label>
             <input pInputText id="website" [(ngModel)]="provider.website" class="flex-auto" autocomplete="off" />
         </div>

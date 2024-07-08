@@ -164,8 +164,10 @@ export class ProviderComponent implements OnInit {
 
   editProvider(provider: Provider) {
     this.providerCreateOrUpdateComponent.provider = provider;
-    this.providerCreateOrUpdateComponent.ngOnInit();
-    this.providerCreateOrUpdateComponent.editProvider(provider);
+    this.providerCreateOrUpdateComponent.getUserById(provider.userId).then(() => {
+      this.providerCreateOrUpdateComponent.ngOnInit();
+      this.providerCreateOrUpdateComponent.editProvider();
+    });
   }
 
   isShowDetail: boolean = false;

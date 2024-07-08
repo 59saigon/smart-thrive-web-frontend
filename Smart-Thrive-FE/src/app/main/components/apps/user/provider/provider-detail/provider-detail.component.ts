@@ -3,6 +3,8 @@ import { MessageService } from 'primeng/api';
 import { Provider } from '../../../../../../data/entities/provider';
 import { PaginatedRequest } from '../../../../../../data/model/paginated-request';
 import { User } from '../../../../../../data/entities/user';
+import { Guid } from 'guid-typescript';
+import { UserService } from '../../../../../services/services/user.service';
 
 @Component({
   selector: 'app-provider-detail',
@@ -10,7 +12,7 @@ import { User } from '../../../../../../data/entities/user';
   styleUrl: './provider-detail.component.scss'
 })
 export class ProviderDetailComponent implements OnInit {
-  constructor(private messageService: MessageService) { }
+  constructor(private messageService: MessageService, private userService: UserService) { }
 
   getNewQuote() {
     this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Copied' });
@@ -31,6 +33,18 @@ export class ProviderDetailComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    //this.user = this.provider.user || {} as User;
+    this.getUserById(this.provider.userId);
+  }
+
+  getUserById(userId: Guid) {
+    this.userService.getById(userId).subscribe({
+      next: (response) => {
+        this.user = response.result;
+      },
+      error: (err) => {
+        console.log("check_error", err);
+      }
+    });
+
   }
 }

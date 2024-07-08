@@ -165,7 +165,7 @@ export class SessionComponent implements OnInit {
   editSession(session: Session) {
     this.sessionCreateOrUpdateComponent.session = session;
     this.sessionCreateOrUpdateComponent.ngOnInit();
-    this.sessionCreateOrUpdateComponent.editSession(session);
+    this.sessionCreateOrUpdateComponent.editSession();
   }
 
   isShowDetail: boolean = false;

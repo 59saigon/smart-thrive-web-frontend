@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
 import { Package } from '../../../../../data/entities/package';
 import { PackageService } from '../../../../services/services/package.service';
 import { Student } from '../../../../../data/entities/student';
+import { StudentService } from '../../../../services/services/student.service';
 
 @Component({
   selector: 'app-package-create-or-update',
@@ -16,12 +17,17 @@ export class PackageCreateOrUpdateComponent implements OnInit {
   startDate!: Date;
   endDate!: Date;
 
+  items!: SelectItem[];
+  selectedItem!: SelectItem;
+  students: Student[] = [];
+
   packageDialog: boolean = false;
   submitted: boolean = false;
 
-
-
-  constructor(private packageService: PackageService, private messageService: MessageService, private confirm: ConfirmationService) {
+  constructor(private packageService: PackageService,
+     private messageService: MessageService,
+     private studentService: StudentService,
+      private confirm: ConfirmationService) {
 
   }
 
@@ -30,6 +36,22 @@ export class PackageCreateOrUpdateComponent implements OnInit {
 
   ngOnInit(): void {
     this.setTitleAndInformation();
+    this.getListStudent();
+  }
+
+  getListStudent() {
+    this.studentService.getAll().subscribe({
+      next: (response) => {
+        this.students = response.results;
+        this.items = [];
+        for (let i = 0; i < this.students.length; i++) {
+          this.items.push({ label: this.students[i].studentName, value: this.students[i].id });
+        }
+      },
+      error: (err) => {
+        console.log("check_error", err);
+      }
+    });
   }
 
   setTitleAndInformation() {
@@ -41,12 +63,17 @@ export class PackageCreateOrUpdateComponent implements OnInit {
       this.information = "Update new information package."
       this.startDate = new Date(this.package.startDate ?? '');
       this.endDate = new Date(this.package.endDate ?? '');
+
+      this.selectedItem = {} as SelectItem;
+      this.selectedItem.value = this.package.student?.id;
+      this.selectedItem.label = this.package.student?.studentName;
     }
 
   }
 
   openNew() {
     this.package = {} as Package;
+    this.selectedItem = {} as SelectItem;
     this.packageDialog = true;
     this.submitted = false;
   }
@@ -56,8 +83,7 @@ export class PackageCreateOrUpdateComponent implements OnInit {
     this.submitted = false;
   }
 
-  editPackage(pkg: Package) {
-    this.package = { ...pkg };
+  editPackage() {
     this.packageDialog = true;
     this.submitted = false;
   }
@@ -67,6 +93,7 @@ export class PackageCreateOrUpdateComponent implements OnInit {
 
     this.package.startDate = this.startDate;
     this.package.endDate = this.endDate;
+    this.package.studentId = this.selectedItem.value;
 
     if (this.package.id != null) {
       this.packageService.update(this.package).subscribe({

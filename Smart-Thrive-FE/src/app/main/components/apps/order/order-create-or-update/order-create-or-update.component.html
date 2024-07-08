@@ -5,6 +5,22 @@
     <ng-template pTemplate="content">
         <!-- <img [src]="'assets/showcase/images/demo/order/' + order.image" [alt]="order.image" class="order-image" *ngIf="order.image"> -->
         <div class="mb-3">
+            <label for="name" class="font-semibold w-6rem">Package Name</label>
+            <p-dropdown appendTo="body" [filter]="true" filterBy="label" optionLabel="label" [options]="items"
+                [(ngModel)]="selectedItem" placeholder="Select Item">
+                <ng-template pTemplate="selectedItem">
+                    <div class="package-item package-item-value" *ngIf="selectedItem">
+                        <div>{{selectedItem.label}}</div>
+                    </div>
+                </ng-template>
+                <ng-template let-package pTemplate="item">
+                    <div class="package-item">
+                        <div>{{package.label}}</div>
+                    </div>
+                </ng-template>
+            </p-dropdown>
+        </div>
+        <div class="mb-3">
             <label for="orderName" class="font-semibold w-6rem">Order Name</label>
             <input pInputText id="orderName" [(ngModel)]="order.paymentMethod" class="flex-auto" autocomplete="off" />
         </div>

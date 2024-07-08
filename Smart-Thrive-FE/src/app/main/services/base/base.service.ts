@@ -17,12 +17,12 @@ export class BaseService<TEntity extends BaseEntity> {
     this.entityTxt = _entityTxt;
   }
 
-  private getBaseUrl(): string {
+  public getBaseUrl(): string {
     return `${ConstantsApi.baseApi}/${this.entityTxt}`;
   }
 
   add(entity: TEntity): Observable<BaseResponse> {
-    return this.http.post<BaseResponse>(`${this.getBaseUrl}${ConstantsApi.add}`, entity);
+    return this.http.post<BaseResponse>(`${this.getBaseUrl()}${ConstantsApi.add}`, entity);
   }
 
   update(entity: TEntity): Observable<BaseResponse> {

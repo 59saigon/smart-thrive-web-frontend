@@ -27,6 +27,7 @@ import { AccordionModule } from 'primeng/accordion';
 import { StudentCreateOrUpdateComponent } from './student-create-or-update/student-create-or-update.component';
 import { StudentDetailComponent } from './student-detail/student-detail.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { SkeletonModule } from 'primeng/skeleton';
 
 
 @NgModule({
@@ -60,7 +61,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     MultiSelectModule,
     ClipboardModule,
     AccordionModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    SkeletonModule
   ]
 })
 export class StudentModule { }

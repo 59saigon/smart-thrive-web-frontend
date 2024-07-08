@@ -7,14 +7,6 @@ export default [
         sortField: true,
     },
     {
-        field: 'course',
-        subfield: 'code',
-        header: 'Course Code',
-        isDisabled: false,
-        sortIcon: true,
-        sortField: true,
-    },
-    {
         field: 'sessionName',
         header: `Session Name`,
         isDisabled: false,

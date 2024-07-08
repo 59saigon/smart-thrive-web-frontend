@@ -10,7 +10,8 @@ import { SubjectService } from '../../../services/services/subject.service';
 import { Subject } from '../../../../data/entities/subject';
 import { PaginatedRequest } from '../../../../data/model/paginated-request';
 import { PaginatedListResponse } from '../../../../data/model/paginated-response';
-
+import * as uuid from 'uuid';
+import { Guid } from 'guid-typescript';
 @Component({
   selector: 'app-subject',
   templateUrl: './subject.component.html',
@@ -165,7 +166,7 @@ export class SubjectComponent implements OnInit {
   editSubject(subject: Subject) {
     this.subjectCreateOrUpdateComponent.subject = subject;
     this.subjectCreateOrUpdateComponent.ngOnInit();
-    this.subjectCreateOrUpdateComponent.editSubject(subject);
+    this.subjectCreateOrUpdateComponent.editSubject();
   }
 
   isShowDetail: boolean = false;

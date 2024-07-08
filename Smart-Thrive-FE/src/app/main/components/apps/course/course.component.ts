@@ -165,7 +165,7 @@ export class CourseComponent implements OnInit {
   editCourse(course: Course) {
     this.courseCreateOrUpdateComponent.course = course;
     this.courseCreateOrUpdateComponent.ngOnInit();
-    this.courseCreateOrUpdateComponent.editCourse(course);
+    this.courseCreateOrUpdateComponent.editCourse();
   }
 
   isShowDetail: boolean = false;

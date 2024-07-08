@@ -26,4 +26,7 @@ export class CourseService extends BaseService<Course> {
     super(_http, 'course')
   }
 
+  getAllPaginationByListId(request: PaginatedRequestFillter<Guid[]>): Observable<PaginatedListResponse<Course>> {
+    return this.http.post<PaginatedListResponse<Course>>(`${this.getBaseUrl()}${ConstantsApi.getAllPaginationByListId}`, request);
+  }
 }
