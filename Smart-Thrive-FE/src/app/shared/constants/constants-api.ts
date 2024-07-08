@@ -6,6 +6,7 @@ export const ConstantsApi = {
   baseApi: api,
   getById: '/get-by-id',
   getAllPagination: '/get-all-pagination',
+  getAllPaginationByListId: '/get-all-pagination-by-list-id',
   getAll: '/get-all',
   getAllSearch: '/search',
   add: '/add',

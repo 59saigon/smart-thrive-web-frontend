@@ -17,7 +17,7 @@ export class BaseService<TEntity extends BaseEntity> {
     this.entityTxt = _entityTxt;
   }
 
-  private getBaseUrl(): string {
+  public getBaseUrl(): string {
     return `${ConstantsApi.baseApi}/${this.entityTxt}`;
   }
 

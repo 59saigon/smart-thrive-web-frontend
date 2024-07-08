@@ -2,7 +2,7 @@ import { Component, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular
 import { Console } from 'console';
 import headerList from './headerList';
 import { Table } from 'primeng/table';
-import { ActivatedRoute, Event, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { PackageCreateOrUpdateComponent } from './package-create-or-update/package-create-or-update.component';
 import { PackageDetailComponent } from './package-detail/package-detail.component';
@@ -165,7 +165,7 @@ export class PackageComponent implements OnInit {
   editPackage(pkg: Package) {
     this.packageCreateOrUpdateComponent.package = pkg;
     this.packageCreateOrUpdateComponent.ngOnInit();
-    this.packageCreateOrUpdateComponent.editPackage(pkg);
+    this.packageCreateOrUpdateComponent.editPackage();
   }
 
   isShowDetail: boolean = false;
@@ -176,5 +176,10 @@ export class PackageComponent implements OnInit {
     this.packageDetailComponent.ngOnInit();
   }
 
-  onGlobalFilter(table: Table, event: Event) { }
+  onGlobalFilter(table: Table, event: Event) {
+    table.filterGlobal(
+      (event.target as HTMLInputElement).value,
+      'contains'
+    );
+  }
 }

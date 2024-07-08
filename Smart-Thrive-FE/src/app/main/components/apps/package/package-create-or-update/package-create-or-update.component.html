@@ -4,6 +4,23 @@
 <p-dialog [(visible)]="packageDialog" [style]="{width: '450px'}" [header]="title" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="content">
         <!-- <img [src]="'assets/showcase/images/demo/package/' + package.image" [alt]="package.image" class="package-image" *ngIf="package.image"> -->
+        
+        <div class="mb-3">
+            <label for="name" class="font-semibold w-6rem">Student Name</label>
+            <p-dropdown appendTo="body" [filter]="true" filterBy="label" optionLabel="label" [options]="items"
+                [(ngModel)]="selectedItem" placeholder="Select Item">
+                <ng-template pTemplate="selectedItem">
+                    <div class="student-item student-item-value" *ngIf="selectedItem">
+                        <div>{{selectedItem.label}}</div>
+                    </div>
+                </ng-template>
+                <ng-template let-student pTemplate="item">
+                    <div class="student-item">
+                        <div>{{student.label}}</div>
+                    </div>
+                </ng-template>
+            </p-dropdown>
+        </div>
         <div class="mb-3">
             <label for="subjectName" class="font-semibold w-6rem">Provider Website</label>
             <input pInputText id="subjectName" [(ngModel)]="package.packageName" class="flex-auto" autocomplete="off" />
