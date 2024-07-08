@@ -92,8 +92,7 @@ export class StudentCreateOrUpdateComponent implements OnInit {
     this.submitted = false;
   }
 
-  editStudent(student: Student) {
-    this.student = { ...student };
+  editStudent() {
     this.studentDialog = true;
     this.submitted = false;
   }

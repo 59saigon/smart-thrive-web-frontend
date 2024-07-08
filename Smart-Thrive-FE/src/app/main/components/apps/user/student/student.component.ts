@@ -165,7 +165,7 @@ export class StudentComponent implements OnInit {
   editStudent(student: Student) {
     this.studentCreateOrUpdateComponent.student = student;
     this.studentCreateOrUpdateComponent.ngOnInit();
-    this.studentCreateOrUpdateComponent.editStudent(student);
+    this.studentCreateOrUpdateComponent.editStudent();
   }
 
   isShowDetail: boolean = false;

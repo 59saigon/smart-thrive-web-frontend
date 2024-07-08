@@ -67,7 +67,6 @@ export class ProviderCreateOrUpdateComponent implements OnInit {
       this.selectedItem = {} as SelectItem;
       this.selectedItem.value = this.user.id;
       this.selectedItem.label = this.user?.email;
-      console.log(this.user.id);
     }
 
   }
@@ -79,9 +78,6 @@ export class ProviderCreateOrUpdateComponent implements OnInit {
           this.user = response.result;
           console.log(this.user);
           this.items = [];
-          for (let i = 0; i < this.users.length; i++) {
-            this.items.push({ label: this.users[i].email, value: this.users[i].id });
-          }
           resolve();
         },
         error: (err) => {
