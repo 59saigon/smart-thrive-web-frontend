@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { OrderComponent } from '../order.component';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
 import { DatePipe } from '@angular/common';
 import { Order } from '../../../../../data/entities/order';
 import { OrderService } from '../../../../services/services/order.service';
 import { Category } from '../../../../../data/entities/category';
+import { PackageService } from '../../../../services/services/package.service';
+import { Package } from '../../../../../data/entities/package';
 
 @Component({
   selector: 'app-order-create-or-update',
@@ -14,14 +16,20 @@ import { Category } from '../../../../../data/entities/category';
 export class OrderCreateOrUpdateComponent implements OnInit {
 
   order: Order = {} as Order;
-  learnDate!: Date;
+
+  items!: SelectItem[];
+  selectedItem!: SelectItem;
+  packages: Package[] = [];
 
   orderDialog: boolean = false;
   submitted: boolean = false;
 
 
 
-  constructor(private orderService: OrderService, private messageService: MessageService, private confirm: ConfirmationService) {
+  constructor(private orderService: OrderService,
+     private messageService: MessageService,
+     private packageService: PackageService,
+      private confirm: ConfirmationService) {
 
   }
 
@@ -30,6 +38,19 @@ export class OrderCreateOrUpdateComponent implements OnInit {
 
   ngOnInit(): void {
     this.setTitleAndInformation();
+
+    this.packageService.getAll().subscribe({
+      next: (response) => {
+        this.packages = response.results;
+        this.items = [];
+        for (let i = 0; i < this.packages.length; i++) {
+          this.items.push({ label: this.packages[i].packageName, value: this.packages[i].id });
+        }
+      },
+      error: (err) => {
+        console.log("check_error", err);
+      }
+    });
   }
 
   setTitleAndInformation() {
@@ -39,12 +60,16 @@ export class OrderCreateOrUpdateComponent implements OnInit {
     } else {
       this.title = "Details order";
       this.information = "Update new information order."
+      this.selectedItem = {} as SelectItem;
+      this.selectedItem.value = this.order.package?.id;
+      this.selectedItem.label = this.order.package?.packageName;
     }
 
   }
 
   openNew() {
     this.order = {} as Order;
+    this.selectedItem = {} as SelectItem;
     this.orderDialog = true;
     this.submitted = false;
   }

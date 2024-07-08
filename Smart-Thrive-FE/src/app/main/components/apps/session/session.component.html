@@ -126,6 +126,22 @@
                                         </ng-template>
                                     </ng-template>
                                     <ng-template #otherFields>
+                                        <ng-container *ngIf="col.field.includes('description'); else fields">
+        
+                                            <a (click)="getNewQuote()" [cdkCopyToClipboard]="session[col.field]"
+                                                class="button-other-id" [autoHide]="false"
+                                                [pTooltip]="tooltipContentDescription">{{
+                                                session[col.field] }}</a>
+        
+                                        </ng-container>
+        
+                                        <ng-template #tooltipContentDescription>
+                                            {{ session[col.field] }}
+                                            <br />
+                                        </ng-template>
+                                    </ng-template>
+        
+                                    <ng-template #fields>
                                         {{ session[col.field] }}
                                     </ng-template>
                                 </td>

@@ -102,8 +102,9 @@
 
                                     <ng-template #newId>
                                         <ng-container *ngIf="col.field === 'id'; else otherId">
-                                            <a [routerLink]="[]" (click)="navigateAfterSelected(course)" class="button-id"
-                                                [autoHide]="false" [pTooltip]="course[col.field]">{{ course[col.field] }}
+                                            <a [routerLink]="[]" (click)="navigateAfterSelected(course)"
+                                                class="button-id" [autoHide]="false" [pTooltip]="course[col.field]">{{
+                                                course[col.field] }}
                                             </a>
                                         </ng-container>
                                     </ng-template>
@@ -111,8 +112,7 @@
                                     <ng-template #otherId>
                                         <ng-container *ngIf="col.field.includes('Id'); else otherFields">
 
-                                            <a [routerLink]="[]" (click)="getNewQuote()"
-                                                [cdkCopyToClipboard]="course[col.field]" class="button-other-id"
+                                            <a [routerLink]="[]" (click)="getNewQuote()" class="button-other-id"
                                                 [autoHide]="false" [pTooltip]="tooltipContent">{{
                                                 course[col.field] }}</a>
 
@@ -124,17 +124,38 @@
                                             <br />
                                             Click to copy
                                         </ng-template>
+
                                     </ng-template>
+
                                     <ng-template #otherFields>
+                                        <ng-container *ngIf="col.field.includes('description'); else fields">
+
+                                            <a (click)="getNewQuote()" [cdkCopyToClipboard]="course[col.field]"
+                                                class="button-other-id" [autoHide]="false"
+                                                [pTooltip]="tooltipContentDescription">{{
+                                                course[col.field] }}</a>
+
+                                        </ng-container>
+
+                                        <ng-template #tooltipContentDescription>
+                                            {{ course[col.field] }}
+                                            <br />
+                                        </ng-template>
+                                    </ng-template>
+
+                                    <ng-template #fields>
                                         {{ course[col.field] }}
                                     </ng-template>
+
                                 </td>
                                 <td>
                                     <div class="flex">
                                         <button pButton pRipple icon="pi pi-pencil"
-                                            class="p-button-rounded p-button-text" (click)="editCourse(course)"></button>
+                                            class="p-button-rounded p-button-text"
+                                            (click)="editCourse(course)"></button>
                                         <button pButton pRipple icon="pi pi-trash"
-                                            class="p-button-rounded p-button-text" (click)="deleteCourse(course)"></button>
+                                            class="p-button-rounded p-button-text"
+                                            (click)="deleteCourse(course)"></button>
                                     </div>
                                 </td>
                             </tr>

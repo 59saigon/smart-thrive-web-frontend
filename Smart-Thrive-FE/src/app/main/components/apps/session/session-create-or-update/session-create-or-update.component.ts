@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SessionComponent } from '../session.component';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
 import { DatePipe } from '@angular/common';
 import { Session } from '../../../../../data/entities/session';
 import { SessionService } from '../../../../services/services/session.service';
 import { Category } from '../../../../../data/entities/category';
+import { Course } from '../../../../../data/entities/course';
+import { CourseService } from '../../../../services/services/course.service';
 
 @Component({
   selector: 'app-session-create-or-update',
@@ -19,9 +21,14 @@ export class SessionCreateOrUpdateComponent implements OnInit {
   sessionDialog: boolean = false;
   submitted: boolean = false;
 
+  items!: SelectItem[];
+  selectedItem!: SelectItem;
+  courses: Course[] = [];
 
-
-  constructor(private sessionService: SessionService, private messageService: MessageService, private confirm: ConfirmationService) {
+  constructor(private sessionService: SessionService,
+     private messageService: MessageService,
+     private courseService: CourseService,
+      private confirm: ConfirmationService) {
 
   }
 
@@ -30,6 +37,19 @@ export class SessionCreateOrUpdateComponent implements OnInit {
 
   ngOnInit(): void {
     this.setTitleAndInformation();
+
+    this.courseService.getAll().subscribe({
+      next: (response) => {
+        this.courses = response.results;
+        this.items = [];
+        for (let i = 0; i < this.courses.length; i++) {
+          this.items.push({ label: this.courses[i].courseName, value: this.courses[i].id });
+        }
+      },
+      error: (err) => {
+        console.log("check_error", err);
+      }
+    });
   }
 
   setTitleAndInformation() {
@@ -40,12 +60,16 @@ export class SessionCreateOrUpdateComponent implements OnInit {
       this.title = "Details session";
       this.information = "Update new information session."
       this.learnDate = new Date(this.session.learnDate ?? '');
+      this.selectedItem = {} as SelectItem;
+      this.selectedItem.value = this.session.course?.id;
+      this.selectedItem.label = this.session.course?.courseName;
     }
 
   }
 
   openNew() {
     this.session = {} as Session;
+    this.selectedItem = {} as SelectItem;
     this.sessionDialog = true;
     this.submitted = false;
   }
@@ -55,8 +79,7 @@ export class SessionCreateOrUpdateComponent implements OnInit {
     this.submitted = false;
   }
 
-  editSession(session: Session) {
-    this.session = { ...session };
+  editSession() {
     this.sessionDialog = true;
     this.submitted = false;
   }
@@ -65,6 +88,7 @@ export class SessionCreateOrUpdateComponent implements OnInit {
     this.submitted = true;
 
     this.session.learnDate = this.learnDate;
+    this.session.courseId = this.selectedItem.value;
 
     if (this.session.id != null) {
       this.sessionService.update(this.session).subscribe({

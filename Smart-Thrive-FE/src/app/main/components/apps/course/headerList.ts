@@ -102,7 +102,7 @@ export default [
     },
 
     {
-        field: 'CreatedBy',
+        field: 'createdBy',
         header: 'Created By',
         isDisabled: true,
         sortIcon: true,

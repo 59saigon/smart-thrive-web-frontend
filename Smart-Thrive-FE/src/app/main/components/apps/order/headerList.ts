@@ -50,7 +50,7 @@ export default [
         sortField: true,
     },
     {
-        field: 'CreatedBy',
+        field: 'createdBy',
         header: 'Created By',
         isDisabled: true,
         sortIcon: true,

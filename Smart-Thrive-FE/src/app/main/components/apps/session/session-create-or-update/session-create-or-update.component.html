@@ -5,6 +5,22 @@
     <ng-template pTemplate="content">
         <!-- <img [src]="'assets/showcase/images/demo/session/' + session.image" [alt]="session.image" class="session-image" *ngIf="session.image"> -->
         <div class="mb-3">
+            <label for="name" class="font-semibold w-6rem">Course Name</label>
+            <p-dropdown appendTo="body" [filter]="true" filterBy="label" optionLabel="label" [options]="items"
+                [(ngModel)]="selectedItem" placeholder="Select Item">
+                <ng-template pTemplate="selectedItem">
+                    <div class="course-item course-item-value" *ngIf="selectedItem">
+                        <div>{{selectedItem.label}}</div>
+                    </div>
+                </ng-template>
+                <ng-template let-course pTemplate="item">
+                    <div class="course-item">
+                        <div>{{course.label}}</div>
+                    </div>
+                </ng-template>
+            </p-dropdown>
+        </div>
+        <div class="mb-3">
             <label for="sessionName" class="font-semibold w-6rem">Session Name</label>
             <input pInputText id="sessionName" [(ngModel)]="session.sessionName" class="flex-auto" autocomplete="off" />
         </div>

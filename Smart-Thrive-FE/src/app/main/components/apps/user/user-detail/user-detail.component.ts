@@ -18,7 +18,7 @@ export class UserDetailComponent implements OnInit {
   rowsPerPageOptions = [5, 10, 20, 50];
 
   students: Student[] = [];
-  selectedStudents: User[] = [];
+  selectedStudents: Student[] = [];
 
   constructor(private messageService: MessageService) { }
 
