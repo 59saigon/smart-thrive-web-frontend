@@ -113,10 +113,11 @@
                         <div class="surface-300 border-round overflow-hidden w-10rem lg:w-6rem"
                             [ngStyle]="{height: '8px'}">
                             <div class="bg-cyan-500 h-full"
-                                [ngStyle]="{ width: ((course.sold_product ?? 0) / (course.quantity ?? 1)) * 100 + '%' }">
+                                [ngStyle]="{ width: ((course.totalSlots ?? 0) / (calculateTotalSlots() ?? 1)) * 100 + '%' }">
                             </div>
                         </div>
-                        <span class="text-cyan-500 ml-3 font-medium">{{ ((course.sold_product ?? 0) / (course.quantity
+                        <span class="text-cyan-500 ml-3 font-medium">{{ ((course.totalSlots ?? 0) /
+                            (calculateTotalSlots()
                             ?? 1)) * 100 | number:'1.0-0'}}%</span>
                     </div>
                 </li>

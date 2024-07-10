@@ -1,26 +1,25 @@
+import { Guid } from "guid-typescript";
 import { BaseEntity } from "./baseEntity";
 import { CourseXPackage } from "./courseXpackage";
-import { Location } from "./location";
 import { Provider } from "./provider";
 import { Session } from "./session";
 import { Subject } from "./subject";
 
 export interface Course extends BaseEntity {
-    subjectId?: string;
-    providerId?: string;
-    locationId?: string;
+    subjectId?: Guid;
+    providerId?: Guid;
+    address?: string;
     code?: string;
     courseName?: string;
     description?: string;
     price?: number;
-    quantity?: number;
-    sold_product?: number;
-    totalSlot?: number;
+    totalSessions?: number;
+    soldCourses?: number;
+    totalSlots?: number;
     isApproved?: boolean;
     isActive?: boolean;
     startDate?: Date;
     endDate?: Date;
-    location?: Location;
     subject?: Subject;
     provider?: Provider;
     sessions?: Session[];

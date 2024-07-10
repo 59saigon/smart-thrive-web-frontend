@@ -5,7 +5,6 @@ import { Category } from '../../../../../data/entities/category';
 import { Course } from '../../../../../data/entities/course';
 import { Subject } from '../../../../../data/entities/subject';
 import { Provider } from '../../../../../data/entities/provider';
-import { Location } from '../../../../../data/entities/location';
 import { Session } from '../../../../../data/entities/session';
 import { PaginatedListResponse } from '../../../../../data/model/paginated-response';
 import headerListSession from './headerListSession';
@@ -59,10 +58,6 @@ export class CourseDetailComponent implements OnInit {
     this.endDate = new Date(this.course.endDate ?? '');
     this.subject = this.course.subject ?? {} as Subject;
     this.provider = this.course.provider ?? {} as Provider;
-    this.location = this.course.location ?? {} as Location;
-    this.addressLocation = this.location?.ward + ', ' + this.location?.district + ', '
-    + this.location?.city;
-
     this.paginatedListResponse.results = this.course.sessions || [];
     this.getSelectedColumns();
   }
