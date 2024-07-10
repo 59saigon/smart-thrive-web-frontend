@@ -1,6 +1,5 @@
 // Variables
 $primary-color: #eeeeee;
-$background-img: url('../../../../../assets/layout/images/DesignerBackground2.jpeg');
 $secondary-color: #222831;
 $font-family: "Inter var", sans-serif;
 $overlay-color: rgba(0, 0, 0, 0.5); // Màu tối với độ mờ 50%
@@ -26,7 +25,6 @@ button {
   flex-direction: row;
   min-height: 100vh;
   position: relative;
-  background-image: $background-img;
   background-size: 100%;
   background-position: center;
   gap: 80px;
