@@ -5,6 +5,7 @@ const api = 'https://localhost:7999/api';
 export const ConstantsApi = {
   baseApi: api,
   getById: '/get-by-id',
+  getByEmail: '/get-by-email',
   getAllPagination: '/get-all-pagination',
   getAllPaginationByListId: '/get-all-pagination-by-list-id',
   getAll: '/get-all',

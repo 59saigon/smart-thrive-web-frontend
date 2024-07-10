@@ -1,33 +1,37 @@
 <p-toast position="top-left"></p-toast>
 
 <div class="main-auth-register">
-
-    <div class="main-auth-register-content">
-        <div class="main-auth-register-content-main w-10 md:w-8 lg:w-6">
+    <div class="main-auth-register-img">
+        <img />
+        <img src="/assets/layout/images/SmartThriveEduDashboard.png" alt="logo" />
+    </div>
+    <div class="main-auth-register-content flex flex-column">
+        <div class="">
+            <!-- <a class="sidebar-logo-link" routerLink="dashboard">
+                <img src="/assets/layout/images/logoText.png" alt="logo" />
+                <img src="/assets/layout/images/logo.png" alt="logo" />
+            </a> -->
+        </div>
+        <div class="main-auth-register-content-main w-10 md:w-8 lg:w-6 Register" (keydown.enter)="onRegister(0)">
             <div class="main-auth-register-content-main-title">
-                <h1>Create new account</h1>
-                <span>Fast and easy.</span>
+                <h1>Create an account</h1>
             </div>
-
-            
-
-            <!-- <div class="main-auth-register-content-main-line">
-                <span>------------- or continue with email -------------</span>
-            </div> -->
-            <div class="main-auth-register-content-main-input">
-
-                <div class="field flex flex-row column-gap-3 w-full">
+            <div class="main-auth-register-content-main-input gap-2">
+                <div class="input-set-column field flex flex-row column-gap-3 w-full">
                     <input [(ngModel)]="user.firstName" pInputText placeholder="First name" required />
                     <input [(ngModel)]="user.lastName" pInputText placeholder="Last name" required />
                 </div>
-                <input class="field" name="email" [(ngModel)]="user.email" pInputText placeholder="Email" required/>
-                <input class="field" name="username" [(ngModel)]="user.username" pInputText placeholder="Username" required />
-                <div class="field flex flex-row column-gap-3 w-full">
-                    <p-password placeholder="Password" [(ngModel)]="user.password" [toggleMask]="true" [feedback]="false" required />
-                    <p-password placeholder="Confirm" [(ngModel)]="confirmPassword"  [toggleMask]="true" [feedback]="false" required />
+                <input class="field" name="email" [(ngModel)]="user.email" pInputText placeholder="Email" required />
+                <input class="field" name="username" [(ngModel)]="user.username" pInputText placeholder="Username"
+                    required />
+                <div class="input-set-column field flex flex-row column-gap-3 w-full">
+                    <p-password placeholder="Password" [(ngModel)]="user.password" [toggleMask]="true"
+                        [feedback]="false" required />
+                    <p-password placeholder="Confirm" [(ngModel)]="confirmPassword" [toggleMask]="true"
+                        [feedback]="false" required />
                 </div>
-                <p-calendar placeholder="Birthday" class="w-full" [(ngModel)]="user.dob" [iconDisplay]="'input'" [showIcon]="true"
-                    inputId="icondisplay" required />
+                <p-calendar placeholder="Birthday" class="w-full" [(ngModel)]="user.dob" [iconDisplay]="'input'"
+                    [showIcon]="true" inputId="icondisplay" required />
                 <div class="flex flex-wrap justify-content-end gap-3 w-full py-3">
                     <div class="flex align-items-center">
                         <p-radioButton name="gender" value="Female" [(ngModel)]="user.gender" inputId="ingredient1" />
@@ -48,18 +52,24 @@
                         <label for="ingredient3" class="ml-2 pr-3">
                             Other
                         </label>
-                        <input  type="text" *ngIf="user.gender !== 'Female' && user.gender !== 'Male'"  pInputText [(ngModel)]="gender" />
+                        <input type="text" *ngIf="user.gender !== 'Female' && user.gender !== 'Male'" pInputText
+                            [(ngModel)]="gender" />
                     </div>
-                   
+
                 </div>
             </div>
-
             <div class="main-auth-register-content-main-button">
-                <p-button class="w-full" [label]="registerLabel" [loading]="loading[0]" (onClick)="onRegister(0)" />
+                <p-button [label]="registerLabel" class="w-full" [loading]="loading[0]"
+                    (onClick)="onRegister(0)"></p-button>
             </div>
 
-            <div class="main-auth-register-content-main-register-with">
-                <button class="w-full" pButton type="button" [outlined]="true" severity="secondary" label="Google">
+
+
+
+
+            <div class="main-auth-register-content-main-register-with flex flex-column gap-3">
+                <button pButton type="button" [outlined]="true" pRipple severity="secondary"
+                    label="Continue with Google">
                     <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="26" height="26" viewBox="0 0 48 48"
                         style="margin-right: 5px;">
                         <path fill="#FFC107"
@@ -76,16 +86,28 @@
                         </path>
                     </svg></button>
 
+                <button pButton type="button" [outlined]="true" pRipple severity="secondary"
+                    label="Continue with Facebook">
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="26" height="26"
+                        style="margin-right: 5px;" viewBox="0 0 48 48">
+                        <path fill="#039be5" d="M24 5A19 19 0 1 0 24 43A19 19 0 1 0 24 5Z"></path>
+                        <path fill="#fff"
+                            d="M26.572,29.036h4.917l0.772-4.995h-5.69v-2.73c0-2.075,0.678-3.915,2.619-3.915h3.119v-4.359c-0.548-0.074-1.707-0.236-3.897-0.236c-4.573,0-7.254,2.415-7.254,7.917v3.323h-4.701v4.995h4.701v13.729C22.089,42.905,23.032,43,24,43c0.875,0,1.729-0.08,2.572-0.194V29.036z">
+                        </path>
+                    </svg></button>
+
             </div>
 
             <div class="main-auth-register-content-main-text">
                 <p-button routerLink="/auth/login" label="Back to login" icon="pi pi-arrow-left" severity="secondary"
                     [link]="true" />
             </div>
-
         </div>
-    </div>
-    <div class="main-auth-register-img">
+
+
+
+
 
     </div>
+
 </div>

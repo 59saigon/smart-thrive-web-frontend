@@ -1,7 +1,9 @@
 // Variables
 $primary-color: #eeeeee;
+$background-img: url('../../../../../assets/layout/images/DesignerBackground2.jpeg');
 $secondary-color: #222831;
 $font-family: "Inter var", sans-serif;
+$overlay-color: rgba(0, 0, 0, 0.5); // Màu tối với độ mờ 50%
 
 // Mixins
 @mixin flex-center {
@@ -9,16 +11,37 @@ $font-family: "Inter var", sans-serif;
   justify-content: center;
   align-items: center;
 }
+
 button {
   width: 100% !important;
   justify-content: center;
   height: 45px !important;
+  border-radius: 32px !important;
 }
+
 // Main Styles
 .main-auth-login {
+  
   display: flex;
   flex-direction: row;
   min-height: 100vh;
+  position: relative;
+  background-image: $background-img;
+  background-size: cover;
+  background-position: center;
+  gap: 80px;
+
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: $overlay-color;
+    z-index: 1; // Đảm bảo lớp phủ nằm phía trên nền nhưng dưới nội dung
+  }
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -26,64 +49,74 @@ button {
 
   &-content {
     flex: 1;
-    background-color: $primary-color;
     padding: 2rem;
     color: #686d76;
     font-family: $font-family;
+    position: relative;
+    z-index: 2; // Đảm bảo nội dung nằm phía trên lớp phủ
 
     @include flex-center;
-    text-align: center;
+    //text-align: center;
+    align-items: start;
 
     @media (max-width: 768px) {
       padding: 1rem;
+      align-items: center;
     }
 
     &-main {
+      min-height: calc(3 / 4 * 100vh);
       box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-      border-radius: 8px 8px 0 0;
+      border-radius: 4px;
       background-color: #fff;
-      padding: 8px 0px;
+      padding: 40px 56px;
+
       &-title {
-        padding: 1rem 0;
         h1 {
           margin-bottom: 0.5rem;
         }
       }
 
       &-login-with {
-        padding: 0px 16px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding-bottom: 1rem;
+       // display: flex;
+       // flex-direction: column;
+        //align-items: center;
+        padding-top: 2.5rem;
+
         .p-button-label {
-          flex: 0;
-      }
+          flex: none;
+        }
       }
 
       &-input {
         //border-top: 1px solid #dadde1;
-        padding: 16px 16px 0px 16px;
+        padding: 16px 0px 0px 0px;
         display: flex;
         flex-direction: column;
         align-items: center;
 
         .p-inputtext {
           width: 100% !important;
+          border-radius: 0px;
+          border-top: 0px;
+          border-right: 0px;
+          border-left: 0px;
         }
 
-        p-password{
+        p-password {
           width: 100% !important;
         }
         .p-password {
           width: 100% !important;
+          border-radius: 0px;
+          border-top: 0px;
+          border-right: 0px;
+          border-left: 0px;
         }
-        
-        
       }
 
       &-func {
-        padding: 10px 16px;
+        padding: 10px 0px;
         padding-bottom: 3rem;
         display: flex;
         align-items: center;
@@ -94,26 +127,28 @@ button {
           font-weight: 100 !important;
         }
         .p-button {
-          padding: 0 !important ;
+          padding: 0 !important;
         }
       }
 
       &-button {
-        padding: 0px 16px;
+        padding: 0px 0px;
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding-bottom: 1rem;
-
-        
+        padding-bottom: 2.5rem;
+        border-bottom: 1px solid #dfe7ef;;
       }
 
       &-text {
         padding-bottom: 1rem;
         @include flex-center;
+        justify-content: start;
+
         .p-button-link {
           padding: 0;
-          color: var(--surface-600);
+          //font-weight: 100 !important;
+          //color: var(--surface-600);
         }
       }
     }
@@ -121,15 +156,18 @@ button {
 
   &-img {
     flex: 1;
-    // background-image: url('path/to/your/image.jpg');
-    background-color: $secondary-color;
+    z-index: 2;
+    @include flex-center;
+    //text-align: center;
+    justify-content: space-around;
     background-size: cover;
     background-position: center;
-
-    @include flex-center;
+    img {
+      height: calc(6rem)
+    }
 
     @media (max-width: 768px) {
-      height: 50vh;
+      display: none;
     }
   }
 }

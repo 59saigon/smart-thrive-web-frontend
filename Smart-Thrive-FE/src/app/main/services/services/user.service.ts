@@ -38,6 +38,10 @@ export class UserService extends BaseService<User> {
     return this.http.post<ItemResponse<any>>(`${ConstantsApi.user.baseUrl}${ConstantsApi.user.register}`, user);
   }
 
+  getByEmail(email: string): Observable<ItemResponse<User>> {
+    return this.http.get<ItemResponse<User>>(`${this.getBaseUrl()}${ConstantsApi.getByEmail}/${email}`);
+  }  
+
   IsLoggedIn() {
     if (this.helper.isTokenExpired(localStorage.getItem('token'))) {
       this.logout();
@@ -55,6 +59,11 @@ export class UserService extends BaseService<User> {
     localStorage.setItem('userEmail', user.email ? user.email : '');
     localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify(user));
+  }
+
+
+  setEmail(email: string) {
+    localStorage.setItem('userEmail', email ? email : '');
   }
 
   getToken(): string {
