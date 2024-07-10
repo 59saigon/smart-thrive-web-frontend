@@ -1,6 +1,6 @@
 // Variables
 $primary-color: #eeeeee;
-$background-img: url('../../../../../assets/layout/images/DesignerBackground.jpeg');
+$background-img: url('../../../../../assets/layout/images/DesignerBackground2.jpeg');
 $secondary-color: #222831;
 $font-family: "Inter var", sans-serif;
 $overlay-color: rgba(0, 0, 0, 0.5); // Màu tối với độ mờ 50%
@@ -61,6 +61,7 @@ button {
 
     @media (max-width: 768px) {
       padding: 1rem;
+      align-items: center;
     }
 
     &-main {
@@ -161,13 +162,12 @@ button {
     justify-content: space-around;
     background-size: cover;
     background-position: center;
-
     img {
       height: calc(6rem)
     }
 
     @media (max-width: 768px) {
-      height: 50vh;
+      display: none;
     }
   }
 }

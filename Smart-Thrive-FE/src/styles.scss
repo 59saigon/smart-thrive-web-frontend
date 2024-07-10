@@ -7,3 +7,9 @@ $gutter: 1rem; //for primeflex grid system
 
 //  @import "../node_modules/primeng/resources/themes/saga-orange/theme.css";
 @import "../node_modules/font-awesome/css/font-awesome.css";
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+*{
+    font-family: 'Montserrat', sans-serif;
+}
