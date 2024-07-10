@@ -23,13 +23,6 @@ export default [
         sortField: true,
     },
     {
-        field: 'locationId',
-        header: 'Location Id',
-        isDisabled: false,
-        sortIcon: true,
-        sortField: true,
-    },
-    {
         field: 'code',
         header: 'Code',
         isDisabled: false,
@@ -58,22 +51,22 @@ export default [
         sortField: true,
     },
     {
-        field: 'quantity',
-        header: 'Quantity',
+        field: 'totalSessions',
+        header: 'Total Sessions',
         isDisabled: false,
         sortIcon: true,
         sortField: true,
     },
     {
-        field: 'sold_product',
-        header: 'Sold Product',
+        field: 'soldCourses',
+        header: 'Sold Courses',
         isDisabled: false,
         sortIcon: true,
         sortField: true,
     },
     
     {
-        field: 'totalSlot',
+        field: 'totalSlots',
         header: 'TotalSlot',
         isDisabled: false,
         sortIcon: true,

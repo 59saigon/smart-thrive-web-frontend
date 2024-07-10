@@ -251,7 +251,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
           
         // },
         {
-          label: 'Tổng slot (Number)',
+          label: 'Total slots',
           data: this.courses.map(course => course.totalSlots ),
           backgroundColor: [
             "#36BA98",
