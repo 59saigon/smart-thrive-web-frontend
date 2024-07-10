@@ -25,9 +25,9 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     const url = this.router.url;
     if (url.includes('/auth/login/')) {
-        this.isLoginWithGoogle = true;
+      this.isLoginWithGoogle = true;
     }
-    
+
     google.accounts.id.initialize({
       client_id: '311399879185-vic40gludgaeulfo790m0h48h1cvul7u.apps.googleusercontent.com',
       callback: (resp: any) => {
@@ -36,10 +36,14 @@ export class LoginComponent implements OnInit {
     });
 
     google.accounts.id.renderButton(document.getElementById("google-btn"), {
-      theme: 'filled_blue',
+      theme: 'outline',
       size: 'large',
-      shape: 'rectangle',
-      width: 350
+      shape: 'circle',
+      logo_alignment: "center",
+      width: '100%',
+      longTitle: true,
+      onsuccess: 'onSuccess',
+      onfailure: 'onFailure'
     });
   }
 
@@ -67,7 +71,7 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    if(this.isLoginWithGoogle) {
+    if (this.isLoginWithGoogle) {
       this.loginUser.usernameOrEmail = this.userService.getUserEmail();
     }
 
@@ -103,7 +107,7 @@ export class LoginComponent implements OnInit {
   private decodeToken(token: string) {
     return JSON.parse(atob(token.split(".")[1]));
   }
-  
+
   backToLogin() {
     this.userService.logout();
     window.location.reload();
