@@ -1,14 +1,10 @@
 <div class="layout-sidebar">
     <div class="sidebar-logo">
-        
-        <a class="sidebar-logo-link " routerLink="dashboard">
-            <span>Smart Thrive</span>
-            <img src="/assets/layout/images/dolphin3d.png" alt="logo" />
-        </a>
 
-        <!-- <button #menubutton class="p-link layout-menu-button sidebar-logo-button" (click)="toggleMenu()">
-            <i [ngClass]="!isMenuOpen ? 'pi pi-chevron-right' : 'pi pi-chevron-left'"></i>
-        </button> -->
+
+        <a class="sidebar-logo-link " routerLink="dashboard"> 
+            <img src="/assets/layout/images/SmartThriveEduDashboard.png"
+                alt="logo" /></a>
     </div>
 
     <div class="sidebar-content">
@@ -22,9 +18,9 @@
     </div>
 
     <div class="sidebar-profile">
-        
-            <p-menu #menu appendTo="body" (onShow)="openMenu()" [popup]="true" [model]="otherModel"></p-menu>
-       
+
+        <p-menu #menu appendTo="body" (onShow)="openMenu()" [popup]="true" [model]="otherModel"></p-menu>
+
         <!-- Profile content here -->
         <div #topbarmenu class="mt-auto">
             <hr class="border-top-1 border-none surface-border" />
@@ -35,7 +31,7 @@
                 <p-avatar image="assets/layout/images/test.jpg" styleClass="mr-2" size="large"
                     shape="circle"></p-avatar>
 
-                <span>{{ userService.getUserDetails().fullName }}</span>
+                <span style="color: #ffff;">{{ userService.getUserDetails().fullName }}</span>
             </a>
         </div>
     </div>
