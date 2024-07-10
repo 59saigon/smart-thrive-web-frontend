@@ -63,7 +63,7 @@ button {
 
     @include flex-center;
     //text-align: center;
-    align-items: start;
+    align-items: flex-start;
 
     @media (max-width: 768px) {
       padding: 1rem;
