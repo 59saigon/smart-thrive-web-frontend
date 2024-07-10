@@ -2,7 +2,7 @@
 
 <div class="main-auth-login">
     <div class="main-auth-login-img">
-        <img/>
+        <img />
         <img src="/assets/layout/images/SmartThriveEduDashboard.png" alt="logo" />
     </div>
     <div class="main-auth-login-content flex flex-column">
@@ -13,42 +13,74 @@
             </a> -->
         </div>
         <div class="main-auth-login-content-main w-10 md:w-8 lg:w-6 Login" (keydown.enter)="onLogin(0)">
-            <div class="main-auth-login-content-main-title">
-                <h1>Sign in</h1>
-            </div>
-            <div class="main-auth-login-content-main-text">
-                <span>New user?</span>
-                <div class="main-auth-login-content-main-func-forgot">
-                    <p-button label="Create an account" [link]="true" routerLink="/auth/register" />
+            <ng-container *ngIf="!isLoginWithGoogle, else loginWith">
+                <div class="main-auth-login-content-main-title">
+                    <h1>Sign in</h1>
                 </div>
-            </div>
-
-            <div class="main-auth-login-content-main-input gap-2">
-                <input pInputText placeholder="Email or username" name="email" [(ngModel)]="loginUser.usernameOrEmail"
-                    class="p-inputtext-md" />
-                <p-password [(ngModel)]="loginUser.password" placeholder="Password" name="password" [toggleMask]="true"
-                    [feedback]="false" class="p-inputtext-md" />
-            </div>
-
-            <div class="main-auth-login-content-main-func">
-                <div class="main-auth-login-content-main-func-remember">
-                    <p-checkbox [binary]="true" label=" Remember me" [(ngModel)]="loginUser.isRemember"></p-checkbox>
+                <div class="main-auth-login-content-main-text">
+                    <span>New user?</span>
+                    <div class="main-auth-login-content-main-func-forgot">
+                        <p-button label="Create an account" [link]="true" routerLink="/auth/register" />
+                    </div>
                 </div>
 
-                <div class="main-auth-login-content-main-func-forgot">
-                    <p-button label="Forgot Password?" [link]="true" />
+                <div class="main-auth-login-content-main-input gap-2">
+                    <input pInputText placeholder="Email or username" name="email"
+                        [(ngModel)]="loginUser.usernameOrEmail" class="p-inputtext-md" />
+                    <p-password [(ngModel)]="loginUser.password" placeholder="Password" name="password"
+                        [toggleMask]="true" [feedback]="false" class="p-inputtext-md" />
                 </div>
-            </div>
 
-            <div class="main-auth-login-content-main-button">
-                <p-button [label]="loginLabel" class="w-full" [loading]="loading[0]" (onClick)="onLogin(0)"></p-button>
-            </div>
+                <div class="main-auth-login-content-main-func">
+                    <div class="main-auth-login-content-main-func-remember">
+                        <p-checkbox [binary]="true" label=" Remember me"
+                            [(ngModel)]="loginUser.isRemember"></p-checkbox>
+                    </div>
+
+                    <div class="main-auth-login-content-main-func-forgot">
+                        <p-button label="Forgot Password?" [link]="true" />
+                    </div>
+                </div>
+
+                <div class="main-auth-login-content-main-button">
+                    <p-button [label]="loginLabel" class="w-full" [loading]="loading[0]" (onClick)="onLogin(0)"></p-button>
+                </div>
 
 
+            </ng-container>
 
+            <ng-template #loginWith>
+                <div class="main-auth-login-content-main-text">
+                    <p-button (click)="backToLogin()" label="Back to login" icon="pi pi-arrow-left" severity="secondary"
+                        [link]="true" />
+                </div>
+
+                <div class="main-auth-login-content-main-input gap-2">
+                    <p-password [(ngModel)]="loginUser.password" placeholder="Password" name="password"
+                        [toggleMask]="true" [feedback]="false" class="p-inputtext-md" />
+                </div>
+
+                <div class="main-auth-login-content-main-func">
+                    <div class="main-auth-login-content-main-func-remember">
+                        <p-checkbox [binary]="true" label=" Remember me"
+                            [(ngModel)]="loginUser.isRemember"></p-checkbox>
+                    </div>
+
+                    <div class="main-auth-login-content-main-func-forgot">
+                        <p-button label="Forgot Password?" [link]="true" />
+                    </div>
+                </div>
+
+                <div class="main-auth-login-content-main-button">
+                    <p-button [label]="loginLabel" class="w-full" [loading]="loading[0]" (onClick)="onLogin(0)"></p-button>
+                </div>
+            </ng-template>
+
+            
 
 
             <div class="main-auth-login-content-main-login-with flex flex-column gap-3">
+                <div id="google-btn"></div>
                 <button pButton type="button" [outlined]="true" pRipple severity="secondary"
                     label="Continue with Google">
                     <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="26" height="26" viewBox="0 0 48 48"
@@ -83,6 +115,8 @@
 
 
         </div>
+
+
     </div>
 
 

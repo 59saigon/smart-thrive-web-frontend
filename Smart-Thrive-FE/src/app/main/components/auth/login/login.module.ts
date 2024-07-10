@@ -14,7 +14,6 @@ import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ToastModule } from 'primeng/toast';
-
 @NgModule({
   declarations: [LoginComponent],
   imports: [
