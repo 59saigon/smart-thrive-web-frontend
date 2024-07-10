@@ -15,7 +15,9 @@ import { PaginatedRequest } from '../../../data/model/paginated-request';
 import { ChartOptions } from 'chart.js';
 
 @Component({
+  selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
+  styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
@@ -28,7 +30,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   paginatedRequest: PaginatedRequest = {
     pageNumber: 1,
     pageSize: 10,
-    sortField: 'sold_product',
+    sortField: 'LastUpdatedDate',
     sortOrder: -1
   };
 
@@ -108,12 +110,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
     const currentYear = new Date().getFullYear();
     const monthlySums = Array(12).fill(0);
     const monthlyCounts = Array(12).fill(0);
-
+    console.log("check_orders", this.orders);
     this.orders.forEach((order) => {
       const orderDate = new Date(order.createdDate);
       if (orderDate.getFullYear() === currentYear) {
         const month = orderDate.getMonth(); // 0 = January, 1 = February, ...
-        monthlySums[month] += order ? 1 : 0;
+        monthlySums[month] += order.id != null ? 1 : 0;
         monthlyCounts[month]++;
       }
     });
@@ -174,6 +176,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     const averagePriceOrders = this.averagePriceMonthlyOrders();
     const averageQuantityOrders = this.averageQuantityMonthlyOrders();
 
+    console.log("check_quantity",averageQuantityOrders);
+
     this.chartOrder = {
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
       datasets: [
@@ -225,11 +229,30 @@ export class DashboardComponent implements OnInit, OnDestroy {
     };
 
     this.getListCourse();
+    const summarySlots = this.calculateTotalSlots();
     this.chartCourse = {
       labels: this.courses.map(course => course.courseName || 'Unknown Course'),
       datasets: [
+        // {
+        //   label: 'Tỉ lệ slot đăng ký (%)',
+        //   data: this.courses.map(course => (this.calculatePercentage(course.totalSlots? course.totalSlots : 0, summarySlots))),
+        //   backgroundColor: [
+        //     "#36BA98",
+        //     "#3FA2F6",
+        //     "#FFF078",
+        //     "#973131",
+        //     "#F19ED2",
+        //     "#FF6969",
+        //     "#06D001",
+        //     "#102C57",
+        //     "#FFB1B1",
+        //     "#686D76",
+        //   ],
+          
+        // },
         {
-          data: this.courses.map(course => this.calculatePercentage(course.quantity? course.quantity : 0, this.calculateTotalSoldProduct())),
+          label: 'Total slots',
+          data: this.courses.map(course => course.totalSlots ),
           backgroundColor: [
             "#36BA98",
             "#3FA2F6",
@@ -260,8 +283,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     };
   }
 
-  calculateTotalSoldProduct(): number {
-    return this.courses.reduce((sum, course) => sum + (course.quantity ?? 0), 0);
+  calculateTotalSlots(): number {
+    return this.courses.reduce((sum, course) => sum + (course.totalSlots ?? 0), 0);
   }
   
   calculatePercentage(value: number, total: number): number {

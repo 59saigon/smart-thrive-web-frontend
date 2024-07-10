@@ -1,8 +1,8 @@
 :root {
-  font-family: "Inter var", sans-serif;
+  font-family: 'SF Pro Text',-apple-system,BlinkMacSystemFont,Roboto,'Segoe UI',Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   font-variation-settings: normal;
-  --font-family: "Inter var", sans-serif;
+  --font-family: 'SF Pro Text',-apple-system,BlinkMacSystemFont,Roboto,'Segoe UI',Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';
   --font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   --surface-a: #1C1D21;
   --surface-b: #1A2035;
@@ -28,6 +28,7 @@
   --surface-700: #f3f4f6;
   --surface-800: #f9fafb;
   --surface-900: #ffffff;
+  --surface-custom: #ffffff;
   --gray-50: #f9fafb;
   --gray-100: #f3f4f6;
   --gray-200: #e5e7eb;
@@ -48,6 +49,7 @@
   /* --custom-background: linear-gradient(to right, #141e30, #243b55); */
   --surface-border: rgba(255, 255, 255, 0.1);
   --surface-hover: rgba(255, 255, 255, 0.03);
+  --surface-hover-custom: rgba(255, 255, 255, 0.03);
   --focus-ring: 0 0 0 0.2rem rgba(34, 211, 238, 0.2);
   --maskbg: rgba(0, 0, 0, 0.4);
   --highlight-bg: rgba(34, 211, 238, 0.16);

@@ -20,7 +20,7 @@ export class AppConfigComponent {
     public menuService: MenuService
   ) {
     this.stateOptions = [{label: 'Outlined', value: 'outlined'}, {label: 'Filled', value: 'filled'}];
-    this.theme = ConstantsTheme.light;
+    this.changeTheme(ConstantsTheme.default, '')
     this.ripple = true;
   }
 

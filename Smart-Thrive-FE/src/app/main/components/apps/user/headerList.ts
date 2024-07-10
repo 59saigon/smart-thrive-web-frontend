@@ -7,13 +7,6 @@ export default [
         sortField: true,
     },
     {
-        field: 'locationId',
-        header: 'Location Id',
-        isDisabled: false,
-        sortIcon: true,
-        sortField: true
-    },
-    {
         field: 'role',
         subfield: 'roleName',
         header: 'Role',
