@@ -4,6 +4,11 @@ export interface LoginUser {
   isRemember: boolean;
 }
 
+export interface LoginWithtAnother {
+  email: string; // Required field, not nullable
+  email_verified: boolean;
+}
+
 export interface RegisterUser {
   fullName: string; // Required field, not nullable
   email: string; // Nullable

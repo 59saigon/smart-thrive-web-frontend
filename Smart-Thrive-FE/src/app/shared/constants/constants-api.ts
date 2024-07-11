@@ -15,8 +15,8 @@ export const ConstantsApi = {
   delete: '/delete',
   user: {
     baseUrl: `${api}/user`,
-    getUserByEmail: '/get-by-email',
     login: '/login',
+    loginWithAnother: '/login-with-another',
     register: '/register',
     forget: '/forget',
   },

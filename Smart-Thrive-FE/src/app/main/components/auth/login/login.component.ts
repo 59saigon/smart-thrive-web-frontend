@@ -1,6 +1,6 @@
 declare var google: any;
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { LoginUser } from '../../../../data/model/auth';
+import { LoginUser, LoginWithtAnother } from '../../../../data/model/auth';
 import { UserService } from '../../../services/services/user.service';
 import { Router } from '@angular/router';
 import { User } from '../../../../data/entities/user';
@@ -63,6 +63,7 @@ export class LoginComponent implements OnInit {
   onLogin(index: number) {
     this.load(index);
 
+
     if ((!this.isLoginWithGoogle) && this.isUserObjectEmpty(this.loginUser)) {
       setTimeout(() => {
         this.clearLoading(index);
@@ -114,33 +115,106 @@ export class LoginComponent implements OnInit {
   }
 
   handleLogin(response: any) {
+    var index = 0;
     if (response) {
-      //decode the token
+      this.load(index); // Start loading state
+
+      // Decode the token
       const payLoad = this.decodeToken(response.credential);
-      //set token
-      console.table(payLoad.email)
+      console.log(payLoad);
+
+      // Fetch user details by email
       this.userService.getByEmail(payLoad.email).subscribe({
         next: (res) => {
           // Clear loading state when response is received
           if (res.result == null) {
-            setTimeout(() => {
-              this.messageService.add({ severity: 'warn', summary: 'Fail', detail: "Not found account: " + this.loginUser.usernameOrEmail });
-            }, 1000);
-            return;
+            this.registerIfLoginWithAnother(payLoad, index);
           }
-          // this.user = res.result;
-          // this.token = response.credential;
-          // this.userService.setToken(this.user, this.token);
-          this.userService.setEmail(payLoad.email);
-          this.router.navigateByUrl(`/auth/login/${response.credential}`);
-          this.isLoginWithGoogle = true;
+          else {
+            // Prepare data for alternative login method
+          this.loginWithAnother(payLoad, index);
+          }
+          
+
         },
         error: (err) => {
           setTimeout(() => {
-            this.messageService.add({ severity: 'warn', summary: 'Fail', detail: "Service is not enable" });
+            this.clearLoading(index);
+            this.messageService.add({ severity: 'warn', summary: 'Fail', detail: "Service is not enabled" });
           }, 1000);
         },
       });
+
     }
+  }
+
+  registerIfLoginWithAnother(payLoad: any, index: number) {
+    // set user 
+    this.user = {} as User;
+    this.user.firstName = payLoad.given_name;
+    this.user.lastName = payLoad.family_name;
+    // update
+    this.user.fullName = payLoad.name;
+    this.user.username = payLoad.sub;
+    this.user.email = payLoad.email;
+
+    this.userService.register(this.user).subscribe({
+      next: (response) => {
+        if (response.result == null) {
+          setTimeout(() => {
+            this.clearLoading(index);
+            this.messageService.add({ severity: 'warn', summary: 'Fail', detail: response.message });
+          }, 1000);
+          return;
+        }
+        // register successful
+        this.loginWithAnother(payLoad, index);
+      },
+      error: (err) => {
+        setTimeout(() => {
+          this.clearLoading(index);
+          this.messageService.add({ severity: 'warn', summary: 'Fail', detail: "Service is not enable" });
+        }, 1000);
+      },
+    });
+  }
+
+  loginWithAnother(payLoad: any, index: number) {
+    const loginWithAnother = {
+      email: payLoad.email,
+      email_verified: payLoad.email_verified
+    } as LoginWithtAnother;
+
+    // Attempt login with another method
+    this.userService.loginWithAnother(loginWithAnother).subscribe({
+      next: (response) => {
+        // Clear loading state when response is received
+        if (response.result == null) {
+          setTimeout(() => {
+            this.clearLoading(index);
+            this.messageService.add({ severity: 'warn', summary: 'Fail', detail: "Login with another method failed: " + payLoad.email });
+          }, 1000);
+          return;
+        }
+
+        // Login successful
+        this.user = response.result;
+        this.token = response.token;
+        this.userService.setToken(this.user, this.token);
+
+        // Navigate to home page after successful login
+        setTimeout(() => {
+          this.clearLoading(index);
+          window.location.reload();
+        }, 2000);
+
+      },
+      error: (err) => {
+        setTimeout(() => {
+          this.clearLoading(index);
+          this.messageService.add({ severity: 'warn', summary: 'Fail', detail: "Service is not enabled" });
+        }, 1000);
+      },
+    });
   }
 }
