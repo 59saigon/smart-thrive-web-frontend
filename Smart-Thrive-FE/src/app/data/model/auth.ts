@@ -7,6 +7,7 @@ export interface LoginUser {
 export interface LoginWithtAnother {
   email: string; // Required field, not nullable
   email_verified: boolean;
+  googleToken: string;
 }
 
 export interface RegisterUser {

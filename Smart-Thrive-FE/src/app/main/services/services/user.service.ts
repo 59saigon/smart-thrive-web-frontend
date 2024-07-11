@@ -34,7 +34,7 @@ export class UserService extends BaseService<User> {
     return this.http.post<LoginResponse<User>>(`${ConstantsApi.user.baseUrl}${ConstantsApi.user.login}`, model);
   }
 
-  loginWithAnother(model: LoginWithtAnother): Observable<LoginResponse<User>> {
+  verifiedByGoogleToken(model: LoginWithtAnother): Observable<LoginResponse<User>> {
     return this.http.post<LoginResponse<User>>(`${ConstantsApi.user.baseUrl}${ConstantsApi.user.loginWithAnother}`, model);
   }
 
