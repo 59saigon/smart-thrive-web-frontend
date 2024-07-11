@@ -115,80 +115,28 @@ export class LoginComponent implements OnInit {
   }
 
   handleLogin(response: any) {
-    var index = 0;
-    if (response) {
-      this.load(index); // Start loading state
 
-      // Decode the token
+    if (response) {
+      var index = 0;
+      this.load(index);
+
       const payLoad = this.decodeToken(response.credential);
       console.log(payLoad);
 
-      // Fetch user details by email
-      this.userService.getByEmail(payLoad.email).subscribe({
-        next: (res) => {
-          // Clear loading state when response is received
-          if (res.result == null) {
-            this.registerIfLoginWithAnother(payLoad, index);
-          }
-          else {
-            // Prepare data for alternative login method
-          this.loginWithAnother(payLoad, index);
-          }
-          
-
-        },
-        error: (err) => {
-          setTimeout(() => {
-            this.clearLoading(index);
-            this.messageService.add({ severity: 'warn', summary: 'Fail', detail: "Service is not enabled" });
-          }, 1000);
-        },
-      });
+      this.verifiedByGoogleToken(payLoad, 0, response.credential);
 
     }
   }
 
-  registerIfLoginWithAnother(payLoad: any, index: number) {
-    // set user 
-    this.user = {} as User;
-    this.user.firstName = payLoad.given_name;
-    this.user.lastName = payLoad.family_name;
-    // update
-    this.user.fullName = payLoad.name;
-    this.user.username = payLoad.sub;
-    this.user.email = payLoad.email;
-
-    this.userService.register(this.user).subscribe({
-      next: (response) => {
-        if (response.result == null) {
-          setTimeout(() => {
-            this.clearLoading(index);
-            this.messageService.add({ severity: 'warn', summary: 'Fail', detail: response.message });
-          }, 1000);
-          return;
-        }
-        // register successful
-        this.loginWithAnother(payLoad, index);
-      },
-      error: (err) => {
-        setTimeout(() => {
-          this.clearLoading(index);
-          this.messageService.add({ severity: 'warn', summary: 'Fail', detail: "Service is not enable" });
-        }, 1000);
-      },
-    });
-  }
-
-  loginWithAnother(payLoad: any, index: number) {
+  verifiedByGoogleToken(payLoad: any, index: number, _googleToken: any) {
     const loginWithAnother = {
       email: payLoad.email,
-      email_verified: payLoad.email_verified
+      email_verified: payLoad.email_verified,
+      googleToken: _googleToken
     } as LoginWithtAnother;
 
-    // Attempt login with another method
-    this.userService.loginWithAnother(loginWithAnother).subscribe({
+    this.userService.verifiedByGoogleToken(loginWithAnother).subscribe({
       next: (response) => {
-        // Clear loading state when response is received
         if (response.result == null) {
           setTimeout(() => {
             this.clearLoading(index);
@@ -197,12 +145,10 @@ export class LoginComponent implements OnInit {
           return;
         }
 
-        // Login successful
         this.user = response.result;
         this.token = response.token;
         this.userService.setToken(this.user, this.token);
 
-        // Navigate to home page after successful login
         setTimeout(() => {
           this.clearLoading(index);
           window.location.reload();
