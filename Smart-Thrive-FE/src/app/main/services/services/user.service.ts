@@ -4,7 +4,7 @@ import { User } from '../../../data/entities/user';
 import { ConstantsApi } from '../../../shared/constants/constants-api';
 import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { LoginUser } from '../../../data/model/auth';
+import { LoginUser, LoginWithtAnother } from '../../../data/model/auth';
 import { BaseResponse, LoginResponse, ItemResponse } from '../../../data/model/base-response';
 import { PaginatedListResponse } from '../../../data/model/paginated-response';
 import { Guid } from 'guid-typescript';
@@ -32,6 +32,10 @@ export class UserService extends BaseService<User> {
 
   login(model: LoginUser): Observable<LoginResponse<User>> {
     return this.http.post<LoginResponse<User>>(`${ConstantsApi.user.baseUrl}${ConstantsApi.user.login}`, model);
+  }
+
+  loginWithAnother(model: LoginWithtAnother): Observable<LoginResponse<User>> {
+    return this.http.post<LoginResponse<User>>(`${ConstantsApi.user.baseUrl}${ConstantsApi.user.loginWithAnother}`, model);
   }
 
   register(user: User): Observable<ItemResponse<any>> {
