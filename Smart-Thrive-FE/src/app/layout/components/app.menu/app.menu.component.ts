@@ -43,6 +43,21 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
     this.resetHideMenuTimeout();
   }
 
+  setAvatarUrl(): string {
+    const user = this.userService.getUserDetails();
+    if (user && user.picture) {
+      const base64Prefix = `data:image/png;base64,${user.picture}`;
+      console.log("imgbase64", base64Prefix);
+      if (base64Prefix.includes('image')) {
+        return base64Prefix;
+      } else {
+        return 'path/to/default/image.png';
+      }
+    }
+    return 'path/to/default/image.png';
+  }
+  
+
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
     this.layoutService.onMenuToggle();
