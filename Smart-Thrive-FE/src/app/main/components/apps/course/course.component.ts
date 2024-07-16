@@ -10,6 +10,8 @@ import { CourseService } from '../../../services/services/course.service';
 import { Course } from '../../../../data/entities/course';
 import { PaginatedRequest } from '../../../../data/model/paginated-request';
 import { PaginatedListResponse } from '../../../../data/model/paginated-response';
+import { UserService } from '../../../services/services/user.service';
+import { Guid } from 'guid-typescript';
 
 @Component({
   selector: 'app-course',
@@ -23,6 +25,7 @@ export class CourseComponent implements OnInit {
 
   constructor(
     private courseService: CourseService,
+    private userService: UserService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private activatedRoute: ActivatedRoute,
@@ -40,7 +43,8 @@ export class CourseComponent implements OnInit {
 
   initialize(): void {
     this.clear();
-    this.getListCourse();
+    const isProvider = this.userService.getRole() === "Provider";
+    !isProvider ? this.getListCourse() : this.getListCourseByProviderId(this.userService.getUserDetails().provider?.id!);
     this.getSelectedColumns();
   }
 
@@ -81,12 +85,24 @@ export class CourseComponent implements OnInit {
     pageNumber: 1,
     pageSize: 5,
     sortField: 'CreatedDate',
-    sortOrder: 1
+    sortOrder: -1
   };
 
   paginatedListResponse: PaginatedListResponse<Course> = {} as PaginatedListResponse<Course>;
   getListCourse(): void {
     this.courseService.getAllPagination(this.paginatedRequest).subscribe({
+      next: (response) => {
+        this.paginatedListResponse = response;
+        this.setPaginatedRequest();
+      },
+      error: (err) => {
+        console.log("check_error", err);
+      },
+    });
+  }
+
+  getListCourseByProviderId(providerId: Guid): void {
+    this.courseService.getAllPaginationByProviderId(providerId,this.paginatedRequest).subscribe({
       next: (response) => {
         this.paginatedListResponse = response;
         this.setPaginatedRequest();
@@ -107,7 +123,8 @@ export class CourseComponent implements OnInit {
     this.paginatedRequest.sortField = event.sortField;
     this.paginatedRequest.sortOrder = event.sortOrder;
 
-    this.getListCourse();
+    const isProvider = this.userService.getRole() === "Provider";
+    !isProvider ? this.getListCourse() : this.getListCourseByProviderId(this.userService.getUserDetails().provider?.id!);
   }
 
   setPaginatedRequest() {

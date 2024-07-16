@@ -56,7 +56,7 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
     }
     return 'path/to/default/image.png';
   }
-  
+
 
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
@@ -125,8 +125,11 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
   }
 
   setModel() {
+    const isStaff = this.userService.getRole() === "Staff";
+    const isProvider = this.userService.getRole() === "Provider";
+    console.log(isStaff);
     this.model = [
-      {
+      !isStaff && {
         label: 'Dashboards',
         items: [
           {
@@ -139,7 +142,7 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
       {
         label: 'App Management',
         items: [
-          {
+          !isProvider && {
             label: 'Package',
             icon: 'pi pi-box',
             routerLink: ['/apps/package'],
@@ -149,27 +152,26 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
             icon: 'pi pi-objects-column',
             routerLink: ['/apps/course'],
           },
-          {
+          !isProvider && {
             label: 'Session',
             icon: 'pi pi-bookmark',
             routerLink: ['/apps/session'],
           },
-          {
+          !isProvider && {
             label: 'Order',
             icon: 'pi pi-shopping-cart',
             routerLink: ['/apps/order'],
           },
-          {
+          !isProvider && {
             label: 'Subject',
             icon: 'pi pi-book',
             routerLink: ['/apps/subject'],
           },
-          {
+          !isStaff && !isProvider && {
             label: 'User',
             icon: 'pi pi-user',
             routerLink: ['/apps/user'],
             items: [
-            
               {
                 label: 'Provider',
                 icon: 'pi pi-user',
@@ -180,74 +182,73 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
                 icon: 'pi pi-user',
                 routerLink: ['/apps/user/student'],
               },
-            ]
+            ],
           },
-          
-        ]
+        ].filter(Boolean), // Filters out falsy values (like 'false' when isStaff is true)
       },
-
+      // Additional menu items can be uncommented and added here as needed
       // {
-      //   label: 'Application',
-
-      //   items: [
-      //     {
-      //       label: 'Schedule',
-      //       icon: 'pi pi-calendar',
-      //       routerLink: ['/management/schedule'],
-      //     },
-      //     {
-      //       label: 'Feedback',
-      //       icon: 'pi pi-comments',
-      //       routerLink: ['/management/feedback'],
-      //     },
-      //     {
-      //       label: 'Comment',
-      //       icon: 'pi pi-comment',
-      //       routerLink: ['/management/comment'],
-      //     },
-      //     {
-      //       label: 'Blog',
-      //       icon: 'pi pi-pencil',
-      //       routerLink: ['/management/blog'],
-      //     },
-      //     {
-      //       label: 'Voucher',
-      //       icon: 'pi pi-tag',
-      //       routerLink: ['/management/voucher'],
-      //     },
-      //     {
-      //       label: 'Cart',
-      //       icon: 'pi pi-shopping-cart',
-      //       routerLink: ['/management/cart'],
-      //     },
-      //     {
-      //       label: 'Order',
-      //       icon: 'pi pi-shopping-bag',
-      //       routerLink: ['/management/order'],
-      //     },
-      //     {
-      //       label: 'OrderDetail',
-      //       icon: 'pi pi-info',
-      //       routerLink: ['/management/order-detail'],
-      //     },
-      //   ],
+      //     label: 'Application',
+      //     items: [
+      //         {
+      //             label: 'Schedule',
+      //             icon: 'pi pi-calendar',
+      //             routerLink: ['/management/schedule'],
+      //         },
+      //         {
+      //             label: 'Feedback',
+      //             icon: 'pi pi-comments',
+      //             routerLink: ['/management/feedback'],
+      //         },
+      //         {
+      //             label: 'Comment',
+      //             icon: 'pi pi-comment',
+      //             routerLink: ['/management/comment'],
+      //         },
+      //         {
+      //             label: 'Blog',
+      //             icon: 'pi pi-pencil',
+      //             routerLink: ['/management/blog'],
+      //         },
+      //         {
+      //             label: 'Voucher',
+      //             icon: 'pi pi-tag',
+      //             routerLink: ['/management/voucher'],
+      //         },
+      //         {
+      //             label: 'Cart',
+      //             icon: 'pi pi-shopping-cart',
+      //             routerLink: ['/management/cart'],
+      //         },
+      //         {
+      //             label: 'Order',
+      //             icon: 'pi pi-shopping-bag',
+      //             routerLink: ['/management/order'],
+      //         },
+      //         {
+      //             label: 'OrderDetail',
+      //             icon: 'pi pi-info',
+      //             routerLink: ['/management/order-detail'],
+      //         },
+      //     ],
       // },
       // {
-      //   label: 'Support',
-      //   items: [
-      //     {
-      //       label: 'Documentation',
-      //       icon: 'pi pi-fw pi-question',
-      //       routerLink: ['/documentation'],
-      //     },
-      //     {
-      //       label: 'View Source',
-      //       icon: 'pi pi-fw pi-search',
-      //       url: ['https://github.com/59saigon/smart-thrive-web-frontend'],
-      //       target: '_blank',
-      //     },
-      //   ],
+      //     label: 'Support',
+      //     items: [
+      //         {
+      //             label: 'Documentation',
+      //             icon: 'pi pi-fw pi-question',
+      //             routerLink: ['/documentation'],
+      //         },
+      //         {
+      //             label: 'View Source',
+      //             icon: 'pi pi-fw pi-search',
+      //             url: ['https://github.com/59saigon/smart-thrive-web-frontend'],
+      //             target: '_blank',
+      //         },
+      //     ],
       // },
-    ];
+    ].filter(Boolean); // Filters out falsy values (like 'false' when isStaff is true)
   }
+
 }

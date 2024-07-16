@@ -60,6 +60,12 @@ export class CourseDetailComponent implements OnInit {
     this.provider = this.course.provider ?? {} as Provider;
     this.paginatedListResponse.results = this.course.sessions || [];
     this.getSelectedColumns();
+
+    // set get sessions by provider id
+
+    // this.courseService.refreshComponent$.subscribe(() => {
+    //   this.initialize();
+    // });
   }
 
   deleteSession(session: Session) {

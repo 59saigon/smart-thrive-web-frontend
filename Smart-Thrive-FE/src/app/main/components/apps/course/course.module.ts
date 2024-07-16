@@ -29,12 +29,14 @@ import { CourseCreateOrUpdateComponent } from './course-create-or-update/course-
 import { CourseDetailComponent } from './course-detail/course-detail.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import { SessionCreateOrUpdateComponent } from '../session/session-create-or-update/session-create-or-update.component';
+import { SessionModule } from '../session/session.module';
 
 @NgModule({
   declarations: [
     CourseComponent,
     CourseCreateOrUpdateComponent,
-    CourseDetailComponent
+    CourseDetailComponent,
   ],
   imports: [
     CommonModule,
@@ -62,7 +64,8 @@ import { InputSwitchModule } from 'primeng/inputswitch';
     ClipboardModule,
     AccordionModule,
     ConfirmDialogModule,
-    InputSwitchModule
+    InputSwitchModule,
+    SessionModule,
   ]
 })
 export class CourseModule { }

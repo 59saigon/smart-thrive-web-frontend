@@ -74,6 +74,10 @@ export class UserService extends BaseService<User> {
   getToken(): string {
     return localStorage.getItem('token') || '';
   }
+  
+  getRole(): string {
+    return localStorage.getItem('role') || '';
+  }
 
   getUserEmail(): string {
     return localStorage.getItem('email') || '';

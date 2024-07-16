@@ -61,6 +61,9 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     ClipboardModule,
     AccordionModule,
     ConfirmDialogModule
+  ],
+  exports: [
+    SessionCreateOrUpdateComponent // export it for use in other modules
   ]
 })
 export class SessionModule { }

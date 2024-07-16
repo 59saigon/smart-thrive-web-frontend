@@ -9,6 +9,8 @@ import { Subject } from '../../../../../data/entities/subject';
 import { Provider } from '../../../../../data/entities/provider';
 import { SubjectService } from '../../../../services/services/subject.service';
 import { ProviderService } from '../../../../services/services/provider.service';
+import { UserService } from '../../../../services/services/user.service';
+import { Guid } from 'guid-typescript';
 
 @Component({
   selector: 'app-course-create-or-update',
@@ -39,6 +41,7 @@ export class CourseCreateOrUpdateComponent implements OnInit {
   constructor(private courseService: CourseService,
     private subjectService: SubjectService,
     private providerService: ProviderService,
+    protected userService: UserService,
     private messageService: MessageService,
     private confirm: ConfirmationService) {
   }
@@ -122,13 +125,26 @@ export class CourseCreateOrUpdateComponent implements OnInit {
     this.submitted = false;
   }
 
+  findProviderByProviderId(providerId: Guid): Provider | undefined {
+    this.getListProvider();
+    return this.providers.find(provider => provider.id === providerId);
+  }
+
   saveCourse() {
     this.submitted = true;
 
+    this.course.soldCourses = 0;
     this.course.startDate = this.startDate;
     this.course.endDate = this.endDate;
     this.course.subjectId = this.selectedItem.value;
-    this.course.providerId = this.selectedItem2.value;
+
+    if(this.userService.getRole() === 'Provider') {
+      this.course.isActive = false;
+      this.course.isApproved = false;
+      this.course.providerId = this.findProviderByProviderId(this.userService.getUserDetails().provider?.id!)?.id;
+    } else {
+      this.course.providerId =this.selectedItem2.value;
+    }
 
     if (this.course.id != null) {
       this.courseService.update(this.course).subscribe({
