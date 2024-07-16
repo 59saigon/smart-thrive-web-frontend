@@ -108,6 +108,7 @@ export class CourseCreateOrUpdateComponent implements OnInit {
 
   openNew() {
     this.course = {} as Course;
+    
     this.selectedItem = {} as SelectItem;
     this.selectedItem2 = {} as SelectItem;
     this.selectedItem3 = {} as SelectItem;

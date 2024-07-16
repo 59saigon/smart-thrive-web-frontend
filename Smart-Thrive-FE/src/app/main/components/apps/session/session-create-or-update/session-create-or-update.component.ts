@@ -98,9 +98,8 @@ export class SessionCreateOrUpdateComponent implements OnInit {
     this.selectedItem = {} as SelectItem;
     this.sessionDialog = true;
     this.submitted = false;
-    console.log("course_input", this.courseId);
+    this.learnDate = new Date();
     const isProvider = this.userService.getRole() == 'Provider';
-    console.log(isProvider);
     !isProvider ? this.getCourses() : this.getCourseById();
   }
 

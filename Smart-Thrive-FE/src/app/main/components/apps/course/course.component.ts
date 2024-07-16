@@ -12,6 +12,7 @@ import { PaginatedRequest } from '../../../../data/model/paginated-request';
 import { PaginatedListResponse } from '../../../../data/model/paginated-response';
 import { UserService } from '../../../services/services/user.service';
 import { Guid } from 'guid-typescript';
+import { SessionService } from '../../../services/services/session.service';
 
 @Component({
   selector: 'app-course',
@@ -26,6 +27,7 @@ export class CourseComponent implements OnInit {
   constructor(
     private courseService: CourseService,
     private userService: UserService,
+    private sessionService: SessionService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private activatedRoute: ActivatedRoute,
@@ -112,6 +114,10 @@ export class CourseComponent implements OnInit {
       },
     });
   }
+
+
+  
+
   getSelectedColumns() {
     this.cols = headerList;
     this._selectedColumns = this.cols.filter((col) => !col.isDisabled);

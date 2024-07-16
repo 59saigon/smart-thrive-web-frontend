@@ -8,6 +8,8 @@ import { Provider } from '../../../../../data/entities/provider';
 import { Session } from '../../../../../data/entities/session';
 import { PaginatedListResponse } from '../../../../../data/model/paginated-response';
 import headerListSession from './headerListSession';
+import { Guid } from 'guid-typescript';
+import { SessionService } from '../../../../services/services/session.service';
 
 @Component({
   selector: 'app-course-detail',
@@ -15,7 +17,7 @@ import headerListSession from './headerListSession';
   styleUrl: './course-detail.component.scss'
 })
 export class CourseDetailComponent implements OnInit {
-  constructor(private messageService: MessageService) { }
+  constructor(private messageService: MessageService, private sessionService: SessionService) { }
 
   submitted: boolean = false;
   cols: any[] = [];
@@ -53,19 +55,35 @@ export class CourseDetailComponent implements OnInit {
   addressLocation!: string;
   paginatedListResponse: PaginatedListResponse<Session> = {} as PaginatedListResponse<Session>;
 
-  ngOnInit(): void {
-    this.startDate = new Date(this.course.startDate ?? '');
-    this.endDate = new Date(this.course.endDate ?? '');
-    this.subject = this.course.subject ?? {} as Subject;
-    this.provider = this.course.provider ?? {} as Provider;
-    this.paginatedListResponse.results = this.course.sessions || [];
+  ngOnInit() {
+    this.initialize();
     this.getSelectedColumns();
 
     // set get sessions by provider id
 
-    // this.courseService.refreshComponent$.subscribe(() => {
-    //   this.initialize();
-    // });
+    this.sessionService.refreshComponent$.subscribe(() => {
+      this.initialize();
+    });
+  }
+
+  initialize() {
+    this.startDate = new Date(this.course.startDate ?? '');
+    this.endDate = new Date(this.course.endDate ?? '');
+    this.subject = this.course.subject ?? {} as Subject;
+    this.provider = this.course.provider ?? {} as Provider;
+    this.getListSessionByCourseId(this.course.id);
+  }
+
+
+  getListSessionByCourseId(providerId: Guid) {
+    this.sessionService.getAllByCourseId(providerId).subscribe({
+      next: (response) => {
+        this.paginatedListResponse.results = response.results;
+      },
+      error: (err) => {
+        console.log("check_error", err);
+      },
+    });
   }
 
   deleteSession(session: Session) {
@@ -82,7 +100,7 @@ export class CourseDetailComponent implements OnInit {
     this.cols = headerListSession;
     this._selectedColumns = this.cols;
   }
-  
+
   getNewQuote() {
     this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Copied' });
   }

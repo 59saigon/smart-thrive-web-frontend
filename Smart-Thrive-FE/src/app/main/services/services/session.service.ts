@@ -2,7 +2,11 @@ import { Injectable } from '@angular/core';
 import { Session } from '../../../data/entities/session';
 import { HttpClient } from '@angular/common/http';
 import { BaseService } from '../base/base.service';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { Guid } from 'guid-typescript';
+import { Course } from '../../../data/entities/course';
+import { PaginatedRequest } from '../../../data/model/paginated-request';
+import { PaginatedListResponse } from '../../../data/model/paginated-response';
 
 @Injectable({
   providedIn: 'root'
@@ -19,5 +23,9 @@ export class SessionService extends BaseService<Session>{
   
   constructor(public _http: HttpClient) {
     super(_http, 'session')
+  }
+
+  getAllByCourseId(courseId: Guid): Observable<PaginatedListResponse<Session>> {
+    return this.http.get<PaginatedListResponse<Session>>(`${this.getBaseUrl()}/get-all-by-course-id/${courseId}`);
   }
 }
