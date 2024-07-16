@@ -2,6 +2,7 @@ import { Guid } from "guid-typescript";
 import { BaseEntity } from "./baseEntity";
 import { Role } from "./role";
 import { Student } from "./student";
+import { Provider } from "./provider";
 
 export interface User extends BaseEntity {
   firstName: string; // Required field, not nullable
@@ -19,5 +20,6 @@ export interface User extends BaseEntity {
   avatar?: string; // Nullable
   status?: string; // Nullable
   role?: Role; 
+  provider?: Provider;
   students?: Student[];
 }
