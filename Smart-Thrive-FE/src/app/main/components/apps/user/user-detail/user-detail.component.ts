@@ -58,12 +58,14 @@ export class UserDetailComponent implements OnInit {
   }
 
   paginatedListResponse: PaginatedListResponse<Student> = {} as PaginatedListResponse<Student>;
+  roleName!: string;
   ngOnInit(): void {
     this.getList();
-    console.log("check_user2", this.user);
+    
     this.getSelectedColumns();
 
     this.dob = new Date(this.user.dob);
+    this.roleName = this.user.role?.roleName!;
     if (this.user.gender != 'Female' && this.user.gender != 'Male') {
       this.selectedGender = 'Other';
       this.genderOther = this.user.gender || '';

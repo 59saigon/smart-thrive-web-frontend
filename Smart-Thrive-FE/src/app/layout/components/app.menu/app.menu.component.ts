@@ -186,68 +186,68 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
         ]
       },
 
-      {
-        label: 'Application',
+      // {
+      //   label: 'Application',
 
-        items: [
-          {
-            label: 'Schedule',
-            icon: 'pi pi-calendar',
-            routerLink: ['/management/schedule'],
-          },
-          {
-            label: 'Feedback',
-            icon: 'pi pi-comments',
-            routerLink: ['/management/feedback'],
-          },
-          {
-            label: 'Comment',
-            icon: 'pi pi-comment',
-            routerLink: ['/management/comment'],
-          },
-          {
-            label: 'Blog',
-            icon: 'pi pi-pencil',
-            routerLink: ['/management/blog'],
-          },
-          {
-            label: 'Voucher',
-            icon: 'pi pi-tag',
-            routerLink: ['/management/voucher'],
-          },
-          {
-            label: 'Cart',
-            icon: 'pi pi-shopping-cart',
-            routerLink: ['/management/cart'],
-          },
-          {
-            label: 'Order',
-            icon: 'pi pi-shopping-bag',
-            routerLink: ['/management/order'],
-          },
-          {
-            label: 'OrderDetail',
-            icon: 'pi pi-info',
-            routerLink: ['/management/order-detail'],
-          },
-        ],
-      },
-      {
-        label: 'Support',
-        items: [
-          {
-            label: 'Documentation',
-            icon: 'pi pi-fw pi-question',
-            routerLink: ['/documentation'],
-          },
-          {
-            label: 'View Source',
-            icon: 'pi pi-fw pi-search',
-            url: ['https://github.com/59saigon/smart-thrive-web-frontend'],
-            target: '_blank',
-          },
-        ],
-      },
+      //   items: [
+      //     {
+      //       label: 'Schedule',
+      //       icon: 'pi pi-calendar',
+      //       routerLink: ['/management/schedule'],
+      //     },
+      //     {
+      //       label: 'Feedback',
+      //       icon: 'pi pi-comments',
+      //       routerLink: ['/management/feedback'],
+      //     },
+      //     {
+      //       label: 'Comment',
+      //       icon: 'pi pi-comment',
+      //       routerLink: ['/management/comment'],
+      //     },
+      //     {
+      //       label: 'Blog',
+      //       icon: 'pi pi-pencil',
+      //       routerLink: ['/management/blog'],
+      //     },
+      //     {
+      //       label: 'Voucher',
+      //       icon: 'pi pi-tag',
+      //       routerLink: ['/management/voucher'],
+      //     },
+      //     {
+      //       label: 'Cart',
+      //       icon: 'pi pi-shopping-cart',
+      //       routerLink: ['/management/cart'],
+      //     },
+      //     {
+      //       label: 'Order',
+      //       icon: 'pi pi-shopping-bag',
+      //       routerLink: ['/management/order'],
+      //     },
+      //     {
+      //       label: 'OrderDetail',
+      //       icon: 'pi pi-info',
+      //       routerLink: ['/management/order-detail'],
+      //     },
+      //   ],
+      // },
+      // {
+      //   label: 'Support',
+      //   items: [
+      //     {
+      //       label: 'Documentation',
+      //       icon: 'pi pi-fw pi-question',
+      //       routerLink: ['/documentation'],
+      //     },
+      //     {
+      //       label: 'View Source',
+      //       icon: 'pi pi-fw pi-search',
+      //       url: ['https://github.com/59saigon/smart-thrive-web-frontend'],
+      //       target: '_blank',
+      //     },
+      //   ],
+      // },
     ];
   }
 }

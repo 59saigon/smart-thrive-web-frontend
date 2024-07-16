@@ -1,3 +1,4 @@
+import { Guid } from "guid-typescript";
 import { BaseEntity } from "./baseEntity";
 import { Role } from "./role";
 import { Student } from "./student";
@@ -14,7 +15,7 @@ export interface User extends BaseEntity {
   phone?: string; // Required field, not nullable
   username: string; // Required field, not nullable
   password?: string; // Required field, not nullable
-  roleId?: string; // RoleId as a UUID/GUID, could be a string in TypeScript
+  roleId?: Guid; // RoleId as a UUID/GUID, could be a string in TypeScript
   avatar?: string; // Nullable
   status?: string; // Nullable
   role?: Role; 

@@ -22,5 +22,4 @@ export interface Package extends BaseEntity {
 
     courseXPackages?: CourseXPackage[];
 
-    // orders?: OrderModel[];
   }
