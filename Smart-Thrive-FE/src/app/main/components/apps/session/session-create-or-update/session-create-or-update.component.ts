@@ -54,7 +54,7 @@ export class SessionCreateOrUpdateComponent implements OnInit {
         this.courses = response.results;
         this.items = [];
         for (let i = 0; i < this.courses.length; i++) {
-          this.items.push({ label: this.courses[i].courseName, value: this.courses[i].id });
+          this.items.push({ label: this.courses[i].code, value: this.courses[i].id });
         }
       },
       error: (err) => {
@@ -68,9 +68,8 @@ export class SessionCreateOrUpdateComponent implements OnInit {
       next: (response) => {
         this.courses[0] = response.result;
         this.items = [];
-        for (let i = 0; i < this.courses.length; i++) {
-          this.items.push({ label: this.courses[i].courseName, value: this.courses[i].id });
-        }
+        this.items.push({ label: this.courses[0].code, value: this.courses[0].id });
+        this.selectedItem = this.items[0];
       },
       error: (err) => {
         console.log("check_error", err);
