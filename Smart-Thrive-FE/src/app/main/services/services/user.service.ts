@@ -60,10 +60,11 @@ export class UserService extends BaseService<User> {
   }
 
   setToken(user: User, token: string) {
-    localStorage.setItem('userEmail', user.email ? user.email : '');
+    localStorage.setItem('email', user.email ? user.email : '');
     localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify(user));
-  }
+    localStorage.setItem('role', user.role?.roleName!);
+  } 
 
 
   setEmail(email: string) {
@@ -75,7 +76,7 @@ export class UserService extends BaseService<User> {
   }
 
   getUserEmail(): string {
-    return localStorage.getItem('userEmail') || '';
+    return localStorage.getItem('email') || '';
   }
 
   getUserDetails(): User {

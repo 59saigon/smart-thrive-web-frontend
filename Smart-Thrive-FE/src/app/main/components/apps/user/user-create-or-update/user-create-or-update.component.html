@@ -5,6 +5,22 @@
     <ng-template pTemplate="content">
         <!-- <img [src]="'assets/showcase/images/demo/user/' + user.image" [alt]="user.image" class="user-image" *ngIf="user.image"> -->
         <span class="p-text-secondary block mb-5">{{ information }}</span>
+        <div class="mb-3">
+            <label for="name" class="font-semibold w-6rem">Role Name</label>
+            <p-dropdown appendTo="body" [filter]="true" filterBy="label" optionLabel="label" [options]="items"
+                [(ngModel)]="selectedItem" placeholder="Select Item">
+                <ng-template pTemplate="selectedItem">
+                    <div class="role-item role-item-value" *ngIf="selectedItem">
+                        <div>{{selectedItem.label}}</div>
+                    </div>
+                </ng-template>
+                <ng-template let-role pTemplate="item">
+                    <div class="role-item">
+                        <div>{{role.label}}</div>
+                    </div>
+                </ng-template>
+            </p-dropdown>
+        </div>
         <div class="flex gap-3 justify-content-between align-items-center mb-3">
             <div>
                 <label for="firstName" class="font-semibold w-6rem">First name</label>

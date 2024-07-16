@@ -1,5 +1,9 @@
 <div class="p-fluid">
     <!-- <img [src]="'assets/showcase/images/demo/user/' + user.image" [alt]="user.image" class="user-image" *ngIf="user.image"> -->
+    <div class="mb-3">
+        <label for="role" class="font-semibold w-6rem">Role</label>
+        <input pInputText id="role" [(ngModel)]="roleName" class="flex-auto" autocomplete="off" />
+    </div>
     <div class="flex gap-3 justify-content-between align-items-center mb-3">
         <div>
             <label for="firstName" class="font-semibold w-6rem">First name</label>
