@@ -140,8 +140,6 @@ export class CourseCreateOrUpdateComponent implements OnInit {
     this.course.subjectId = this.selectedItem.value;
 
     if(this.userService.getRole() === 'Provider') {
-      this.course.isActive = false;
-      this.course.isApproved = false;
       this.course.providerId = this.findProviderByProviderId(this.userService.getUserDetails().provider?.id!)?.id;
     } else {
       this.course.providerId =this.selectedItem2.value;
@@ -159,6 +157,8 @@ export class CourseCreateOrUpdateComponent implements OnInit {
         },
       });
     } else {
+      this.course.status = 'PENDING';
+      this.course.isActive = false;
       this.courseService.add(this.course).subscribe({
         next: (response) => {
           this.messageService.add({ severity: 'success', summary: 'Success', detail: response.message });

@@ -2,184 +2,357 @@
     [showTransformOptions]="'translateX(100%)'" />
 <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
 
-<div class="py-3">
-    <p-button [icon]="activeState[0] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(0)" styleClass="p-button-text"
-        label="Manage Courses"></p-button>
-    <p-button [icon]="activeState[1] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(1)" styleClass="p-button-text ml-2"
-        label="Course Details"></p-button>
-</div>
 
-<p-accordion [multiple]="true">
-    <p-accordionTab header="Manage Courses" [(selected)]="activeState[0]">
-        <div class="grid">
-            <div class="col-12">
-                <div class="card">
-                    <p-toolbar styleClass="mb-1">
+<p-tabView styleClass="tabview-custom" [(activeIndex)]="activeIndex">
+    <p-tabPanel >
+        <ng-template pTemplate="header">
+            <div class="flex align-items-center gap-2">
+                <span class="font-bold white-space-nowrap m-0">
+                    Overview
+                </span>
+            </div>
+        </ng-template>
+        <div>
+            <div class="py-3 flex justify-content-between">
+                <div>
+                    <p-button [icon]="activeState[0] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(0)"
+                        styleClass="p-button-text text-xl" label="Manage Courses"></p-button>
+                    <p-button [icon]="activeState[1] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(1)"
+                        styleClass="p-button-text ml-2 " label="Course Details"></p-button>
+                </div>
 
-                        <ng-template pTemplate="left">
-                            <div class="my-2">
-                                <app-course-create-or-update></app-course-create-or-update>
-                                <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger"
-                                    (click)="deleteSelectedCourses()" [disabled]="
-                                        !selectedCourses || !selectedCourses.length
-                                    "></button>
-                            </div>
-                        </ng-template>
+                <div>
 
-                        <ng-template pTemplate="right">
-                            <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import"
-                                chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload>
-                            <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"
-                                (click)="dt.exportCSV()"></button>
-                        </ng-template>
-
-                    </p-toolbar>
-                    <p-table #dt [value]="paginatedListResponse.results" styleClass="p-datatable-sm"
-                        responsiveLayout="stack" [breakpoint]="'960px'" [columns]="selectedColumns"
-                        responsiveLayout="scroll" [globalFilterFields]="['eventName']" [paginator]="true"
-                        [rowsPerPageOptions]="rowsPerPageOptions" [showCurrentPageReport]="true"
-                        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                        [(selection)]="selectedCourses" selectionMode="multiple" [rowHover]="true" dataKey="id"
-                        [totalRecords]="paginatedListResponse.totalRecords" [lazy]="true"
-                        [rows]="paginatedRequest.pageSize" [sortField]="paginatedRequest.sortField"
-                        [sortOrder]="paginatedRequest.sortOrder" (onLazyLoad)="loadPatientListing($event)">
-
-                        <ng-template pTemplate="caption">
-                            <div class="flex align-items-center justify-content-between">
-                                <h5 class="m-0">Course List</h5>
-                                <div
-                                    class="flex flex-column md:flex-row md:justify-content-between md:align-items-center w-4">
-                                    <!-- <h5 class="m-0">Manage Courses</h5> -->
-
-                                    <span class="block mt-2 md:mt-0 p-input-icon-left w-full">
-                                        <i class="pi pi-search"></i>
-                                        <!-- (input)="onGlobalFilter(dt, $event)" -->
-                                        <input style="border-radius: 2rem !important;" pInputText type="text"
-                                            placeholder="Search..." class="custom-input md:w-full sm:w-auto" />
-                                    </span>
-                                </div>
-                                <div class="flex flex-wrap  gap-2 w-4">
-
-
-                                    <div
-                                        class="flex flex-column md:flex-row md:justify-content-between md:align-items-center w-full">
-                                        <p-multiSelect inputId="multiselect" [options]="cols"
-                                            [(ngModel)]="selectedColumns" optionLabel="header" [maxSelectedLabels]="99"
-                                            selectedItemsLabel="{0} columns selected" placeholder="Choose Columns"
-                                            [showClear]="true" [filter]="true" [panelStyle]="{'width':'250px'}" />
-                                    </div>
-                                </div>
-                            </div>
-                        </ng-template>
-
-                        <ng-template pTemplate="header" let-columns>
-                            <tr>
-                                <th style="width: 3rem">
-                                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                                </th>
-
-                                <th pSortableColumn="{{col.field}}"
-                                    [pSortableColumnDisabled]="!col.sortField ? true : false"
-                                    *ngFor="let col of columns">
-                                    {{ col.header }}
-                                    <p-sortIcon *ngIf="col.sortIcon" field="{{col.field}}" ariaLabel="Activate to sort"
-                                        ariaLabelDesc="Activate to sort in descending order"
-                                        ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
-                                </th>
-                                <th>Actions</th>
-                            </tr>
-                        </ng-template>
-
-                        <ng-template pTemplate="body" let-course let-columns="columns">
-                            <tr>
-                                <td>
-                                    <p-tableCheckbox [value]="course"></p-tableCheckbox>
-                                </td>
-
-                                <td *ngFor="let col of columns" style="width: 14%; min-width: 10rem">
-                                    <ng-container *ngIf="col.subfield; else newId">
-                                        {{ course[col.field][col.subfield] }}
-                                    </ng-container>
-
-                                    <ng-template #newId>
-                                        <ng-container *ngIf="col.field === 'id'; else otherId">
-                                            <ng-container *ngIf="course[col.field] != courseDetailComponent.course.id; else makeColorId"
-                                                >
-                                                <a [routerLink]="[]" (click)="navigateAfterSelected(course)"
-                                                    class="button-id" [autoHide]="false"
-                                                    [pTooltip]="course[col.field]">{{
-                                                    course[col.field] }}
-                                                </a>
-                                            </ng-container>
-                                        </ng-container>
-                                    </ng-template>
-
-                                    <ng-template #makeColorId>
-                                        <a [routerLink]="[]" (click)="navigateAfterSelected(course)" class="button-id" style="color: #1572E8; font-weight: 900;"
-                                            [autoHide]="false" [pTooltip]="course[col.field]">{{
-                                            course[col.field] }}
-                                        </a>
-                                    </ng-template>
-
-                                    <ng-template #otherId>
-                                        <ng-container *ngIf="col.field.includes('Id'); else otherFields">
-
-                                            <a [routerLink]="[]" (click)="getNewQuote()" class="button-other-id"
-                                                [autoHide]="false" [pTooltip]="tooltipContent">{{
-                                                course[col.field] }}</a>
-
-                                        </ng-container>
-
-                                        <ng-template #tooltipContent>
-                                            {{ course[col.field] }}
-                                            <br />
-                                            <br />
-                                            Click to copy
-                                        </ng-template>
-
-                                    </ng-template>
-
-                                    <ng-template #otherFields>
-                                        <ng-container *ngIf="col.field.includes('description'); else fields">
-
-                                            <a (click)="getNewQuote()" [cdkCopyToClipboard]="course[col.field]"
-                                                class="button-other-id" [autoHide]="false"
-                                                [pTooltip]="tooltipContentDescription">{{
-                                                course[col.field] }}</a>
-
-                                        </ng-container>
-
-                                        <ng-template #tooltipContentDescription>
-                                            {{ course[col.field] }}
-                                            <br />
-                                        </ng-template>
-                                    </ng-template>
-
-                                    <ng-template #fields>
-                                        {{ course[col.field] }}
-                                    </ng-template>
-
-                                </td>
-                                <td>
-                                    <div class="flex">
-                                        <button pButton pRipple icon="pi pi-pencil"
-                                            class="p-button-rounded p-button-text"
-                                            (click)="editCourse(course)"></button>
-                                        <button pButton pRipple icon="pi pi-trash"
-                                            class="p-button-rounded p-button-text"
-                                            (click)="deleteCourse(course)"></button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
                 </div>
             </div>
+
+            <p-accordion [multiple]="true">
+                <p-accordionTab [(selected)]="activeState[0]">
+                    <ng-template pTemplate="header">
+                        <span class="flex align-items-center gap-2 w-full">
+                            <span class="font-bold white-space-nowrap text-xl">
+                                Manage Courses
+                            </span>
+                        </span>
+                    </ng-template>
+                    <div class="grid">
+                        <div class="col-12">
+                            <div class="card">
+                                <p-toolbar styleClass="mb-1">
+
+                                    <ng-template pTemplate="left">
+                                        <div class="my-2">
+                                            <app-course-create-or-update></app-course-create-or-update>
+                                            <button pButton pRipple label="Delete" icon="pi pi-trash"
+                                                class="p-button-danger" (click)="deleteSelectedCourses()" [disabled]="
+                                                    !selectedCourses || !selectedCourses.length
+                                                "></button>
+                                        </div>
+                                    </ng-template>
+
+                                    <ng-template pTemplate="right">
+                                        <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000"
+                                            label="Import" chooseLabel="Import"
+                                            class="mr-2 inline-block"></p-fileUpload>
+                                        <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"
+                                            (click)="dt.exportCSV()"></button>
+                                    </ng-template>
+
+                                </p-toolbar>
+                                <p-table #dt [value]="paginatedListResponse.results" styleClass="p-datatable-sm"
+                                    responsiveLayout="stack" [breakpoint]="'960px'" [columns]="selectedColumns"
+                                    responsiveLayout="scroll" [globalFilterFields]="['eventName']" [paginator]="true"
+                                    [rowsPerPageOptions]="rowsPerPageOptions" [showCurrentPageReport]="true"
+                                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                                    [(selection)]="selectedCourses" selectionMode="multiple" [rowHover]="true"
+                                    dataKey="id" [totalRecords]="paginatedListResponse.totalRecords" [lazy]="true"
+                                    [rows]="paginatedRequest.pageSize" [sortField]="paginatedRequest.sortField"
+                                    [sortOrder]="paginatedRequest.sortOrder" (onLazyLoad)="loadPatientListing($event)">
+
+                                    <ng-template pTemplate="caption">
+                                        <div class="flex align-items-center justify-content-between">
+                                            <div class="flex flex-row justify-content-between w-full gap-2">
+                                                <span class="block mt-2 md:mt-0 p-input-icon-left w-full">
+                                                    <i class="pi pi-search"></i>
+                                                    <!-- (input)="onGlobalFilter(dt, $event)" -->
+                                                    <input pInputText type="text" placeholder="Search..."
+                                                        class="custom-input md:w-full sm:w-auto" />
+                                                </span>
+                                                <div
+                                                    class="flex flex-column md:flex-row md:justify-content-between md:align-items-center w-5">
+                                                    <p-multiSelect inputId="multiselect" [options]="cols"
+                                                        [(ngModel)]="selectedColumns" optionLabel="header"
+                                                        [maxSelectedLabels]="99"
+                                                        selectedItemsLabel="{0} columns selected"
+                                                        placeholder="Choose Columns" [showClear]="true" [filter]="true"
+                                                        [panelStyle]="{'width':'250px'}" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+
+                                    <ng-template pTemplate="header" let-columns>
+                                        <tr>
+                                            <th style="width: 3rem">
+                                                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                            </th>
+
+                                            <th pSortableColumn="{{col.field}}"
+                                                [pSortableColumnDisabled]="!col.sortField ? true : false"
+                                                *ngFor="let col of columns">
+                                                {{ col.header }}
+                                                <p-sortIcon *ngIf="col.sortIcon" field="{{col.field}}"
+                                                    ariaLabel="Activate to sort"
+                                                    ariaLabelDesc="Activate to sort in descending order"
+                                                    ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                                            </th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </ng-template>
+
+                                    <ng-template pTemplate="body" let-course let-columns="columns">
+                                        <tr>
+                                            <td>
+                                                <p-tableCheckbox [value]="course"></p-tableCheckbox>
+                                            </td>
+
+                                            <td *ngFor="let col of columns" style="width: 14%; min-width: 10rem">
+                                                <ng-container *ngIf="col.subfield; else newId">
+                                                    {{ course[col.field][col.subfield] }}
+                                                </ng-container>
+
+                                                <ng-template #newId>
+                                                    <ng-container *ngIf="col.field === 'id'; else otherId">
+                                                        <ng-container
+                                                            *ngIf="course[col.field] != courseDetailComponent.course.id; else makeColorId">
+                                                            <a [routerLink]="[]" (click)="navigateAfterSelected(course)"
+                                                                class="button-id" [autoHide]="false"
+                                                                [pTooltip]="course[col.field]">{{
+                                                                course[col.field] }}
+                                                            </a>
+                                                        </ng-container>
+                                                    </ng-container>
+                                                </ng-template>
+
+                                                <ng-template #makeColorId>
+                                                    <a [routerLink]="[]" (click)="navigateAfterSelected(course)"
+                                                        class="button-id" style="color: #1572E8; font-weight: 900;"
+                                                        [autoHide]="false" [pTooltip]="course[col.field]">{{
+                                                        course[col.field] }}
+                                                    </a>
+                                                </ng-template>
+
+                                                <ng-template #otherId>
+                                                    <ng-container *ngIf="col.field.includes('Id'); else otherFields">
+
+                                                        <a [routerLink]="[]" (click)="getNewQuote()"
+                                                            class="button-other-id" [autoHide]="false"
+                                                            [pTooltip]="tooltipContent">{{
+                                                            course[col.field] }}</a>
+
+                                                    </ng-container>
+
+                                                    <ng-template #tooltipContent>
+                                                        {{ course[col.field] }}
+                                                        <br />
+                                                        <br />
+                                                        Click to copy
+                                                    </ng-template>
+
+                                                </ng-template>
+
+                                                <ng-template #otherFields>
+                                                    <ng-container
+                                                        *ngIf="col.field.includes('description'); else fields">
+
+                                                        <a (click)="getNewQuote()"
+                                                            [cdkCopyToClipboard]="course[col.field]"
+                                                            class="button-other-id" [autoHide]="false"
+                                                            [pTooltip]="tooltipContentDescription">{{
+                                                            course[col.field] }}</a>
+
+                                                    </ng-container>
+
+                                                    <ng-template #tooltipContentDescription>
+                                                        {{ course[col.field] }}
+                                                        <br />
+                                                    </ng-template>
+                                                </ng-template>
+
+                                                <ng-template #fields>
+                                                    <ng-container *ngIf="col.field.includes('status'); else active">
+                                                        <p-tag [value]="course[col.field]"
+                                                            [severity]="getSeverity(course[col.field])" />
+                                                    </ng-container>
+
+                                                </ng-template>
+
+                                                <ng-template #active>
+                                                    <ng-container *ngIf="col.field.includes('isActive'); else another">
+                                                        <p-tag [value]="getValueBool(course[col.field])"
+                                                            [severity]="getSeverityBool(course[col.field])" />
+                                                    </ng-container>
+                                                </ng-template>
+                                                <ng-template #another>
+                                                    {{ course[col.field] }}
+                                                </ng-template>
+
+                                            </td>
+                                            <td>
+                                                <div class="flex">
+                                                    <button pButton pRipple icon="pi pi-pencil"
+                                                        class="p-button-rounded p-button-text"
+                                                        (click)="editCourse(course)"></button>
+                                                    <button pButton pRipple icon="pi pi-trash"
+                                                        class="p-button-rounded p-button-text"
+                                                        (click)="deleteCourse(course)"></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </ng-template>
+                                </p-table>
+                            </div>
+                        </div>
+                    </div>
+                </p-accordionTab>
+                <p-accordionTab header="Course Details" [(selected)]="activeState[1]">
+                    <div [ngClass]="{'hidden': !isShowDetail}">
+                        <app-course-detail></app-course-detail>
+                    </div>
+                </p-accordionTab>
+            </p-accordion>
         </div>
-    </p-accordionTab>
-    <p-accordionTab header="Course Details" [(selected)]="activeState[1]">
-        <div [ngClass]="{'hidden': !isShowDetail}">
-            <app-course-detail></app-course-detail>
-        </div>
-    </p-accordionTab>
-</p-accordion>
+
+    </p-tabPanel>
+    <p-tabPanel [disabled]="userService.getRole() != 'Provider'">
+        <ng-template pTemplate="header">
+            <div class="flex align-items-center gap-2">
+                <span class="font-bold white-space-nowrap m-0">
+                    Awaiting Approval
+                </span>
+            </div>
+        </ng-template>
+        <p-table [value]="awaitingCourses" styleClass="p-datatable-sm" responsiveLayout="stack" [breakpoint]="'960px'"
+            [columns]="selectedColumns" [globalFilterFields]="['Code']"
+            [paginator]="true" [rowsPerPageOptions]="rowsPerPageOptions" [showCurrentPageReport]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+             [rowHover]="true" dataKey="id"
+             sortField="createdDate" [sortOrder]="-1"
+            [rows]="10"
+            
+            >
+
+            <ng-template pTemplate="caption">
+                <div class="flex align-items-center justify-content-between">
+                    <div class="flex flex-row justify-content-between w-full gap-2">
+                        <span class="block mt-2 md:mt-0 p-input-icon-left w-full">
+                            <i class="pi pi-search"></i>
+                            <!-- (input)="onGlobalFilter(dt, $event)" -->
+                            <input pInputText type="text" placeholder="Search..."
+                                class="custom-input md:w-full sm:w-auto" />
+                        </span>
+                        <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center w-5">
+                            <p-multiSelect inputId="multiselect" [options]="cols" [(ngModel)]="selectedColumns"
+                                optionLabel="header" [maxSelectedLabels]="99" selectedItemsLabel="{0} columns selected"
+                                placeholder="Choose Columns" [showClear]="true" [filter]="true"
+                                [panelStyle]="{'width':'250px'}" />
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th pSortableColumn="{{col.field}}" [pSortableColumnDisabled]="!col.sortField ? true : false"
+                        *ngFor="let col of columns">
+                        {{ col.header }}
+                        <p-sortIcon *ngIf="col.sortIcon" field="{{col.field}}" ariaLabel="Activate to sort"
+                            ariaLabelDesc="Activate to sort in descending order"
+                            ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                    </th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-course let-columns="columns">
+                <tr>
+                    <td *ngFor="let col of columns" style="width: 14%; min-width: 10rem">
+                        <ng-container *ngIf="col.subfield; else newId">
+                            {{ course[col.field][col.subfield] }}
+                        </ng-container>
+
+                        <ng-template #newId>
+                            <ng-container *ngIf="col.field === 'id'; else otherId">
+                                <ng-container
+                                    *ngIf="course[col.field] != courseDetailComponent.course.id; else makeColorId">
+                                    <a class="button-id"
+                                        [autoHide]="false" [pTooltip]="course[col.field]">{{
+                                        course[col.field] }}
+                                    </a>
+                                </ng-container>
+                            </ng-container>
+                        </ng-template>
+
+                        <ng-template #makeColorId>
+                            <a  class="button-id"
+                                style="color: #1572E8; font-weight: 900;" [autoHide]="false"
+                                [pTooltip]="course[col.field]">{{
+                                course[col.field] }}
+                            </a>
+                        </ng-template>
+
+                        <ng-template #otherId>
+                            <ng-container *ngIf="col.field.includes('Id'); else otherFields">
+
+                                <a [routerLink]="[]" (click)="getNewQuote()" class="button-other-id" [autoHide]="false"
+                                    [pTooltip]="tooltipContent">{{
+                                    course[col.field] }}</a>
+
+                            </ng-container>
+
+                            <ng-template #tooltipContent>
+                                {{ course[col.field] }}
+                                <br />
+                                <br />
+                                Click to copy
+                            </ng-template>
+
+                        </ng-template>
+
+                        <ng-template #otherFields>
+                            <ng-container *ngIf="col.field.includes('description'); else fields">
+
+                                <a (click)="getNewQuote()" [cdkCopyToClipboard]="course[col.field]"
+                                    class="button-other-id" [autoHide]="false" [pTooltip]="tooltipContentDescription">{{
+                                    course[col.field] }}</a>
+
+                            </ng-container>
+
+                            <ng-template #tooltipContentDescription>
+                                {{ course[col.field] }}
+                                <br />
+                            </ng-template>
+                        </ng-template>
+
+                        <ng-template #fields>
+                            <ng-container *ngIf="col.field.includes('status'); else active">
+                                <p-tag [value]="course[col.field]" [severity]="getSeverity(course[col.field])" />
+                            </ng-container>
+
+                        </ng-template>
+
+                        <ng-template #active>
+                            <ng-container *ngIf="col.field.includes('isActive'); else another">
+                                <p-tag [value]="getValueBool(course[col.field])"
+                                    [severity]="getSeverityBool(course[col.field])" />
+                            </ng-container>
+                        </ng-template>
+                        <ng-template #another>
+                            {{ course[col.field] }}
+                        </ng-template>
+
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </p-tabPanel>
+</p-tabView>

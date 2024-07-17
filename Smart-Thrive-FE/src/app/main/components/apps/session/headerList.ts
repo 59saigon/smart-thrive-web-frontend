@@ -73,7 +73,7 @@ export default [
     {
         field: 'isDeleted',
         header: 'Is Deleted',
-        isDisabled: false,
+        isDisabled: true,
         sortIcon: true,
         sortField: true,
     },

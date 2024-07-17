@@ -26,7 +26,7 @@ export class CourseComponent implements OnInit {
 
   constructor(
     private courseService: CourseService,
-    private userService: UserService,
+    protected userService: UserService,
     private sessionService: SessionService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
@@ -40,13 +40,20 @@ export class CourseComponent implements OnInit {
 
     this.courseService.refreshComponent$.subscribe(() => {
       this.initialize();
+      this.activeIndex = 1;
     });
   }
 
   initialize(): void {
     this.clear();
     const isProvider = this.userService.getRole() === "Provider";
-    !isProvider ? this.getListCourse() : this.getListCourseByProviderId(this.userService.getUserDetails().provider?.id!);
+    if (!isProvider) {
+      this.getListCourse()
+    } else {
+      this.getListCourseNoPaginationByProviderId();
+      this.getListCourseByProviderId();
+    }
+    
     this.getSelectedColumns();
   }
 
@@ -61,6 +68,7 @@ export class CourseComponent implements OnInit {
   deleteCoursesDialog: boolean = false;
 
   courses: Course[] = [];
+  awaitingCourses: Course[] = [];
   course: Course = {} as Course;
   selectedCourses: Course[] = [];
 
@@ -70,6 +78,7 @@ export class CourseComponent implements OnInit {
   statuses: any[] = [];
   _selectedColumns: any[] = [];
   activeState: boolean[] = [true, false, false];
+  activeIndex: number = 0;
 
   toggle(index: number) {
     this.activeState[index] = !this.activeState[index];
@@ -95,6 +104,7 @@ export class CourseComponent implements OnInit {
     this.courseService.getAllPagination(this.paginatedRequest).subscribe({
       next: (response) => {
         this.paginatedListResponse = response;
+        console.log("pagin", this.paginatedListResponse.results)
         this.setPaginatedRequest();
       },
       error: (err) => {
@@ -103,23 +113,73 @@ export class CourseComponent implements OnInit {
     });
   }
 
-  getListCourseByProviderId(providerId: Guid): void {
-    this.courseService.getAllPaginationByProviderId(providerId,this.paginatedRequest).subscribe({
+  getListCourseNoPaginationByProviderId(): void {
+    this.courseService.getAllByProviderId(this.userService.getUserDetails().provider?.id!).subscribe({
+      next: (response) => {
+        this.awaitingCourses = response.results.filter(m => m.status == 'PENDING' || m.status == 'REJECT');
+      },
+      error: (err) => {
+        console.log("check_error", err);
+      },
+    });
+  }
+
+
+
+  getListCourseByProviderId(): void {
+    this.courseService.getAllPaginationByProviderId(this.userService.getUserDetails().provider?.id!, this.paginatedRequest).subscribe({
       next: (response) => {
         this.paginatedListResponse = response;
-        this.setPaginatedRequest();
       },
       error: (err) => {
         console.log("check_error", err);
       },
     });
+
+    
   }
 
+  getSeverity(status: string) {
+    switch (status) {
+      case 'APPROVED':
+        return 'success';
+      case 'PENDING':
+        return 'warning';
+      case 'REJECTED':
+        return 'danger';
+    }
 
-  
+    return 'secondary'
+  }
+  getValueBool(status: boolean) {
+    switch (status) {
+      case true:
+        return 'Active';
+      case false:
+        return 'Inactive';
+    }
+  }
+
+  getSeverityBool(status: boolean) {
+    switch (status) {
+      case true:
+        return 'success';
+      case false:
+        return 'secondary';
+    }
+  }
 
   getSelectedColumns() {
-    this.cols = headerList;
+    const isProvider = this.userService.getRole() === "Provider";
+    if (isProvider) {
+      this.cols = headerList.filter((col) => col.field != 'provider'
+        && col.field != 'isDeleted'
+        && col.field != 'createdBy'
+        && col.field != 'lastUpdatedBy'
+      )
+    } else {
+      this.cols = headerList;
+    }
     this._selectedColumns = this.cols.filter((col) => !col.isDisabled);
   }
 
@@ -130,7 +190,7 @@ export class CourseComponent implements OnInit {
     this.paginatedRequest.sortOrder = event.sortOrder;
 
     const isProvider = this.userService.getRole() === "Provider";
-    !isProvider ? this.getListCourse() : this.getListCourseByProviderId(this.userService.getUserDetails().provider?.id!);
+    !isProvider ? this.getListCourse() : this.getListCourseByProviderId();
   }
 
   setPaginatedRequest() {

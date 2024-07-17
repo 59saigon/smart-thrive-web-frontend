@@ -73,15 +73,8 @@ export default [
         sortField: true,
     },
     {
-        field: 'isApproved',
-        header: 'Is Approved',
-        isDisabled: false,
-        sortIcon: true,
-        sortField: true,
-    },
-    {
-        field: 'isActive',
-        header: 'Is Active',
+        field: 'status',
+        header: 'Status',
         isDisabled: false,
         sortIcon: true,
         sortField: true,

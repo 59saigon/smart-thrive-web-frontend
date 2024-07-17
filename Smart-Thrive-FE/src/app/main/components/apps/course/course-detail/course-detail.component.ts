@@ -10,6 +10,7 @@ import { PaginatedListResponse } from '../../../../../data/model/paginated-respo
 import headerListSession from './headerListSession';
 import { Guid } from 'guid-typescript';
 import { SessionService } from '../../../../services/services/session.service';
+import { UserService } from '../../../../services/services/user.service';
 
 @Component({
   selector: 'app-course-detail',
@@ -17,7 +18,7 @@ import { SessionService } from '../../../../services/services/session.service';
   styleUrl: './course-detail.component.scss'
 })
 export class CourseDetailComponent implements OnInit {
-  constructor(private messageService: MessageService, private sessionService: SessionService) { }
+  constructor(private messageService: MessageService, private userService: UserService, private sessionService: SessionService) { }
 
   submitted: boolean = false;
   cols: any[] = [];
@@ -65,7 +66,18 @@ export class CourseDetailComponent implements OnInit {
       this.initialize();
     });
   }
+  getSeverity(status: string) {
+    switch (status) {
+      case 'APPROVED':
+        return 'success';
+      case 'PENDING':
+        return 'warning';
+      case 'REJECTED':
+        return 'danger';
+    }
 
+    return 'secondary';
+  }
   initialize() {
     this.startDate = new Date(this.course.startDate ?? '');
     this.endDate = new Date(this.course.endDate ?? '');
@@ -97,7 +109,16 @@ export class CourseDetailComponent implements OnInit {
   }
 
   getSelectedColumns() {
-    this.cols = headerListSession;
+    const isProvider = this.userService.getRole() === "Provider";
+    if (isProvider) {
+      this.cols = headerListSession.filter((col) => col.field != 'provider'
+        && col.field != 'isDeleted'
+        && col.field != 'createdBy'
+        && col.field != 'lastUpdatedBy'
+      )
+    } else {
+      this.cols = headerListSession;
+    }
     this._selectedColumns = this.cols;
   }
 

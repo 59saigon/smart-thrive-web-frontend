@@ -3,7 +3,7 @@ import { ConstantsApi } from '../../../shared/constants/constants-api';
 import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Guid } from 'guid-typescript';
-import { BaseResponse, ItemResponse } from '../../../data/model/base-response';
+import { BaseResponse, ItemListResponse, ItemResponse } from '../../../data/model/base-response';
 import { PaginatedRequest, PaginatedRequestFillter } from '../../../data/model/paginated-request';
 import { PaginatedListResponse } from '../../../data/model/paginated-response';
 import { Course } from '../../../data/entities/course';
@@ -32,5 +32,9 @@ export class CourseService extends BaseService<Course> {
 
   getAllPaginationByProviderId(providerId: Guid,request: PaginatedRequest): Observable<PaginatedListResponse<Course>> {
     return this.http.post<PaginatedListResponse<Course>>(`${this.getBaseUrl()}/get-all-pagination-by-provider-id?providerId=${providerId}`, request);
+  }
+
+  getAllByProviderId(providerId: Guid): Observable<ItemListResponse<Course>> {
+    return this.http.get<ItemListResponse<Course>>(`${this.getBaseUrl()}/get-all-by-provider-id/${providerId}`);
   }
 }

@@ -127,7 +127,6 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
   setModel() {
     const isStaff = this.userService.getRole() === "Staff";
     const isProvider = this.userService.getRole() === "Provider";
-    console.log(isStaff);
     this.model = [
       !isStaff && {
         label: 'Dashboards',
