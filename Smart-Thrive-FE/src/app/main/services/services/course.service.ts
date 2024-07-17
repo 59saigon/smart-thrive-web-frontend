@@ -37,4 +37,8 @@ export class CourseService extends BaseService<Course> {
   getAllByProviderId(providerId: Guid): Observable<ItemListResponse<Course>> {
     return this.http.get<ItemListResponse<Course>>(`${this.getBaseUrl()}/get-all-by-provider-id/${providerId}`);
   }
+
+  getAllPendingStatus(): Observable<ItemListResponse<Course>> {
+    return this.http.get<ItemListResponse<Course>>(`${this.getBaseUrl()}/get-all-pending-status`);
+  }
 }

@@ -8,7 +8,7 @@ import { CourseCreateOrUpdateComponent } from './course-create-or-update/course-
 import { CourseDetailComponent } from './course-detail/course-detail.component';
 import { CourseService } from '../../../services/services/course.service';
 import { Course } from '../../../../data/entities/course';
-import { PaginatedRequest } from '../../../../data/model/paginated-request';
+import { PaginatedRequest, PaginatedRequestFillter } from '../../../../data/model/paginated-request';
 import { PaginatedListResponse } from '../../../../data/model/paginated-response';
 import { UserService } from '../../../services/services/user.service';
 import { Guid } from 'guid-typescript';
@@ -99,12 +99,24 @@ export class CourseComponent implements OnInit {
     sortOrder: -1
   };
 
+  courseRequestFilter: Course = {} as Course;
+  paginatedRequestFillter: PaginatedRequestFillter<Course> = {
+    pageNumber: this.paginatedRequest.pageNumber,
+    pageSize: this.paginatedRequest.pageSize,
+    sortField: this.paginatedRequest.sortField,
+    sortOrder: this.paginatedRequest.sortOrder,
+    result: this.courseRequestFilter
+  }
+
   paginatedListResponse: PaginatedListResponse<Course> = {} as PaginatedListResponse<Course>;
   getListCourse(): void {
-    this.courseService.getAllPagination(this.paginatedRequest).subscribe({
+    this.paginatedRequestFillter = this.paginatedRequest;
+    this.paginatedRequestFillter.result = {} as Course;
+    this.paginatedRequestFillter.result.status = 'APPROVED';
+    this.courseService.getAllSearch(this.paginatedRequestFillter).subscribe({
       next: (response) => {
         this.paginatedListResponse = response;
-        console.log("pagin", this.paginatedListResponse.results)
+        console.log("pagina",this.paginatedListResponse)
         this.setPaginatedRequest();
       },
       error: (err) => {

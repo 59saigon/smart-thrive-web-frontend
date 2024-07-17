@@ -11,10 +11,11 @@ import { AuthGuard } from './core/guard/app.guard';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HeaderInterceptor } from './core/interceptor/header.interceptor';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 @NgModule({
   declarations: [AppComponent, NotfoundComponent],
-  imports: [AppRoutingModule, AppLayoutModule],
+  imports: [AppRoutingModule, AppLayoutModule, SweetAlert2Module.forRoot()],
   providers: [
     { provide: LocationStrategy, useClass: PathLocationStrategy },
         {
