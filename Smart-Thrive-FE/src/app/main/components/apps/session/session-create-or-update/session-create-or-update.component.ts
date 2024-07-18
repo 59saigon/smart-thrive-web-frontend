@@ -9,6 +9,7 @@ import { Course } from '../../../../../data/entities/course';
 import { CourseService } from '../../../../services/services/course.service';
 import { Guid } from 'guid-typescript';
 import { UserService } from '../../../../services/services/user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-session-create-or-update',
@@ -62,10 +63,13 @@ export class SessionCreateOrUpdateComponent implements OnInit {
     });
   }
 
+  course: Course = {} as Course;
+
   getCourseById() {
     this.courseService.getById(this.courseId).subscribe({
       next: (response) => {
-        this.courses[0] = response.result;
+        this.course = response.result;
+        this.courses[0] = this.course;
         this.items = [];
         this.items.push({ label: this.courses[0].code, value: this.courses[0].id });
         this.selectedItem = this.items[0];
@@ -114,6 +118,22 @@ export class SessionCreateOrUpdateComponent implements OnInit {
     this.submitted = true;
     this.session.learnDate = this.learnDate;
     this.session.courseId = this.selectedItem.value;
+
+    var sessions = this.course.sessions?.filter(m => !m.isDeleted);
+    var numberOfSessions = sessions?.length;
+    if (this.course.id != null) {
+      const numberOfSessionsInCourse = numberOfSessions ? numberOfSessions : 0;
+      const totalSessionsInCourse = this.course.totalSessions ? this.course.totalSessions : 0;
+      if (totalSessionsInCourse <= numberOfSessionsInCourse) {
+        this.sessionDialog = false;
+        Swal.fire({
+          icon: "info",
+          title: "Oops...",
+          text: "Enough total sessions.!"
+        });
+        return;
+      }
+    }
 
     if (this.session.id != null) {
       this.sessionService.update(this.session).subscribe({

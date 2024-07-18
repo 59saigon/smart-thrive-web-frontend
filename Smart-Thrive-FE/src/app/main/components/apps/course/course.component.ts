@@ -208,10 +208,16 @@ export class CourseComponent implements OnInit {
         && col.field != 'lastUpdatedBy'
       )
       this._selectedAwaitingColumns = this.colsAwaiting.filter((col) => !col.isDisabled);
-    }
-    this.cols = headerList;
-    this._selectedColumns = this.cols.filter((col) => !col.isDisabled);
 
+      this.cols = headerList.filter((col) => col.field != 'provider'
+        && col.field != 'isDeleted'
+        && col.field != 'createdBy'
+      )
+      this._selectedColumns = this.cols.filter((col) => !col.isDisabled);
+    } else {
+      this.cols = headerList;
+      this._selectedColumns = this.cols.filter((col) => !col.isDisabled);
+    }
 
   }
 
@@ -267,6 +273,10 @@ export class CourseComponent implements OnInit {
       accept: () => {
         this.courseService.delete(course.id).subscribe({
           next: (response) => {
+            this.activeState[1] = false;
+            this.isShowDetail = false;
+            this.awaitingCourses = [];
+            this.courseDetailComponent.course = {} as Course;
             this.ngOnInit();
           },
           error: (err) => {
@@ -277,42 +287,77 @@ export class CourseComponent implements OnInit {
     });
   }
 
-  requestPendingStatus(course: Course) {
-
-    Swal.fire({
-      title: "Are you sure?",
-      text: course.status + " -> " + "PENDING",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, let's request!"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // update status
-        course.status = "PENDING";
-        this.courseService.update(course).subscribe({
-          next: (response) => {
-            this.activeIndex = 1;
-            Swal.fire({
-              title: "Requested!",
-              text: "Your data has been move to 'awaiting approval'.",
-              icon: "success"
-            });
-            this.courseService.triggerRefresh();
-
-          },
-          error: (err) => {
-            Swal.fire({
-              icon: "error",
-              title: "Oops...",
-              text: "Something went wrong!",
-            });
-          },
-        });
-
-      }
+  getCourse(course: Course): Promise<Course> {
+    return new Promise((resolve, reject) => {
+      this.courseService.getById(course.id).subscribe({
+        next: (response) => {
+          resolve(response.result);
+        },
+        error: (err) => {
+          console.log("check_error", err);
+          reject(err);
+        }
+      });
     });
+  }
+
+  requestPendingStatus(crs: Course) {
+
+    this.getCourse(crs).then((course) => {
+      var sessions = course.sessions?.filter(m => !m.isDeleted);
+      var numberOfSessions = sessions?.length;
+      Swal.fire({
+        title: "Are you sure?",
+        text: course.status + " -> " + "PENDING",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, let's request!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const numberOfSessionsInCourse = numberOfSessions ? numberOfSessions : 0;
+          const totalSessionsInCourse = course.totalSessions ? course.totalSessions : 0;
+          if (totalSessionsInCourse > numberOfSessionsInCourse) {
+            Swal.fire({
+              icon: "info",
+              title: "Oops...",
+              text: "Not enough session!"
+            });
+            return;
+          }
+          // update status
+          course.status = "PENDING";
+          this.courseService.update(course).subscribe({
+            next: (response) => {
+              this.activeIndex = 1;
+              this.activeState[1] = false;
+              this.isShowDetail = false;
+              this.awaitingCourses = [];
+              this.courseDetailComponent.course = {} as Course;
+              Swal.fire({
+                title: "Requested!",
+                text: "Your data has been move to 'awaiting approval'.",
+                icon: "success"
+              });
+              this.courseService.triggerRefresh();
+
+            },
+            error: (err) => {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went wrong!",
+              });
+            },
+          });
+
+        }
+      });
+    }).catch((err) => {
+      console.error('Error fetching course:', err);
+    });
+
   }
 
   requestActive(course: Course) {
@@ -370,7 +415,7 @@ export class CourseComponent implements OnInit {
 
   onGlobalFilter(table: Table, event: Event) {
     const value = (event.target as HTMLInputElement).value;
-    
+
     this.paginatedRequestFillter = this.paginatedRequest;
     this.paginatedRequestFillter.result = {} as Course;
     this.paginatedRequestFillter.result.code = value;
@@ -388,6 +433,6 @@ export class CourseComponent implements OnInit {
         console.log("check_error", err);
       },
     });
-}
+  }
 
 }

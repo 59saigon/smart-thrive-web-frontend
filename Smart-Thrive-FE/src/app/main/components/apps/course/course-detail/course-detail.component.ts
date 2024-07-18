@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { PaginatedRequest } from '../../../../../data/model/paginated-request';
 import { Category } from '../../../../../data/entities/category';
 import { Course } from '../../../../../data/entities/course';
@@ -11,6 +11,8 @@ import headerListSession from './headerListSession';
 import { Guid } from 'guid-typescript';
 import { SessionService } from '../../../../services/services/session.service';
 import { UserService } from '../../../../services/services/user.service';
+import { SessionCreateOrUpdateComponent } from '../../session/session-create-or-update/session-create-or-update.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-course-detail',
@@ -18,7 +20,9 @@ import { UserService } from '../../../../services/services/user.service';
   styleUrl: './course-detail.component.scss'
 })
 export class CourseDetailComponent implements OnInit {
-  constructor(private messageService: MessageService, private userService: UserService, private sessionService: SessionService) { }
+  @ViewChild(SessionCreateOrUpdateComponent) sessionCreateOrUpdateComponent!: SessionCreateOrUpdateComponent;
+
+  constructor(private messageService: MessageService, private userService: UserService, private sessionService: SessionService, private confirmationService: ConfirmationService) { }
 
   submitted: boolean = false;
   cols: any[] = [];
@@ -83,7 +87,8 @@ export class CourseDetailComponent implements OnInit {
     this.endDate = new Date(this.course.endDate ?? '');
     this.subject = this.course.subject ?? {} as Subject;
     this.provider = this.course.provider ?? {} as Provider;
-    this.getListSessionByCourseId(this.course.id);
+    const isProvider = this.userService.getRole();
+    !isProvider ? this.getListSessionByCourseId(this.course.id) : this.getListSessionByCourseIdForProvider(this.course.id);
   }
 
 
@@ -97,8 +102,45 @@ export class CourseDetailComponent implements OnInit {
       },
     });
   }
+  
+  getListSessionByCourseIdForProvider(providerId: Guid) {
+    this.sessionService.getAllByCourseIdForProvider(providerId).subscribe({
+      next: (response) => {
+        this.paginatedListResponse.results = response.results;
+      },
+      error: (err) => {
+        console.log("check_error", err);
+      },
+    });
+  }
 
   deleteSession(session: Session) {
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete ' + session.id + '?',
+      header: 'Confirm',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.sessionService.delete(session.id).subscribe({
+          next: (response) => {
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your data has been changed.",
+              icon: "success"
+            });
+            this.ngOnInit();
+          },
+          error: (err) => {
+          },
+        });
+        
+      }
+    });
+  }
+
+  editSession(session: Session) {
+    this.sessionCreateOrUpdateComponent.session = session;
+    this.sessionCreateOrUpdateComponent.ngOnInit();
+    this.sessionCreateOrUpdateComponent.editSession();
   }
 
   deleteSelectedSessions() {

@@ -28,4 +28,9 @@ export class SessionService extends BaseService<Session>{
   getAllByCourseId(courseId: Guid): Observable<PaginatedListResponse<Session>> {
     return this.http.get<PaginatedListResponse<Session>>(`${this.getBaseUrl()}/get-all-by-course-id/${courseId}`);
   }
+
+
+  getAllByCourseIdForProvider(courseId: Guid): Observable<PaginatedListResponse<Session>> {
+    return this.http.get<PaginatedListResponse<Session>>(`${this.getBaseUrl()}/get-all-by-course-id-for-provider/${courseId}`);
+  }
 }
