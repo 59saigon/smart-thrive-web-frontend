@@ -95,6 +95,16 @@ export class LoginComponent implements OnInit {
           }, 1000);
           return;
         }
+
+        if (response.result.role?.roleName == 'Buyer') {
+          Swal.fire({
+            icon: "info",
+            title: "Oops...",
+            text: "This account does not have access rights!",
+          });
+          return;
+        }
+        
         this.user = response.result;
         this.token = response.token;
         this.userService.setToken(this.user, this.token);
@@ -138,6 +148,112 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  resetPassword() {
+    Swal.fire({
+      title: "Email",
+      text: "Enter your email.",
+      icon: "info",
+      input: "text",
+      showCancelButton: true,
+      confirmButtonText: "Next",
+      inputValidator: (email) => {
+        return new Promise((resolve, reject) => {
+          if (!email) {
+            resolve('Please enter your email!');
+          } else {
+            resolve(); // Proceed if email is provided
+          }
+        });
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const email = result.value;
+        
+        // Send OTP
+        this.userService.sendOtp(email).subscribe({
+          next: () => {
+            Swal.fire({
+              title: "OTP Sent",
+              text: "An OTP has been sent to your email. Please enter it to verify.",
+              icon: "info",
+              input: "text",
+              inputPlaceholder: "Enter OTP",
+              showCancelButton: true,
+              confirmButtonText: "Verify",
+              inputValidator: (otp) => {
+                return new Promise((resolve, reject) => {
+                  if (!otp) {
+                    resolve('Please enter the OTP!');
+                  } else {
+                    resolve(); // Proceed if OTP is provided
+                  }
+                });
+              }
+            }).then((result) => {
+              if (result.isConfirmed) {
+                const otp = result.value;
+                
+                // Verify OTP
+                this.userService.verifyOtp(email, otp).toPromise()
+                  .then(response => {
+                    console.log("very", response.valid)
+                    if (response.valid) {
+                      Swal.fire({
+                        title: "New Password",
+                        text: "Enter your new password.",
+                        icon: "info",
+                        input: "password",
+                        inputPlaceholder: "Enter new password",
+                        showCancelButton: true,
+                        confirmButtonText: "Reset Password",
+                        inputValidator: (password) => {
+                          return new Promise((resolve, reject) => {
+                            if (!password) {
+                              resolve('Please enter your new password!');
+                            } else {
+                              resolve(); // Proceed if new password is provided
+                            }
+                          });
+                        }
+                      }).then((result) => {
+                        if (result.isConfirmed) {
+                          const newPassword = result.value;
+                          
+                          // Reset password
+                          this.userService.resetPassword(email, otp, newPassword).subscribe({
+                            next: (response) => {
+                              if (response.isSuccess) {
+                                Swal.fire('Success', 'Your password has been reset successfully.', 'success');
+                              } else {
+                                Swal.fire('Error', response.message, 'error');
+                              }
+                            },
+                            error: () => {
+                              Swal.fire('Error', 'Failed to reset password. Please try again later.', 'error');
+                            }
+                          });
+                        }
+                      });
+                    } else {
+                      Swal.fire('Error', 'Invalid OTP. Please try again.', 'error');
+                    }
+                  })
+                  .catch(error => {
+                    Swal.fire('Error', `Verification failed: ${error}`, 'error');
+                  });
+              }
+            });
+          },
+          error: () => {
+            Swal.fire('Error', 'Failed to send OTP. Please try again later.', 'error');
+          }
+        });
+      }
+    });
+  }
+  
+  
+
   verifiedByGoogleToken(payLoad: any, _googleToken: any) {
     const loginWithAnother = {
       email: payLoad.email,
@@ -154,7 +270,7 @@ export class LoginComponent implements OnInit {
           return;
         }
 
-        if(response.result.role?.roleName == 'Buyer') {
+        if (response.result.role?.roleName == 'Buyer') {
           Swal.fire({
             icon: "info",
             title: "Oops...",
@@ -166,7 +282,7 @@ export class LoginComponent implements OnInit {
         this.user = response.result;
         this.token = response.token;
         this.userService.setToken(this.user, this.token);
-        
+
 
         window.location.reload();
 
@@ -178,7 +294,7 @@ export class LoginComponent implements OnInit {
             title: "Oops...",
             text: "Something went wrong!",
           });
-          
+
         }, 1000);
       },
     });

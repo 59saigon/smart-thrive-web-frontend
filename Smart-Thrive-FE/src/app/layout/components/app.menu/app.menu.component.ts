@@ -159,17 +159,18 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
 
   setModel() {
     const isStaff = this.userService.getRole() === "Staff";
+    const isAdmin = this.userService.getRole() === "Admin";
     const isProvider = this.userService.getRole() === "Provider";
     this.model = [
-      !isStaff && {
+      !isProvider &&{
         label: 'General',
         items: [
-          {
+          !isStaff &&{
             label: 'Dashboard',
             icon: 'pi pi-chart-line',
             routerLink: ['/dashboard'],
           },
-          !isProvider && {
+          (isStaff || isAdmin) && {
             label: 'Approvals',
             icon: 'pi pi-inbox',
             badge: this.quantityCoursePending.toString(),
