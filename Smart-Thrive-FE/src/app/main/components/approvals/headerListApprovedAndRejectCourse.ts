@@ -40,7 +40,7 @@ export default [
     {
         field: 'description',
         header: 'Description',
-        isDisabled: false,
+        isDisabled: true,
         sortIcon: true,
         sortField: true,
     },
@@ -54,14 +54,14 @@ export default [
     {
         field: 'totalSessions',
         header: 'Total Sessions',
-        isDisabled: false,
+        isDisabled: true,
         sortIcon: true,
         sortField: true,
     },
     {
         field: 'soldCourses',
         header: 'Sold Courses',
-        isDisabled: false,
+        isDisabled: true,
         sortIcon: true,
         sortField: true,
     },
@@ -69,7 +69,7 @@ export default [
     {
         field: 'totalSlots',
         header: 'Total Slots',
-        isDisabled: false,
+        isDisabled: true,
         sortIcon: true,
         sortField: true,
     },

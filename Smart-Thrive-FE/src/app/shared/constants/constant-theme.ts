@@ -9,5 +9,5 @@ const lightAura = 'aura-light-cyan';
 export const ConstantsTheme = {
   dark: darkLara,
   light: lightLara,
-  default: darkLara
+  default: lightLara
 } 

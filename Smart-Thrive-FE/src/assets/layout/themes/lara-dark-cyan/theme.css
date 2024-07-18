@@ -6274,8 +6274,8 @@
   }
 
   .p-tag {
-    background: #FFD0CE;
-    color: #B32B23;
+    background: #60a5fa;
+    color: #020617;
     font-size: 0.75rem;
     font-weight: 700;
     padding: 0.25rem 0.4rem;
@@ -6304,6 +6304,14 @@
   .p-tag .p-icon {
     width: 0.75rem;
     height: 0.75rem;
+  }
+  .p-tag.p-tag-secondary {
+    background-color: #27272a;
+    color: #d4d4d8;
+  }
+  .p-tag.p-tag-contrast {
+    background-color: #ffffff;
+    color: #09090b;
   }
 
   .p-terminal {

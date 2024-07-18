@@ -3,13 +3,15 @@
 <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
 
 
-<p-tabView styleClass="tabview-custom" [(activeIndex)]="activeIndex">
-    <p-tabPanel >
+<p-tabView styleClass="tabview-custom justify-content-center" [(activeIndex)]="activeIndex">
+    <p-tabPanel>
         <ng-template pTemplate="header">
             <div class="flex align-items-center gap-2">
                 <span class="font-bold white-space-nowrap m-0">
                     Overview
                 </span>
+                <p-badge class="badgeClass" [value]="12" />
+                
             </div>
         </ng-template>
         <div>
@@ -180,19 +182,51 @@
                                                 </ng-template>
 
                                                 <ng-template #fields>
-                                                    <ng-container *ngIf="col.field.includes('status'); else active">
-                                                        <p-tag [value]="course[col.field]"
-                                                            [severity]="getSeverity(course[col.field])" />
+                                                    <ng-container *ngIf="col.field.includes('status'); else inactive">
+                                                        <ng-container
+                                                            *ngIf="course[col.field] == 'REJECTED' || course[col.field] == 'NOT REQUEST'; else statusApproved">
+                                                            <div
+                                                                class="flex justify-content-between align-items-center">
+                                                                <p-tag [value]="course[col.field]"
+                                                                    [severity]="getSeverity(course[col.field])" />
+                                                                <p-button (click)="requestPendingStatus(course)"
+                                                                    icon="pi pi-send" [rounded]="true" [text]="true"
+                                                                    severity="secondary" />
+                                                            </div>
+                                                        </ng-container>
                                                     </ng-container>
 
                                                 </ng-template>
+
+                                                <ng-template #statusApproved>
+                                                    <p-tag [value]="course[col.field]"
+                                                        [severity]="getSeverity(course[col.field])" />
+                                                </ng-template>
+
+                                                <ng-template #inactive>
+                                                    <ng-container *ngIf="col.field.includes('isActive'); else another">
+                                                        <ng-container
+                                                            *ngIf="course[col.field] == false && userService.getRole() != 'Provider'; else active">
+                                                            <div
+                                                                class="flex justify-content-between align-items-center">
+                                                                <p-tag [value]="getValueBool(course[col.field])"
+                                                                    [severity]="getSeverityBool(course[col.field])" />
+                                                                <p-button (click)="requestActive(course)"
+                                                                    icon="pi pi-thumbs-up" [rounded]="true" [text]="true"
+                                                                    severity="secondary" />
+                                                            </div>
+                                                        </ng-container>
+
+                                                    </ng-container>
+                                                </ng-template>
+
 
                                                 <ng-template #active>
-                                                    <ng-container *ngIf="col.field.includes('isActive'); else another">
-                                                        <p-tag [value]="getValueBool(course[col.field])"
-                                                            [severity]="getSeverityBool(course[col.field])" />
-                                                    </ng-container>
+                                                    <p-tag [value]="getValueBool(course[col.field])"
+                                                                    [severity]="getSeverityBool(course[col.field])" />
                                                 </ng-template>
+
+
                                                 <ng-template #another>
                                                     {{ course[col.field] }}
                                                 </ng-template>
@@ -224,135 +258,138 @@
         </div>
 
     </p-tabPanel>
-    <p-tabPanel [disabled]="userService.getRole() != 'Provider'">
-        <ng-template pTemplate="header">
-            <div class="flex align-items-center gap-2">
-                <span class="font-bold white-space-nowrap m-0">
-                    Awaiting Approval
-                </span>
-            </div>
-        </ng-template>
-        <p-table [value]="awaitingCourses" styleClass="p-datatable-sm" responsiveLayout="stack" [breakpoint]="'960px'"
-            [columns]="selectedColumns" [globalFilterFields]="['Code']"
-            [paginator]="true" [rowsPerPageOptions]="rowsPerPageOptions" [showCurrentPageReport]="true"
-            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-             [rowHover]="true" dataKey="id"
-             sortField="createdDate" [sortOrder]="-1"
-            [rows]="10"
-            
-            >
 
-            <ng-template pTemplate="caption">
-                <div class="flex align-items-center justify-content-between">
-                    <div class="flex flex-row justify-content-between w-full gap-2">
-                        <span class="block mt-2 md:mt-0 p-input-icon-left w-full">
-                            <i class="pi pi-search"></i>
-                            <!-- (input)="onGlobalFilter(dt, $event)" -->
-                            <input pInputText type="text" placeholder="Search..."
-                                class="custom-input md:w-full sm:w-auto" />
-                        </span>
-                        <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center w-5">
-                            <p-multiSelect inputId="multiselect" [options]="cols" [(ngModel)]="selectedColumns"
-                                optionLabel="header" [maxSelectedLabels]="99" selectedItemsLabel="{0} columns selected"
-                                placeholder="Choose Columns" [showClear]="true" [filter]="true"
-                                [panelStyle]="{'width':'250px'}" />
-                        </div>
-                    </div>
+    <ng-container *ngIf="userService.getRole() == 'Provider'">
+        <p-tabPanel>
+            <ng-template pTemplate="header">
+                <div class="flex align-items-center gap-2">
+                    <span class="font-bold white-space-nowrap m-0">
+                        Awaiting Approval
+                    </span>
+                    <p-badge [value]="awaitingCourses.length" />
                 </div>
             </ng-template>
+            <p-table [value]="awaitingCourses" styleClass="p-datatable-sm" responsiveLayout="stack"
+                [breakpoint]="'960px'" [columns]="selectedAwaitingColumns" [globalFilterFields]="['Code']" [paginator]="true"
+                [rowsPerPageOptions]="rowsPerPageOptions" [showCurrentPageReport]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowHover]="true"
+                dataKey="id" sortField="createdDate" [sortOrder]="-1" [rows]="10">
 
-            <ng-template pTemplate="header" let-columns>
-                <tr>
-                    <th pSortableColumn="{{col.field}}" [pSortableColumnDisabled]="!col.sortField ? true : false"
-                        *ngFor="let col of columns">
-                        {{ col.header }}
-                        <p-sortIcon *ngIf="col.sortIcon" field="{{col.field}}" ariaLabel="Activate to sort"
-                            ariaLabelDesc="Activate to sort in descending order"
-                            ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
-                    </th>
-                </tr>
-            </ng-template>
+                <ng-template pTemplate="caption">
+                    <div class="flex align-items-center justify-content-between">
+                        <div class="flex flex-row justify-content-between w-full gap-2">
+                            <span class="block mt-2 md:mt-0 p-input-icon-left w-full">
+                                <i class="pi pi-search"></i>
+                                <!-- (input)="onGlobalFilter(dt, $event)" -->
+                                <input pInputText type="text" placeholder="Search..."
+                                    class="custom-input md:w-full sm:w-auto" />
+                            </span>
+                            <div
+                                class="flex flex-column md:flex-row md:justify-content-between md:align-items-center w-5">
+                                <p-multiSelect inputId="multiselect" [options]="colsAwaiting" [(ngModel)]="selectedAwaitingColumns"
+                                    optionLabel="header" [maxSelectedLabels]="99"
+                                    selectedItemsLabel="{0} columns selected" placeholder="Choose Columns"
+                                    [showClear]="true" [filter]="true" [panelStyle]="{'width':'250px'}" />
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
 
-            <ng-template pTemplate="body" let-course let-columns="columns">
-                <tr>
-                    <td *ngFor="let col of columns" style="width: 14%; min-width: 10rem">
-                        <ng-container *ngIf="col.subfield; else newId">
-                            {{ course[col.field][col.subfield] }}
-                        </ng-container>
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th pSortableColumn="{{col.field}}" [pSortableColumnDisabled]="!col.sortField ? true : false"
+                            *ngFor="let col of columns">
+                            {{ col.header }}
+                            <p-sortIcon *ngIf="col.sortIcon" field="{{col.field}}" ariaLabel="Activate to sort"
+                                ariaLabelDesc="Activate to sort in descending order"
+                                ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                        </th>
+                    </tr>
+                </ng-template>
 
-                        <ng-template #newId>
-                            <ng-container *ngIf="col.field === 'id'; else otherId">
-                                <ng-container
-                                    *ngIf="course[col.field] != courseDetailComponent.course.id; else makeColorId">
-                                    <a class="button-id"
-                                        [autoHide]="false" [pTooltip]="course[col.field]">{{
-                                        course[col.field] }}
-                                    </a>
+                <ng-template pTemplate="body" let-course let-columns="columns">
+                    <tr>
+                        <td *ngFor="let col of columns" style="width: 14%; min-width: 10rem">
+                            <ng-container *ngIf="col.subfield; else newId">
+                                {{ course[col.field][col.subfield] }}
+                            </ng-container>
+
+                            <ng-template #newId>
+                                <ng-container *ngIf="col.field === 'id'; else otherId">
+                                    <ng-container
+                                        *ngIf="course[col.field] != courseDetailComponent.course.id; else makeColorId">
+                                        <a class="button-id" [autoHide]="false" [pTooltip]="course[col.field]">{{
+                                            course[col.field] }}
+                                        </a>
+                                    </ng-container>
                                 </ng-container>
-                            </ng-container>
-                        </ng-template>
-
-                        <ng-template #makeColorId>
-                            <a  class="button-id"
-                                style="color: #1572E8; font-weight: 900;" [autoHide]="false"
-                                [pTooltip]="course[col.field]">{{
-                                course[col.field] }}
-                            </a>
-                        </ng-template>
-
-                        <ng-template #otherId>
-                            <ng-container *ngIf="col.field.includes('Id'); else otherFields">
-
-                                <a [routerLink]="[]" (click)="getNewQuote()" class="button-other-id" [autoHide]="false"
-                                    [pTooltip]="tooltipContent">{{
-                                    course[col.field] }}</a>
-
-                            </ng-container>
-
-                            <ng-template #tooltipContent>
-                                {{ course[col.field] }}
-                                <br />
-                                <br />
-                                Click to copy
                             </ng-template>
 
-                        </ng-template>
-
-                        <ng-template #otherFields>
-                            <ng-container *ngIf="col.field.includes('description'); else fields">
-
-                                <a (click)="getNewQuote()" [cdkCopyToClipboard]="course[col.field]"
-                                    class="button-other-id" [autoHide]="false" [pTooltip]="tooltipContentDescription">{{
-                                    course[col.field] }}</a>
-
-                            </ng-container>
-
-                            <ng-template #tooltipContentDescription>
-                                {{ course[col.field] }}
-                                <br />
+                            <ng-template #makeColorId>
+                                <a class="button-id" style="color: #1572E8; font-weight: 900;" [autoHide]="false"
+                                    [pTooltip]="course[col.field]">{{
+                                    course[col.field] }}
+                                </a>
                             </ng-template>
-                        </ng-template>
 
-                        <ng-template #fields>
-                            <ng-container *ngIf="col.field.includes('status'); else active">
-                                <p-tag [value]="course[col.field]" [severity]="getSeverity(course[col.field])" />
-                            </ng-container>
+                            <ng-template #otherId>
+                                <ng-container *ngIf="col.field.includes('Id'); else otherFields">
 
-                        </ng-template>
+                                    <a [routerLink]="[]" (click)="getNewQuote()" class="button-other-id"
+                                        [autoHide]="false" [pTooltip]="tooltipContent">{{
+                                        course[col.field] }}</a>
 
-                        <ng-template #active>
-                            <ng-container *ngIf="col.field.includes('isActive'); else another">
-                                <p-tag [value]="getValueBool(course[col.field])"
-                                    [severity]="getSeverityBool(course[col.field])" />
-                            </ng-container>
-                        </ng-template>
-                        <ng-template #another>
-                            {{ course[col.field] }}
-                        </ng-template>
+                                </ng-container>
 
-                    </td>
-                </tr>
-            </ng-template>
-        </p-table>
-    </p-tabPanel>
+                                <ng-template #tooltipContent>
+                                    {{ course[col.field] }}
+                                    <br />
+                                    <br />
+                                    Click to copy
+                                </ng-template>
+
+                            </ng-template>
+
+                            <ng-template #otherFields>
+                                <ng-container *ngIf="col.field.includes('description'); else fields">
+
+                                    <a (click)="getNewQuote()" [cdkCopyToClipboard]="course[col.field]"
+                                        class="button-other-id" [autoHide]="false"
+                                        [pTooltip]="tooltipContentDescription">{{
+                                        course[col.field] }}</a>
+
+                                </ng-container>
+
+                                <ng-template #tooltipContentDescription>
+                                    {{ course[col.field] }}
+                                    <br />
+                                </ng-template>
+                            </ng-template>
+
+                            <ng-template #fields>
+                                <ng-container *ngIf="col.field.includes('status'); else active">
+                                    <p-tag [value]="course[col.field]" [severity]="getSeverity(course[col.field])" />
+                                </ng-container>
+
+                            </ng-template>
+
+                            <ng-template #active>
+                                <ng-container *ngIf="col.field.includes('isActive'); else another">
+                                    <p-tag [value]="getValueBool(course[col.field])"
+                                        [severity]="getSeverityBool(course[col.field])" />
+                                </ng-container>
+                            </ng-template>
+                            <ng-template #another>
+                                {{ course[col.field] }}
+                            </ng-template>
+
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-tabPanel>
+    </ng-container>
+
+
+
 </p-tabView>

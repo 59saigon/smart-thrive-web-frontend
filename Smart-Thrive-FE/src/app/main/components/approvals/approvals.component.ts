@@ -86,7 +86,7 @@ export class ApprovalsComponent implements OnInit {
   set selectedApprovedColumn(val: any[]) {
     this._selectedApprovedColumns = this.colsApproved.filter((col) => val.includes(col));
   }
-  
+
   @Input() get selectedRejectedColumns(): any[] {
     return this._selectedRejectedColumns;
   }
@@ -134,7 +134,7 @@ export class ApprovalsComponent implements OnInit {
       next: (response) => {
         this.paginatedPendingListResponse = response;
         console.log("check_p", response)
-        this.setPaginatedRequest();
+        //this.setPaginatedRequest();
       },
       error: (err) => {
         console.log("check_error", err);
@@ -151,7 +151,7 @@ export class ApprovalsComponent implements OnInit {
     this.courseService.getAllSearch(this.paginatedRequestFillter).subscribe({
       next: (response) => {
         this.paginatedApprovedListResponse = response;
-        this.setPaginatedRequest();
+        //this.setPaginatedApprovedRequest();
       },
       error: (err) => {
         console.log("check_error", err);
@@ -169,7 +169,7 @@ export class ApprovalsComponent implements OnInit {
     this.courseService.getAllSearch(this.paginatedRequestFillter).subscribe({
       next: (response) => {
         this.paginatedRejectListResponse = response;
-        this.setPaginatedRequest();
+        //this.setPaginatedRejectRequest();
       },
       error: (err) => {
         console.log("check_error", err);
@@ -243,24 +243,6 @@ export class ApprovalsComponent implements OnInit {
     this.getRejectListCourse();
   }
 
-  setPaginatedRequest() {
-    this.paginatedRequest.pageNumber = this.paginatedPendingListResponse.pageNumber;
-    this.paginatedRequest.pageSize = this.paginatedPendingListResponse.pageSize;
-    this.paginatedRequest.sortField = this.paginatedPendingListResponse.sortField;
-    this.paginatedRequest.sortOrder = this.paginatedPendingListResponse.sortOrder;
-  }
-  setPaginatedApprovedRequest() {
-    this.paginatedApprovedRequest.pageNumber = this.paginatedPendingListResponse.pageNumber;
-    this.paginatedApprovedRequest.pageSize = this.paginatedPendingListResponse.pageSize;
-    this.paginatedApprovedRequest.sortField = this.paginatedPendingListResponse.sortField;
-    this.paginatedApprovedRequest.sortOrder = this.paginatedPendingListResponse.sortOrder;
-  }
-  setPaginatedRejectRequest() {
-    this.paginatedRejectRequest.pageNumber = this.paginatedPendingListResponse.pageNumber;
-    this.paginatedRejectRequest.pageSize = this.paginatedPendingListResponse.pageSize;
-    this.paginatedRejectRequest.sortField = this.paginatedPendingListResponse.sortField;
-    this.paginatedRejectRequest.sortOrder = this.paginatedPendingListResponse.sortOrder;
-  }
 
   getNewQuote() {
     this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Copied' });

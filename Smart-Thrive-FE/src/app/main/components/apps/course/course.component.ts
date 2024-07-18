@@ -13,6 +13,8 @@ import { PaginatedListResponse } from '../../../../data/model/paginated-response
 import { UserService } from '../../../services/services/user.service';
 import { Guid } from 'guid-typescript';
 import { SessionService } from '../../../services/services/session.service';
+import Swal from 'sweetalert2';
+import headerListAwaitingApproval from './headerListAwaitingApproval';
 
 @Component({
   selector: 'app-course',
@@ -40,7 +42,6 @@ export class CourseComponent implements OnInit {
 
     this.courseService.refreshComponent$.subscribe(() => {
       this.initialize();
-      this.activeIndex = 1;
     });
   }
 
@@ -53,7 +54,7 @@ export class CourseComponent implements OnInit {
       this.getListCourseNoPaginationByProviderId();
       this.getListCourseByProviderId();
     }
-    
+
     this.getSelectedColumns();
   }
 
@@ -69,14 +70,19 @@ export class CourseComponent implements OnInit {
 
   courses: Course[] = [];
   awaitingCourses: Course[] = [];
+  awaitingActiveCourses: Course[] = [];
+  approvedCourses: Course[] = [];
+  activedCourses: Course[] = [];
   course: Course = {} as Course;
   selectedCourses: Course[] = [];
 
   submitted: boolean = false;
   cols: any[] = [];
+  colsAwaiting: any[] = [];
   rowsPerPageOptions = [5, 10, 20, 50];
   statuses: any[] = [];
   _selectedColumns: any[] = [];
+  _selectedAwaitingColumns: any[] = [];
   activeState: boolean[] = [true, false, false];
   activeIndex: number = 0;
 
@@ -90,6 +96,13 @@ export class CourseComponent implements OnInit {
 
   set selectedColumns(val: any[]) {
     this._selectedColumns = this.cols.filter((col) => val.includes(col));
+  }
+  @Input() get selectedAwaitingColumns(): any[] {
+    return this._selectedAwaitingColumns;
+  }
+
+  set selectedAwaitingColumns(val: any[]) {
+    this._selectedAwaitingColumns = this.cols.filter((col) => val.includes(col));
   }
 
   paginatedRequest: PaginatedRequest = {
@@ -116,7 +129,7 @@ export class CourseComponent implements OnInit {
     this.courseService.getAllSearch(this.paginatedRequestFillter).subscribe({
       next: (response) => {
         this.paginatedListResponse = response;
-        console.log("pagina",this.paginatedListResponse)
+        console.log("pagina", this.paginatedListResponse)
         this.setPaginatedRequest();
       },
       error: (err) => {
@@ -128,7 +141,9 @@ export class CourseComponent implements OnInit {
   getListCourseNoPaginationByProviderId(): void {
     this.courseService.getAllByProviderId(this.userService.getUserDetails().provider?.id!).subscribe({
       next: (response) => {
-        this.awaitingCourses = response.results.filter(m => m.status == 'PENDING' || m.status == 'REJECT');
+        console.log("check_", response);
+        this.awaitingCourses = response.results.filter(m => m.status == 'PENDING');
+        console.log("check_awa", this.awaitingCourses);
       },
       error: (err) => {
         console.log("check_error", err);
@@ -148,7 +163,7 @@ export class CourseComponent implements OnInit {
       },
     });
 
-    
+
   }
 
   getSeverity(status: string) {
@@ -159,6 +174,8 @@ export class CourseComponent implements OnInit {
         return 'warning';
       case 'REJECTED':
         return 'danger';
+      case 'NOT REQUEST':
+        return 'secondary';
     }
 
     return 'secondary'
@@ -184,15 +201,17 @@ export class CourseComponent implements OnInit {
   getSelectedColumns() {
     const isProvider = this.userService.getRole() === "Provider";
     if (isProvider) {
-      this.cols = headerList.filter((col) => col.field != 'provider'
+      this.colsAwaiting = headerListAwaitingApproval.filter((col) => col.field != 'provider'
         && col.field != 'isDeleted'
         && col.field != 'createdBy'
         && col.field != 'lastUpdatedBy'
       )
-    } else {
-      this.cols = headerList;
+      this._selectedAwaitingColumns = this.colsAwaiting.filter((col) => !col.isDisabled);
     }
+    this.cols = headerList;
     this._selectedColumns = this.cols.filter((col) => !col.isDisabled);
+
+
   }
 
   loadPatientListing(event: any) {
@@ -256,6 +275,83 @@ export class CourseComponent implements OnInit {
       }
     });
   }
+
+  requestPendingStatus(course: Course) {
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: course.status + " -> " + "PENDING",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, let's request!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // update status
+        course.status = "PENDING";
+        this.courseService.update(course).subscribe({
+          next: (response) => {
+            this.activeIndex = 1;
+            Swal.fire({
+              title: "Requested!",
+              text: "Your data has been move to 'awaiting approval'.",
+              icon: "success"
+            });
+            this.courseService.triggerRefresh();
+
+          },
+          error: (err) => {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Something went wrong!",
+            });
+          },
+        });
+
+      }
+    });
+  }
+
+  requestActive(course: Course) {
+    const inactive = course.isActive ? "Active" : "Inactive";
+    Swal.fire({
+      title: "Are you sure?",
+      text: inactive + " -> " + "Active",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, let's request!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // update status
+        course.isActive = true;
+        this.courseService.update(course).subscribe({
+          next: (response) => {
+            this.activeIndex = 0;
+            Swal.fire({
+              title: "Requested!",
+              text: "Your course has been actived.",
+              icon: "success"
+            });
+            this.courseService.triggerRefresh();
+
+          },
+          error: (err) => {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Something went wrong!",
+            });
+          },
+        });
+
+      }
+    });
+  }
+
 
   editCourse(course: Course) {
     this.courseCreateOrUpdateComponent.course = course;
