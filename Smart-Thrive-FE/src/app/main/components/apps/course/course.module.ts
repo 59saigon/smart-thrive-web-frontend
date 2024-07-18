@@ -42,6 +42,9 @@ import { BadgeModule } from 'primeng/badge';
     CourseCreateOrUpdateComponent,
     CourseDetailComponent,
   ],
+  exports: [
+    CourseCreateOrUpdateComponent
+  ],
   imports: [
     CommonModule,
     CourseRoutingModule,

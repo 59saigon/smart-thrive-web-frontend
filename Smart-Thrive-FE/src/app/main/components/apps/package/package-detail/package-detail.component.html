@@ -30,46 +30,45 @@
 
 <div class="card">
     <div class="grid">
-    <div class="col-12">
-        <p-toolbar styleClass="mb-1">
+        <div class="col-12">
+            <p-toolbar styleClass="mb-1">
 
-            <ng-template pTemplate="left">
-                <div class="my-2">
-                    <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"
-                        (click)="openNew()"></button>
-                    <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger"
-                        (click)="deleteSelectedCourses()" [disabled]="
+                <ng-template pTemplate="left">
+                    <div class="my-2">
+                        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"
+                            (click)="openNew()"></button>
+                        <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger"
+                             [disabled]="
                                 !selectedCourses || !selectedCourses.length
                             "></button>
-                </div>
-            </ng-template>
+                    </div>
+                </ng-template>
 
-        </p-toolbar>
+            </p-toolbar>
 
-        
+
             <p-table #dt [value]="paginatedListResponse.results" styleClass="p-datatable-sm"
-                responsiveLayout="stack" [breakpoint]="'960px'"
-                [columns]="selectedColumns" responsiveLayout="scroll"
-                [rows]="10" [globalFilterFields]="['id']"
-                [paginator]="true" [rowsPerPageOptions]="[10, 20, 30]"
-                [showCurrentPageReport]="true"
-                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                [(selection)]="selectedCourses" selectionMode="multiple"
-                [rowHover]="true" dataKey="id">
+            responsiveLayout="stack" [breakpoint]="'960px'" [columns]="selectedColumns"
+            responsiveLayout="scroll" [globalFilterFields]="['packageName']" [paginator]="true"
+            [rowsPerPageOptions]="rowsPerPageOptions" [showCurrentPageReport]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            selectionMode="multiple" [rowHover]="true" dataKey="id"
+            [totalRecords]="paginatedListResponse.totalRecords" [lazy]="true"
+            [rows]="paginatedRequest.pageSize" [sortField]="paginatedRequest.sortField" [sortOrder]="paginatedRequest.sortOrder"
+            (onLazyLoad)="loadPatientListing($event)">
 
 
                 <ng-template pTemplate="caption">
                     <div class="flex align-items-center justify-content-between">
                         <h5 class="m-0">Course List</h5>
-                        <div
-                            class="flex flex-column md:flex-row md:justify-content-between md:align-items-center w-4">
+                        <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center w-4">
                             <!-- <h5 class="m-0">Manage Courses</h5> -->
 
                             <span class="block mt-2 md:mt-0 p-input-icon-left w-full">
                                 <i class="pi pi-search"></i>
                                 <!-- (input)="onGlobalFilter(dt, $event)" -->
-                                <input pInputText type="text"
-                                    placeholder="Search..." class="custom-input md:w-full sm:w-auto" />
+                                <input pInputText type="text" placeholder="Search..."
+                                    class="custom-input md:w-full sm:w-auto" />
                             </span>
                         </div>
                         <div class="flex flex-wrap  gap-2 w-4">
@@ -77,8 +76,8 @@
 
                             <div
                                 class="flex flex-column md:flex-row md:justify-content-between md:align-items-center w-full">
-                                <p-multiSelect inputId="multiselect" [options]="cols"
-                                    [(ngModel)]="selectedColumns" optionLabel="header" [maxSelectedLabels]="99"
+                                <p-multiSelect inputId="multiselect" [options]="cols" [(ngModel)]="selectedColumns"
+                                    optionLabel="header" [maxSelectedLabels]="99"
                                     selectedItemsLabel="{0} columns selected" placeholder="Choose Columns"
                                     [showClear]="true" [filter]="true" [panelStyle]="{'width':'250px'}" />
                             </div>
@@ -92,8 +91,7 @@
                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                         </th>
 
-                        <th pSortableColumn="{{col.field}}"
-                            [pSortableColumnDisabled]="!col.sortField ? true : false"
+                        <th pSortableColumn="{{col.field}}" [pSortableColumnDisabled]="!col.sortField ? true : false"
                             *ngFor="let col of columns">
                             {{ col.header }}
                             <p-sortIcon *ngIf="col.sortIcon" field="{{col.field}}" ariaLabel="Activate to sort"
@@ -117,8 +115,7 @@
 
                             <ng-template #newId>
                                 <ng-container *ngIf="col.field === 'id'; else otherId">
-                                    <a
-                                        class="button-id" [autoHide]="false" [pTooltip]="course[col.field]">{{
+                                    <a class="button-id" [autoHide]="false" [pTooltip]="course[col.field]">{{
                                         course[col.field] }}
                                     </a>
                                 </ng-container>
@@ -127,9 +124,8 @@
                             <ng-template #otherId>
                                 <ng-container *ngIf="col.field.includes('Id'); else otherFields">
 
-                                    <a (click)="getNewQuote()"
-                                        [cdkCopyToClipboard]="course[col.field]" class="button-other-id"
-                                        [autoHide]="false" [pTooltip]="tooltipContent">{{
+                                    <a (click)="getNewQuote()" [cdkCopyToClipboard]="course[col.field]"
+                                        class="button-other-id" [autoHide]="false" [pTooltip]="tooltipContent">{{
                                         course[col.field] }}</a>
 
                                 </ng-container>
@@ -163,15 +159,169 @@
                         </td>
                         <td>
                             <div class="flex">
-                                <button pButton pRipple icon="pi pi-trash"
-                                    class="p-button-rounded p-button-text"
+                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-text"
                                     (click)="deleteCourse(course)"></button>
                             </div>
                         </td>
                     </tr>
                 </ng-template>
             </p-table>
-        
+
+        </div>
     </div>
 </div>
-</div>
+
+
+
+
+
+<p-dialog header="Select combo course" [resizable]="false" [modal]="true" [maximizable]="true" appendTo="body"
+    [(visible)]="dialogVisible" [style]="{width: '75vw'}" >
+    <p-table #dt [value]="coursesExceptListId" styleClass="p-datatable-sm " responsiveLayout="stack"
+        [breakpoint]="'960px'" [columns]="selectedColumns" responsiveLayout="scroll" [paginator]="true"
+        [rowsPerPageOptions]="[5, 10]" [showCurrentPageReport]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" 
+        dataKey="id" 
+         [rows]="5" 
+        [globalFilterFields]="['code']"
+        >
+
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <div class="flex flex-row justify-content-between w-full gap-2">
+                    <span class="block mt-2 md:mt-0 p-input-icon-left w-full">
+                        <i class="pi pi-search"></i>
+                        <!-- (input)="onGlobalFilter(dt, $event)" -->
+                        <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."
+                            class="custom-input md:w-full sm:w-auto" />
+                    </span>
+                    <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center w-5">
+                        <p-multiSelect inputId="multiselect" [options]="cols" [(ngModel)]="selectedColumns"
+                            optionLabel="header" [maxSelectedLabels]="99" selectedItemsLabel="{0} columns selected"
+                            placeholder="Choose Columns" [showClear]="true" [filter]="true"
+                            [panelStyle]="{'width':'250px'}" />
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th pSortableColumn="{{col.field}}" [pSortableColumnDisabled]="!col.sortField ? true : false"
+                    *ngFor="let col of columns">
+                    {{ col.header }}
+                    <p-sortIcon *ngIf="col.sortIcon" field="{{col.field}}" ariaLabel="Activate to sort"
+                        ariaLabelDesc="Activate to sort in descending order"
+                        ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                </th>
+                <th>Actions</th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-course let-columns="columns">
+            <tr>
+                <td *ngFor="let col of columns" style="width: 14%; min-width: 10rem">
+                    <ng-container *ngIf="col.subfield; else newId">
+                        {{ course[col.field][col.subfield] }}
+                    </ng-container>
+
+                    <ng-template #newId>
+                        <ng-container *ngIf="col.field === 'id'; else otherId">
+                                <a [routerLink]="[]" class="button-id"
+                                    [autoHide]="false" [pTooltip]="course[col.field]">{{
+                                    course[col.field] }}
+                                </a>
+                        </ng-container>
+                    </ng-template>
+
+                    <ng-template #otherId>
+                        <ng-container *ngIf="col.field.includes('Id'); else otherFields">
+
+                            <a [routerLink]="[]" (click)="getNewQuote()" class="button-other-id" [autoHide]="false"
+                                [pTooltip]="tooltipContent">{{
+                                course[col.field] }}</a>
+
+                        </ng-container>
+
+                        <ng-template #tooltipContent>
+                            {{ course[col.field] }}
+                            <br />
+                            <br />
+                            Click to copy
+                        </ng-template>
+
+                    </ng-template>
+
+                    <ng-template #otherFields>
+                        <ng-container *ngIf="col.field.includes('description'); else fields">
+
+                            <a (click)="getNewQuote()" [cdkCopyToClipboard]="course[col.field]" class="button-other-id"
+                                [autoHide]="false" [pTooltip]="tooltipContentDescription">{{
+                                course[col.field] }}</a>
+
+                        </ng-container>
+
+                        <ng-template #tooltipContentDescription>
+                            {{ course[col.field] }}
+                            <br />
+                        </ng-template>
+                    </ng-template>
+
+                    <ng-template #fields>
+                        <ng-container *ngIf="col.field.includes('status'); else inactive">
+                            <ng-container
+                                *ngIf="(course[col.field] == 'REJECTED' || course[col.field] == 'NOT REQUEST'); else statusApproved">
+                                <div class="flex justify-content-between align-items-center">
+                                    <p-tag [value]="course[col.field]" [severity]="getSeverity(course[col.field])" />
+                                </div>
+                            </ng-container>
+                        </ng-container>
+
+                    </ng-template>
+
+                    <ng-template #statusApproved>
+                        <p-tag [value]="course[col.field]" [severity]="getSeverity(course[col.field])" />
+                    </ng-template>
+
+                    <ng-template #inactive>
+                        <ng-container *ngIf="col.field.includes('isActive'); else another">
+                            <ng-container
+                                *ngIf="course['status'] == 'APPROVED' && course[col.field] == false; else active">
+                                <div class="flex justify-content-between align-items-center">
+                                    <p-tag [value]="getValueBool(course[col.field])"
+                                        [severity]="getSeverityBool(course[col.field])" />
+                                </div>
+                            </ng-container>
+
+                        </ng-container>
+                    </ng-template>
+
+
+                    <ng-template #active>
+                        <p-tag [value]="getValueBool(course[col.field])"
+                            [severity]="getSeverityBool(course[col.field])" />
+                    </ng-template>
+
+
+                    <ng-template #another>
+                        {{ course[col.field] }}
+                    </ng-template>
+
+                </td>
+                <td>
+                    <div class="flex">
+                        <!-- <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-text"
+                            (click)="editCourse(course)"></button> -->
+                        <button pButton pRipple icon="pi pi-plus" class="p-button-rounded p-button-text"
+                            (click)="addCourseIntoPackage(course)"></button>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <ng-template pTemplate="footer">
+        <button type="button" pButton pRipple icon="pi pi-times" (click)="dialogVisible=false" label="Dismiss"
+            class="p-button-text">
+        </button>
+    </ng-template>
+</p-dialog>

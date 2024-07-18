@@ -1,0 +1,35 @@
+
+.button-id {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 12ch;
+}
+
+.button-other-id {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 12ch;
+}
+
+.button-id:hover {
+    text-decoration: underline;
+    color: blue;
+}
+
+p-multiSelect {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+.p-multiselect-clearable{
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+.card {
+    box-shadow: none;
+}

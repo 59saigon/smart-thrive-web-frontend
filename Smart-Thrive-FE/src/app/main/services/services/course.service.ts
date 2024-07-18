@@ -30,6 +30,10 @@ export class CourseService extends BaseService<Course> {
     return this.http.post<PaginatedListResponse<Course>>(`${this.getBaseUrl()}${ConstantsApi.getAllPaginationByListId}`, request);
   }
 
+  getAllExceptListId(request: PaginatedRequestFillter<Guid[]>): Observable<PaginatedListResponse<Course>> {
+    return this.http.post<PaginatedListResponse<Course>>(`${this.getBaseUrl()}/get-all-except-list-id-with-actived`, request);
+  }
+
   getAllPaginationByProviderId(providerId: Guid,request: PaginatedRequest): Observable<PaginatedListResponse<Course>> {
     return this.http.post<PaginatedListResponse<Course>>(`${this.getBaseUrl()}/get-all-pagination-by-provider-id?providerId=${providerId}`, request);
   }

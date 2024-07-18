@@ -44,8 +44,7 @@ export class SessionCreateOrUpdateComponent implements OnInit {
     this.setTitleAndInformation();
     console.log("input", this.courseId);
 
-    const isProvider = this.userService.getRole();
-    !isProvider ? this.getCourses() : this.getCourseById();
+    this.courseId == undefined ? this.getCourses() : this.getCourseById();
   }
 
   getCourses() {
@@ -98,8 +97,7 @@ export class SessionCreateOrUpdateComponent implements OnInit {
     this.sessionDialog = true;
     this.submitted = false;
     this.learnDate = new Date();
-    const isProvider = this.userService.getRole() == 'Provider';
-    !isProvider ? this.getCourses() : this.getCourseById();
+    this.courseId == undefined ? this.getCourses() : this.getCourseById();
   }
 
   hideDialog() {
