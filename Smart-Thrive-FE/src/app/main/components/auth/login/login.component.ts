@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { User } from '../../../../data/entities/user';
 import { MessageService } from 'primeng/api';
 import { ArgumentOutOfRangeError } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -67,7 +68,11 @@ export class LoginComponent implements OnInit {
     if ((!this.isLoginWithGoogle) && this.isUserObjectEmpty(this.loginUser)) {
       setTimeout(() => {
         this.clearLoading(index);
-        this.messageService.add({ severity: 'warn', summary: 'Fail', detail: 'Username and password are required' });
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Username && password required!",
+        });
       }, 1000);
       return;
     }
@@ -82,7 +87,11 @@ export class LoginComponent implements OnInit {
         if (response.result == null) {
           setTimeout(() => {
             this.clearLoading(index);
-            this.messageService.add({ severity: 'warn', summary: 'Fail', detail: "Not found account: " + this.loginUser.usernameOrEmail });
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Not found account: " + this.loginUser.usernameOrEmail,
+            });
           }, 1000);
           return;
         }
@@ -95,7 +104,11 @@ export class LoginComponent implements OnInit {
       error: (err) => {
         setTimeout(() => {
           this.clearLoading(index);
-          this.messageService.add({ severity: 'warn', summary: 'Fail', detail: "Service is not enable" });
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Something went wrong!",
+          });
         }, 1000);
       },
     });
@@ -117,18 +130,15 @@ export class LoginComponent implements OnInit {
   handleLogin(response: any) {
 
     if (response) {
-      var index = 0;
-      this.load(index);
-
       const payLoad = this.decodeToken(response.credential);
       console.log(payLoad);
 
-      this.verifiedByGoogleToken(payLoad, 0, response.credential);
+      this.verifiedByGoogleToken(payLoad, response.credential);
 
     }
   }
 
-  verifiedByGoogleToken(payLoad: any, index: number, _googleToken: any) {
+  verifiedByGoogleToken(payLoad: any, _googleToken: any) {
     const loginWithAnother = {
       email: payLoad.email,
       email_verified: payLoad.email_verified,
@@ -139,26 +149,36 @@ export class LoginComponent implements OnInit {
       next: (response) => {
         if (response.result == null) {
           setTimeout(() => {
-            this.clearLoading(index);
             this.messageService.add({ severity: 'warn', summary: 'Fail', detail: "Login with another method failed: " + payLoad.email });
           }, 1000);
+          return;
+        }
+
+        if(response.result.role?.roleName == 'Buyer') {
+          Swal.fire({
+            icon: "info",
+            title: "Oops...",
+            text: "This account does not have access rights!",
+          });
           return;
         }
 
         this.user = response.result;
         this.token = response.token;
         this.userService.setToken(this.user, this.token);
+        
 
-        setTimeout(() => {
-          this.clearLoading(index);
-          window.location.reload();
-        }, 2000);
+        window.location.reload();
 
       },
       error: (err) => {
         setTimeout(() => {
-          this.clearLoading(index);
-          this.messageService.add({ severity: 'warn', summary: 'Fail', detail: "Service is not enabled" });
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Something went wrong!",
+          });
+          
         }, 1000);
       },
     });

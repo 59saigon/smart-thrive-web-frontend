@@ -5,6 +5,7 @@ import { UserService } from '../../../services/services/user.service';
 import { ItemResponse } from '../../../../data/model/base-response';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',
@@ -45,7 +46,11 @@ export class RegisterComponent implements OnInit {
     if (this.user.password != this.confirmPassword) {
       setTimeout(() => {
         this.clearLoading(index);
-        this.messageService.add({ severity: 'warn', summary: 'Fail', detail: "Not mach password" });
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Not match password, try again!",
+        });
       }, 1000);
       return;
     }
@@ -66,13 +71,21 @@ export class RegisterComponent implements OnInit {
         }
 
         this.user = response.result;
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Register' });
+        Swal.fire({
+          title: "Success register!",
+          text: "You created a account with name" + this.user.fullName,
+          icon: "success"
+        });
         setTimeout(() => { this.router.navigateByUrl('/auth/login'); this.clearLoading(index); }, 2000);
       },
       error: (err) => {
         setTimeout(() => {
           this.clearLoading(index);
-          this.messageService.add({ severity: 'warn', summary: 'Fail', detail: "Service is not enable" });
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Something went wrong!",
+          });
         }, 1000);
       },
     });

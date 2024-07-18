@@ -22,7 +22,7 @@ import Swal from 'sweetalert2';
 export class CourseDetailComponent implements OnInit {
   @ViewChild(SessionCreateOrUpdateComponent) sessionCreateOrUpdateComponent!: SessionCreateOrUpdateComponent;
 
-  constructor(private messageService: MessageService, private userService: UserService, private sessionService: SessionService, private confirmationService: ConfirmationService) { }
+  constructor(private messageService: MessageService, protected userService: UserService, private sessionService: SessionService, private confirmationService: ConfirmationService) { }
 
   submitted: boolean = false;
   cols: any[] = [];
