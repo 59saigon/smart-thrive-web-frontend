@@ -63,12 +63,13 @@
                                 </p-toolbar>
                                 <p-table #dt [value]="paginatedListResponse.results" styleClass="p-datatable-sm "
                                     responsiveLayout="stack" [breakpoint]="'960px'" [columns]="selectedColumns"
-                                    responsiveLayout="scroll" [globalFilterFields]="['eventName']" [paginator]="true"
+                                    responsiveLayout="scroll" [paginator]="true"
                                     [rowsPerPageOptions]="rowsPerPageOptions" [showCurrentPageReport]="true"
                                     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                                     [(selection)]="selectedCourses" selectionMode="multiple" [rowHover]="true"
                                     dataKey="id" [totalRecords]="paginatedListResponse.totalRecords" [lazy]="true"
                                     [rows]="paginatedRequest.pageSize" [sortField]="paginatedRequest.sortField"
+                                    [globalFilterFields]="['code']"
                                     [sortOrder]="paginatedRequest.sortOrder" (onLazyLoad)="loadPatientListing($event)">
 
                                     <ng-template pTemplate="caption">
@@ -77,7 +78,8 @@
                                                 <span class="block mt-2 md:mt-0 p-input-icon-left w-full">
                                                     <i class="pi pi-search"></i>
                                                     <!-- (input)="onGlobalFilter(dt, $event)" -->
-                                                    <input pInputText type="text" placeholder="Search..."
+                                                    <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" 
+                                                     placeholder="Search..."
                                                         class="custom-input md:w-full sm:w-auto" />
                                                 </span>
                                                 <div
@@ -184,7 +186,7 @@
                                                 <ng-template #fields>
                                                     <ng-container *ngIf="col.field.includes('status'); else inactive">
                                                         <ng-container
-                                                            *ngIf="course[col.field] == 'REJECTED' || course[col.field] == 'NOT REQUEST'; else statusApproved">
+                                                            *ngIf="(course[col.field] == 'REJECTED' || course[col.field] == 'NOT REQUEST') && userService.getRole() == 'Provider'; else statusApproved">
                                                             <div
                                                                 class="flex justify-content-between align-items-center">
                                                                 <p-tag [value]="course[col.field]"
@@ -206,7 +208,7 @@
                                                 <ng-template #inactive>
                                                     <ng-container *ngIf="col.field.includes('isActive'); else another">
                                                         <ng-container
-                                                            *ngIf="course[col.field] == false && userService.getRole() != 'Provider'; else active">
+                                                            *ngIf="course['status'] == 'APPROVED' && course[col.field] == false && userService.getRole() != 'Provider'; else active">
                                                             <div
                                                                 class="flex justify-content-between align-items-center">
                                                                 <p-tag [value]="getValueBool(course[col.field])"

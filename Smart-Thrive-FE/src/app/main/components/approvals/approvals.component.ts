@@ -123,6 +123,9 @@ export class ApprovalsComponent implements OnInit {
     result: this.courseRequestFilter
   }
 
+  expandedRows = {};
+
+
   paginatedPendingListResponse: PaginatedListResponse<Course> = {} as PaginatedListResponse<Course>;
   getPendingListCourse(): void {
     this.paginatedRequestFillter = {} as PaginatedRequestFillter<Course>;

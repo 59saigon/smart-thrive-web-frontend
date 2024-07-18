@@ -1,8 +1,8 @@
-import { Component, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Console } from 'console';
 import headerList from './headerList';
 import { Table } from 'primeng/table';
-import { ActivatedRoute, Event, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { CourseCreateOrUpdateComponent } from './course-create-or-update/course-create-or-update.component';
 import { CourseDetailComponent } from './course-detail/course-detail.component';
@@ -33,7 +33,8 @@ export class CourseComponent implements OnInit {
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -125,7 +126,7 @@ export class CourseComponent implements OnInit {
   getListCourse(): void {
     this.paginatedRequestFillter = this.paginatedRequest;
     this.paginatedRequestFillter.result = {} as Course;
-    this.paginatedRequestFillter.result.status = 'APPROVED';
+
     this.courseService.getAllSearch(this.paginatedRequestFillter).subscribe({
       next: (response) => {
         this.paginatedListResponse = response;
@@ -367,5 +368,26 @@ export class CourseComponent implements OnInit {
     this.courseDetailComponent.ngOnInit();
   }
 
-  onGlobalFilter(table: Table, event: Event) { }
+  onGlobalFilter(table: Table, event: Event) {
+    const value = (event.target as HTMLInputElement).value;
+    
+    this.paginatedRequestFillter = this.paginatedRequest;
+    this.paginatedRequestFillter.result = {} as Course;
+    this.paginatedRequestFillter.result.code = value;
+    this.paginatedRequestFillter.result.id = Guid.parse(value);
+    this.paginatedRequestFillter.result.status = value;
+    this.paginatedRequestFillter.result.courseName = value;
+
+    this.courseService.getAllSearch(this.paginatedRequestFillter).subscribe({
+      next: (response) => {
+        this.paginatedListResponse = response;
+        console.log("pagina", this.paginatedListResponse)
+        this.setPaginatedRequest();
+      },
+      error: (err) => {
+        console.log("check_error", err);
+      },
+    });
+}
+
 }
