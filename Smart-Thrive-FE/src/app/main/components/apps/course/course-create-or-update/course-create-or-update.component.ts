@@ -48,6 +48,7 @@ export class CourseCreateOrUpdateComponent implements OnInit {
 
   title!: string;
   information!: string;
+  activeIndex: number = 0;
 
   ngOnInit(): void {
     this.setTitleAndInformation();
@@ -108,6 +109,7 @@ export class CourseCreateOrUpdateComponent implements OnInit {
 
   openNew() {
     this.course = {} as Course;
+
     this.selectedItem = {} as SelectItem;
     this.selectedItem2 = {} as SelectItem;
     this.selectedItem3 = {} as SelectItem;
@@ -138,12 +140,10 @@ export class CourseCreateOrUpdateComponent implements OnInit {
     this.course.endDate = this.endDate;
     this.course.subjectId = this.selectedItem.value;
 
-    if(this.userService.getRole() === 'Provider') {
-      this.course.isActive = false;
-      this.course.isApproved = false;
+    if (this.userService.getRole() === 'Provider') {
       this.course.providerId = this.findProviderByProviderId(this.userService.getUserDetails().provider?.id!)?.id;
     } else {
-      this.course.providerId =this.selectedItem2.value;
+      this.course.providerId = this.selectedItem2.value;
     }
 
     if (this.course.id != null) {
@@ -158,6 +158,8 @@ export class CourseCreateOrUpdateComponent implements OnInit {
         },
       });
     } else {
+      this.course.status = 'NOT REQUEST';
+      this.course.isActive = false;
       this.courseService.add(this.course).subscribe({
         next: (response) => {
           this.messageService.add({ severity: 'success', summary: 'Success', detail: response.message });

@@ -1,15 +1,8 @@
+
 export default [
     {
         field: 'id',
         header: 'Id',
-        isDisabled: false,
-        sortIcon: true,
-        sortField: true,
-    },
-    {
-        field: 'subject',
-        subfield: 'subjectName',
-        header: 'Subject',
         isDisabled: false,
         sortIcon: true,
         sortField: true,
@@ -32,6 +25,14 @@ export default [
     {
         field: 'courseName',
         header: 'Course Name',
+        isDisabled: false,
+        sortIcon: true,
+        sortField: true,
+    },
+    {
+        field: 'subject',
+        subfield: 'subjectName',
+        header: 'Subject',
         isDisabled: false,
         sortIcon: true,
         sortField: true,
@@ -67,28 +68,36 @@ export default [
     
     {
         field: 'totalSlots',
-        header: 'TotalSlot',
+        header: 'Total Slots',
+        isDisabled: false,
+        sortIcon: true,
+        sortField: true,
+    },
+    
+    {
+        field: 'startDate',
+        header: 'Start Date',
         isDisabled: false,
         sortIcon: true,
         sortField: true,
     },
     {
-        field: 'isApproved',
-        header: 'Is Approved',
+        field: 'endDate',
+        header: 'End Date',
+        isDisabled: false,
+        sortIcon: true,
+        sortField: true,
+    },
+    {
+        field: 'status',
+        header: 'Status',
         isDisabled: false,
         sortIcon: true,
         sortField: true,
     },
     {
         field: 'isActive',
-        header: 'Is Active',
-        isDisabled: false,
-        sortIcon: true,
-        sortField: true,
-    },
-    {
-        field: 'startDate',
-        header: 'Start Date',
+        header: 'Active',
         isDisabled: false,
         sortIcon: true,
         sortField: true,

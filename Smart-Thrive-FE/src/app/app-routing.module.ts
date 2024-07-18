@@ -24,7 +24,12 @@ const routes: Routes = [
             (m) => m.AppsModule
           ),
       },
-      
+      {
+        path: 'approvals',
+        loadChildren: () =>
+          import('./main/components/approvals/approvals.module').then(
+            m => m.ApprovalsModule)
+      },
     ],
   },
   { path: 'auth', canActivate: [AuthGuard], loadChildren: () => import('./main/components/auth/auth.module').then(m => m.AuthModule) },

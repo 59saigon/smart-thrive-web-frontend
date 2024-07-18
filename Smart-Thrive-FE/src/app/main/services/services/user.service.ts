@@ -42,6 +42,18 @@ export class UserService extends BaseService<User> {
     return this.http.post<ItemResponse<any>>(`${ConstantsApi.user.baseUrl}${ConstantsApi.user.register}`, user);
   }
 
+  sendOtp(email: string): Observable<any> {
+    return this.http.post<any>(`${ConstantsApi.user.baseUrl}/send-otp`, { email });
+  }
+
+  resetPassword(email: string, otp: string, newPassword: string): Observable<BaseResponse> {
+    return this.http.post<BaseResponse>(`${ConstantsApi.user.baseUrl}/reset-password`, { email, otp, newPassword });
+  }
+  
+  verifyOtp(email: string, otp: string): Observable<any> {
+    return this.http.post<any>(`${ConstantsApi.user.baseUrl}/verify-otp`, { email, otp });
+  }
+
   getByEmail(email: string): Observable<ItemResponse<User>> {
     return this.http.get<ItemResponse<User>>(`${this.getBaseUrl()}${ConstantsApi.getByEmail}/${email}`);
   }  

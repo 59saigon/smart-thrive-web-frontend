@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { User } from '../../../../data/entities/user';
 import { MessageService } from 'primeng/api';
 import { ArgumentOutOfRangeError } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -67,7 +68,11 @@ export class LoginComponent implements OnInit {
     if ((!this.isLoginWithGoogle) && this.isUserObjectEmpty(this.loginUser)) {
       setTimeout(() => {
         this.clearLoading(index);
-        this.messageService.add({ severity: 'warn', summary: 'Fail', detail: 'Username and password are required' });
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Username && password required!",
+        });
       }, 1000);
       return;
     }
@@ -82,10 +87,24 @@ export class LoginComponent implements OnInit {
         if (response.result == null) {
           setTimeout(() => {
             this.clearLoading(index);
-            this.messageService.add({ severity: 'warn', summary: 'Fail', detail: "Not found account: " + this.loginUser.usernameOrEmail });
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Not found account: " + this.loginUser.usernameOrEmail,
+            });
           }, 1000);
           return;
         }
+
+        if (response.result.role?.roleName == 'Buyer') {
+          Swal.fire({
+            icon: "info",
+            title: "Oops...",
+            text: "This account does not have access rights!",
+          });
+          return;
+        }
+        
         this.user = response.result;
         this.token = response.token;
         this.userService.setToken(this.user, this.token);
@@ -95,7 +114,11 @@ export class LoginComponent implements OnInit {
       error: (err) => {
         setTimeout(() => {
           this.clearLoading(index);
-          this.messageService.add({ severity: 'warn', summary: 'Fail', detail: "Service is not enable" });
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Something went wrong!",
+          });
         }, 1000);
       },
     });
@@ -117,18 +140,121 @@ export class LoginComponent implements OnInit {
   handleLogin(response: any) {
 
     if (response) {
-      var index = 0;
-      this.load(index);
-
       const payLoad = this.decodeToken(response.credential);
       console.log(payLoad);
 
-      this.verifiedByGoogleToken(payLoad, 0, response.credential);
+      this.verifiedByGoogleToken(payLoad, response.credential);
 
     }
   }
 
-  verifiedByGoogleToken(payLoad: any, index: number, _googleToken: any) {
+  resetPassword() {
+    Swal.fire({
+      title: "Email",
+      text: "Enter your email.",
+      icon: "info",
+      input: "text",
+      showCancelButton: true,
+      confirmButtonText: "Next",
+      inputValidator: (email) => {
+        return new Promise((resolve, reject) => {
+          if (!email) {
+            resolve('Please enter your email!');
+          } else {
+            resolve(); // Proceed if email is provided
+          }
+        });
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const email = result.value;
+        
+        // Send OTP
+        this.userService.sendOtp(email).subscribe({
+          next: () => {
+            Swal.fire({
+              title: "OTP Sent",
+              text: "An OTP has been sent to your email. Please enter it to verify.",
+              icon: "info",
+              input: "text",
+              inputPlaceholder: "Enter OTP",
+              showCancelButton: true,
+              confirmButtonText: "Verify",
+              inputValidator: (otp) => {
+                return new Promise((resolve, reject) => {
+                  if (!otp) {
+                    resolve('Please enter the OTP!');
+                  } else {
+                    resolve(); // Proceed if OTP is provided
+                  }
+                });
+              }
+            }).then((result) => {
+              if (result.isConfirmed) {
+                const otp = result.value;
+                
+                // Verify OTP
+                this.userService.verifyOtp(email, otp).toPromise()
+                  .then(response => {
+                    console.log("very", response.valid)
+                    if (response.valid) {
+                      Swal.fire({
+                        title: "New Password",
+                        text: "Enter your new password.",
+                        icon: "info",
+                        input: "password",
+                        inputPlaceholder: "Enter new password",
+                        showCancelButton: true,
+                        confirmButtonText: "Reset Password",
+                        inputValidator: (password) => {
+                          return new Promise((resolve, reject) => {
+                            if (!password) {
+                              resolve('Please enter your new password!');
+                            } else {
+                              resolve(); // Proceed if new password is provided
+                            }
+                          });
+                        }
+                      }).then((result) => {
+                        if (result.isConfirmed) {
+                          const newPassword = result.value;
+                          
+                          // Reset password
+                          this.userService.resetPassword(email, otp, newPassword).subscribe({
+                            next: (response) => {
+                              if (response.isSuccess) {
+                                Swal.fire('Success', 'Your password has been reset successfully.', 'success');
+                              } else {
+                                Swal.fire('Error', response.message, 'error');
+                              }
+                            },
+                            error: () => {
+                              Swal.fire('Error', 'Failed to reset password. Please try again later.', 'error');
+                            }
+                          });
+                        }
+                      });
+                    } else {
+                      Swal.fire('Error', 'Invalid OTP. Please try again.', 'error');
+                    }
+                  })
+                  .catch(error => {
+                    Swal.fire('Error', `Verification failed: ${error}`, 'error');
+                  });
+              }
+            });
+          },
+          error: () => {
+            Swal.fire('Error', 'Failed to send OTP. Please try again later.', 'error');
+          }
+        });
+      }
+    });
+  }
+  
+  
+
+  verifiedByGoogleToken(payLoad: any, _googleToken: any) {
     const loginWithAnother = {
       email: payLoad.email,
       email_verified: payLoad.email_verified,
@@ -139,9 +265,17 @@ export class LoginComponent implements OnInit {
       next: (response) => {
         if (response.result == null) {
           setTimeout(() => {
-            this.clearLoading(index);
             this.messageService.add({ severity: 'warn', summary: 'Fail', detail: "Login with another method failed: " + payLoad.email });
           }, 1000);
+          return;
+        }
+
+        if (response.result.role?.roleName == 'Buyer') {
+          Swal.fire({
+            icon: "info",
+            title: "Oops...",
+            text: "This account does not have access rights!",
+          });
           return;
         }
 
@@ -149,16 +283,18 @@ export class LoginComponent implements OnInit {
         this.token = response.token;
         this.userService.setToken(this.user, this.token);
 
-        setTimeout(() => {
-          this.clearLoading(index);
-          window.location.reload();
-        }, 2000);
+
+        window.location.reload();
 
       },
       error: (err) => {
         setTimeout(() => {
-          this.clearLoading(index);
-          this.messageService.add({ severity: 'warn', summary: 'Fail', detail: "Service is not enabled" });
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Something went wrong!",
+          });
+
         }, 1000);
       },
     });

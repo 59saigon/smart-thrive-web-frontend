@@ -41,7 +41,7 @@
   --inline-spacing: 0.5rem;
   --border-radius: 6px;
   --surface-ground: #f9fafb;
-  --topbar-sticky-bg: #1E2024;
+  --topbar-sticky-bg: #ffffff;
   --config-sticky-bg: #ffffff;
   --surface-section: #ffffff;
   --surface-card: #ffffff;
@@ -6218,7 +6218,7 @@
   }
 
   .p-tag {
-    background: #1572E8;
+    background: #3B82F6;
     color: #ffffff;
     font-size: 0.75rem;
     font-weight: 700;
@@ -6248,6 +6248,14 @@
   .p-tag .p-icon {
     width: 0.75rem;
     height: 0.75rem;
+  }
+  .p-tag.p-tag-secondary {
+    background-color: #f1f5f9;
+    color: #475569;
+  }
+  .p-tag.p-tag-contrast {
+    background-color: #020617;
+    color: #ffffff;
   }
 
   .p-terminal {

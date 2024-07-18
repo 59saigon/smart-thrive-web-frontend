@@ -59,7 +59,7 @@ import { AppNavigatorComponent } from './app.navigator/app.navigator.component';
     TableModule,
     AutoCompleteModule,
     AppConfigModule,
-    BreadcrumbModule
+    BreadcrumbModule,
   ],
   exports: [AppLayoutComponent],
 })

@@ -5,6 +5,7 @@ import { UserService } from '../../../services/services/user.service';
 import { ItemResponse } from '../../../../data/model/base-response';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',
@@ -41,11 +42,16 @@ export class RegisterComponent implements OnInit {
 
   onRegister(index: number) {
     this.load(index);
-    // check password with confirm password
+
+    // Check password with confirm password
     if (this.user.password != this.confirmPassword) {
       setTimeout(() => {
         this.clearLoading(index);
-        this.messageService.add({ severity: 'warn', summary: 'Fail', detail: "Not mach password" });
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Passwords do not match, try again!",
+        });
       }, 1000);
       return;
     }
@@ -55,6 +61,51 @@ export class RegisterComponent implements OnInit {
       this.user.gender = this.gender;
     }
 
+    // Generate OTP and send it to the user's email
+    this.userService.sendOtp(this.user.email!).subscribe({
+      next: () => {
+        this.clearLoading(index);
+        Swal.fire({
+          title: "OTP Sent",
+          text: "An OTP has been sent to your email. Please enter it to complete the registration.",
+          icon: "info",
+          input: "text",
+          inputPlaceholder: "Enter OTP",
+          showCancelButton: true,
+          confirmButtonText: "Verify",
+          preConfirm: (otp) => {
+            return this.userService.verifyOtp(this.user.email!, otp).toPromise()
+              .then(response => {
+                if (!response.valid) {
+                  throw new Error("Invalid OTP");
+                }
+              })
+              .catch(error => {
+                Swal.showValidationMessage(`Request failed: ${error}`);
+              });
+          }
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.registerUser(index);
+          } else {
+            this.clearLoading(index);
+          }
+        });
+      },
+      error: (err) => {
+        setTimeout(() => {
+          this.clearLoading(index);
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Failed to send OTP. Please try again later.",
+          });
+        }, 1000);
+      }
+    });
+  }
+
+  registerUser(index: number) {
     this.userService.register(this.user).subscribe({
       next: (response) => {
         if (response.result == null) {
@@ -66,17 +117,25 @@ export class RegisterComponent implements OnInit {
         }
 
         this.user = response.result;
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Register' });
+        Swal.fire({
+          title: "Success!",
+          text: "Your account has been created with the name " + this.user.fullName,
+          icon: "success"
+        });
         setTimeout(() => { this.router.navigateByUrl('/auth/login'); this.clearLoading(index); }, 2000);
       },
       error: (err) => {
         setTimeout(() => {
           this.clearLoading(index);
-          this.messageService.add({ severity: 'warn', summary: 'Fail', detail: "Service is not enable" });
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Something went wrong!",
+          });
         }, 1000);
       },
     });
-
   }
+
 
 }

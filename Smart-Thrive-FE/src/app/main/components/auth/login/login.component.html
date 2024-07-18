@@ -2,8 +2,8 @@
 
 <div class="main-auth-login">
     <div class="main-auth-login-img">
-        <img />
-        <img src="/assets/layout/images/SmartThriveEduDashboard.png" alt="logo" />
+        <a class="main-auth-login-img-logo">
+            <img src="/assets/layout/images/whale.png" alt="logo" /> Smart Thrive</a>
     </div>
     <div class="main-auth-login-content flex flex-column">
         <div class="">
@@ -38,7 +38,7 @@
                     </div>
 
                     <div class="main-auth-login-content-main-func-forgot">
-                        <p-button label="Forgot Password?" [link]="true" />
+                        <p-button (click)="resetPassword()" label="Forgot Password?" [link]="true" />
                     </div>
                 </div>
 

@@ -1,7 +1,7 @@
 // Variables
 $primary-color: #eeeeee;
 $secondary-color: #222831;
-$background-img: url('../../../../../assets/layout/images/DesignerBackGround2.jpeg');
+$background-img: url("../../../../../assets/layout/images/DesignerBackGround2.jpeg");
 
 $font-family: "Inter var", sans-serif;
 $overlay-color: rgba(0, 0, 0, 0.5); // Màu tối với độ mờ 50%
@@ -22,7 +22,6 @@ button {
 
 // Main Styles
 .main-auth-login {
-  
   display: flex;
   flex-direction: row;
   min-height: 100vh;
@@ -32,9 +31,8 @@ button {
   background-position: center;
   gap: 80px;
 
-
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -79,15 +77,14 @@ button {
       }
 
       &-login-with {
-       // display: flex;
-       // flex-direction: column;
+        // display: flex;
+        // flex-direction: column;
         //align-items: center;
         padding-top: 2.5rem;
 
         .p-button-label {
           flex: none;
         }
-        
       }
 
       &-input {
@@ -139,7 +136,7 @@ button {
         flex-direction: column;
         align-items: center;
         padding-bottom: 2.5rem;
-        border-bottom: 1px solid #dfe7ef;;
+        border-bottom: 1px solid #dfe7ef;
       }
 
       &-text {
@@ -165,11 +162,19 @@ button {
     background-size: cover;
     background-position: center;
     img {
-      height: calc(6rem)
+      height: calc(6rem);
     }
 
     @media (max-width: 768px) {
       display: none;
+    }
+    &-logo {
+      display: flex;
+      flex-direction: row;
+      color: white;
+      align-items: center;
+      gap: 10px;
+      font-size: 30px;
     }
   }
 }

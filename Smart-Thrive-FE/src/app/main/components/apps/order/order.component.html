@@ -103,10 +103,22 @@
 
                                     <ng-template #newId>
                                         <ng-container *ngIf="col.field === 'id'; else otherId">
-                                            <a [routerLink]="[]" (click)="navigateAfterSelected(order)" class="button-id"
-                                                [autoHide]="false" [pTooltip]="order[col.field]">{{ order[col.field] }}
-                                            </a>
+                                            <ng-container *ngIf="order[col.field] != orderDetailComponent.order.id; else makeColorId"
+                                                >
+                                                <a [routerLink]="[]" (click)="navigateAfterSelected(order)"
+                                                    class="button-id" [autoHide]="false"
+                                                    [pTooltip]="order[col.field]">{{
+                                                    order[col.field] }}
+                                                </a>
+                                            </ng-container>
                                         </ng-container>
+                                    </ng-template>
+
+                                    <ng-template #makeColorId>
+                                        <a [routerLink]="[]" (click)="navigateAfterSelected(order)" class="button-id" style="color: #1572E8; font-weight: 900;"
+                                            [autoHide]="false" [pTooltip]="order[col.field]">{{
+                                            order[col.field] }}
+                                        </a>
                                     </ng-template>
 
                                     <ng-template #otherId>

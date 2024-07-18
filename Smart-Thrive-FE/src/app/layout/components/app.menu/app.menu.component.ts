@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Menu } from 'primeng/menu';
 import { LayoutService } from '../../services/app.layout/app.layout.service';
 import { UserService } from '../../../main/services/services/user.service';
+import { CourseService } from '../../../main/services/services/course.service';
 
 @Component({
   selector: 'app-menu',
@@ -32,7 +33,8 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
 
   constructor(
     public layoutService: LayoutService,
-    public userService: UserService
+    public userService: UserService,
+    public courseService: CourseService
   ) { }
   ngAfterViewInit(): void {
     if (this._avatar) {
@@ -89,9 +91,20 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.resetHideMenuTimeout();
-    this.setModel();
-    this.setSettingModel();
+    this.initialize();
+
+    this.courseService.refreshComponent$.subscribe(() => {
+      this.initialize();
+    });
+  }
+
+  initialize(): void {
+    this.getListCourse()
+      .then(() => {
+        this.resetHideMenuTimeout();
+        this.setModel();
+        this.setSettingModel();
+      })
   }
 
   showAndHideMenu($ev: Event) {
@@ -124,18 +137,44 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
     ];
   }
 
+  quantityCoursePending: number = 0;
+
+  getListCourse(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.courseService.getAllPendingStatus().subscribe({
+        next: (response) => {
+          var courses = response.results;
+          this.quantityCoursePending = courses.length;
+          console.log(this.quantityCoursePending.toString());
+          resolve(); // Resolve the promise when the operation is done
+        },
+        error: (err) => {
+          console.log("check_error", err);
+          reject(err); // Reject the promise if there's an error
+        },
+      });
+    });
+  }
+
+
   setModel() {
     const isStaff = this.userService.getRole() === "Staff";
+    const isAdmin = this.userService.getRole() === "Admin";
     const isProvider = this.userService.getRole() === "Provider";
-    console.log(isStaff);
     this.model = [
-      !isStaff && {
-        label: 'Dashboards',
+      !isProvider &&{
+        label: 'General',
         items: [
-          {
+          !isStaff &&{
             label: 'Dashboard',
             icon: 'pi pi-chart-line',
             routerLink: ['/dashboard'],
+          },
+          (isStaff || isAdmin) && {
+            label: 'Approvals',
+            icon: 'pi pi-inbox',
+            badge: this.quantityCoursePending.toString(),
+            routerLink: ['/approvals'],
           },
         ],
       },
@@ -184,6 +223,7 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
               },
             ],
           },
+
         ].filter(Boolean), // Filters out falsy values (like 'false' when isStaff is true)
       },
       // Additional menu items can be uncommented and added here as needed

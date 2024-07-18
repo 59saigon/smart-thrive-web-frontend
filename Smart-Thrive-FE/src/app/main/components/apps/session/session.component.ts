@@ -10,6 +10,7 @@ import { SessionService } from '../../../services/services/session.service';
 import { Session } from '../../../../data/entities/session';
 import { PaginatedRequest } from '../../../../data/model/paginated-request';
 import { PaginatedListResponse } from '../../../../data/model/paginated-response';
+import { UserService } from '../../../services/services/user.service';
 
 @Component({
   selector: 'app-session',
@@ -23,6 +24,7 @@ export class SessionComponent implements OnInit {
 
   constructor(
     private sessionService: SessionService,
+    private userService: UserService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private activatedRoute: ActivatedRoute,
@@ -97,7 +99,16 @@ export class SessionComponent implements OnInit {
     });
   }
   getSelectedColumns() {
-    this.cols = headerList;
+    const isProvider = this.userService.getRole() === "Provider";
+    if(isProvider) {
+      this.cols = headerList.filter((col) => col.field != 'provider' 
+      && col.field != 'isDeleted' 
+      && col.field != 'createdBy'
+      && col.field != 'lastUpdatedBy'
+    )
+    } else {
+      this.cols = headerList;
+    }
     this._selectedColumns = this.cols.filter((col) => !col.isDisabled);
   }
 

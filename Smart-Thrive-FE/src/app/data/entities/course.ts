@@ -16,7 +16,7 @@ export interface Course extends BaseEntity {
     totalSessions?: number;
     soldCourses?: number;
     totalSlots?: number;
-    isApproved?: boolean;
+    status?: string;
     isActive?: boolean;
     startDate?: Date;
     endDate?: Date;

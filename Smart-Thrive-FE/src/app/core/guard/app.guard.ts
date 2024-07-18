@@ -20,15 +20,16 @@ export class AuthGuard implements CanActivate {
     const currentUrl = state.url; // Đường dẫn hiện tại
 
     if (this.userService.IsLoggedIn()) {
+      console.log("check_role", this.userService.getRole());
       if (this.userService.getRole() === "Staff" &&
         (currentUrl === '/dashboard' || currentUrl === '/apps/user' || currentUrl === '/')) {
-        this.router.navigate(['/apps/package']);
+        this.router.navigate(['/approvals']);
         return false;
       }
-      
+
       if (this.userService.getRole() === "Provider" &&
-        (currentUrl === '/apps/user' || currentUrl === '/apps/package' || currentUrl === '/apps/subject' || currentUrl === '/apps/order' || currentUrl === '/apps/session')) {
-        this.router.navigate(['/apps/courrse']);
+        (currentUrl === '/' || currentUrl === '/dashboard' || currentUrl === '/apps/user' || currentUrl === '/apps/package' || currentUrl === '/apps/subject' || currentUrl === '/apps/order' || currentUrl === '/apps/session')) {
+        this.router.navigate(['/apps/course']);
         return false;
       }
 
@@ -38,8 +39,15 @@ export class AuthGuard implements CanActivate {
         currentUrl === '/' ||
         currentUrl === '/apps'
       ) {
-        // Nếu người dùng đã đăng nhập và đang cố gắng truy cập trang đăng nhập hoặc root, chuyển hướng họ
-        this.router.navigate(['/dashboard']); // Chuyển hướng đến trang chính hoặc trang khác
+        
+        if (this.userService.getRole() == 'Provider') {
+          this.router.navigate(['/approvals']);
+        }
+        if (this.userService.getRole() == 'Staff') {
+          this.router.navigate(['/apps/course']);
+        } else {
+          this.router.navigate(['/dashboard']);
+        }
         return false; // Ngăn kích hoạt tuyến đường
       }
       return true; // Cho phép truy cập nếu đã đăng nhập
@@ -56,5 +64,5 @@ export class AuthGuard implements CanActivate {
       return false; // Ngăn kích hoạt tuyến đường
     }
   }
-  
+
 }

@@ -62,7 +62,7 @@
 
     <div class="col-12 xl:col-6">
         <div class="card">
-            <h5>Recent Sales Order</h5>
+            <h5>Recent sales order</h5>
             <p-table [value]="orders" [paginator]="true" [rows]="5" responsiveLayout="scroll">
                 <ng-template pTemplate="header">
                     <tr>
@@ -90,7 +90,7 @@
         </div>
         <div class="card">
             <div class="flex justify-content-between align-items-center mb-5">
-                <h5>Number slot of Courses are sold</h5>
+                <h5>Percent slot of courses are sold</h5>
                 <div>
                     <button pButton type="button" icon="pi pi-ellipsis-v"
                         class="p-button-rounded p-button-text p-button-plain" (click)="menu.toggle($event)"></button>
@@ -123,12 +123,12 @@
 
     <div class="col-12 xl:col-6">
         <div class="card">
-            <h5>Sales Order Overview</h5>
+            <h5>Sales order overview</h5>
             <p-chart type="bar" [data]="chartOrder" [options]="chartOrderOptions" [responsive]="true"></p-chart>
         </div>
 
         <div class="card">
-            <h5>Recent number slot of Courses Overview</h5>
+            <h5>Number slot of courses overview</h5>
             <p-chart type="pie" [data]="chartCourse" [options]="chartCourseOptions" [responsive]="true"></p-chart>
         </div>
 

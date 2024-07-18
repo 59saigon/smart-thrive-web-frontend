@@ -3,7 +3,7 @@ import { ConstantsApi } from '../../../shared/constants/constants-api';
 import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Guid } from 'guid-typescript';
-import { BaseResponse, ItemResponse } from '../../../data/model/base-response';
+import { BaseResponse, ItemListResponse, ItemResponse } from '../../../data/model/base-response';
 import { PaginatedRequest, PaginatedRequestFillter } from '../../../data/model/paginated-request';
 import { PaginatedListResponse } from '../../../data/model/paginated-response';
 import { Course } from '../../../data/entities/course';
@@ -30,7 +30,19 @@ export class CourseService extends BaseService<Course> {
     return this.http.post<PaginatedListResponse<Course>>(`${this.getBaseUrl()}${ConstantsApi.getAllPaginationByListId}`, request);
   }
 
+  getAllExceptListId(request: PaginatedRequestFillter<Guid[]>): Observable<PaginatedListResponse<Course>> {
+    return this.http.post<PaginatedListResponse<Course>>(`${this.getBaseUrl()}/get-all-except-list-id-with-actived`, request);
+  }
+
   getAllPaginationByProviderId(providerId: Guid,request: PaginatedRequest): Observable<PaginatedListResponse<Course>> {
     return this.http.post<PaginatedListResponse<Course>>(`${this.getBaseUrl()}/get-all-pagination-by-provider-id?providerId=${providerId}`, request);
+  }
+
+  getAllByProviderId(providerId: Guid): Observable<ItemListResponse<Course>> {
+    return this.http.get<ItemListResponse<Course>>(`${this.getBaseUrl()}/get-all-by-provider-id/${providerId}`);
+  }
+
+  getAllPendingStatus(): Observable<ItemListResponse<Course>> {
+    return this.http.get<ItemListResponse<Course>>(`${this.getBaseUrl()}/get-all-pending-status`);
   }
 }

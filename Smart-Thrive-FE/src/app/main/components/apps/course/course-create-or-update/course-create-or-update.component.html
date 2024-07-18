@@ -1,87 +1,89 @@
 <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
 
 
-<p-dialog [(visible)]="courseDialog" [style]="{width: '450px'}" [header]="title" [modal]="true" styleClass="p-fluid">
+<p-dialog [(visible)]="courseDialog" [style]="{width: '750px'}" [header]="title" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="content">
         <!-- <img [src]="'assets/showcase/images/demo/course/' + course.image" [alt]="course.image" class="course-image" *ngIf="course.image"> -->
-        <div class="mb-3">
-            <label for="name" class="font-semibold w-6rem">Subject Name</label>
-            <p-dropdown appendTo="body" [filter]="true" filterBy="label" optionLabel="label" [options]="items"
-                [(ngModel)]="selectedItem" placeholder="Select Item">
-                <ng-template pTemplate="selectedItem">
-                    <div class="subject-item subject-item-value" *ngIf="selectedItem">
-                        <div>{{selectedItem.label}}</div>
+        <div class="grid">
+            <div class="col-6">
+                <div class="mb-3">
+                    <label for="name" class="font-semibold w-6rem">Subject Name</label>
+                    <p-dropdown appendTo="body" [filter]="true" filterBy="label" optionLabel="label" [options]="items"
+                        [(ngModel)]="selectedItem" placeholder="Select Item">
+                        <ng-template pTemplate="selectedItem">
+                            <div class="subject-item subject-item-value" *ngIf="selectedItem">
+                                <div>{{selectedItem.label}}</div>
+                            </div>
+                        </ng-template>
+                        <ng-template let-subject pTemplate="item">
+                            <div class="subject-item">
+                                <div>{{subject.label}}</div>
+                            </div>
+                        </ng-template>
+                    </p-dropdown>
+                </div>
+                <div *ngIf="userService.getRole() !== 'Provider'">
+                    <div class="mb-3">
+                        <label for="providerName" class="font-semibold w-6rem">Provider Name</label>
+                        <p-dropdown appendTo="body" [filter]="true" filterBy="label" optionLabel="label"
+                            [options]="items2" [(ngModel)]="selectedItem2" placeholder="Select Item">
+                            <ng-template pTemplate="selectedItem">
+                                <div class="subject-item subject-item-value" *ngIf="selectedItem2">
+                                    <div>{{selectedItem2.label}}</div>
+                                </div>
+                            </ng-template>
+                            <ng-template let-subject pTemplate="item">
+                                <div class="subject-item">
+                                    <div>{{subject.label}}</div>
+                                </div>
+                            </ng-template>
+                        </p-dropdown>
                     </div>
-                </ng-template>
-                <ng-template let-subject pTemplate="item">
-                    <div class="subject-item">
-                        <div>{{subject.label}}</div>
-                    </div>
-                </ng-template>
-            </p-dropdown>
-        </div>
-        <div *ngIf="userService.getRole() !== 'Provider'">
-            <div class="mb-3">
-                <label for="providerName" class="font-semibold w-6rem">Provider Name</label>
-                <p-dropdown appendTo="body" [filter]="true" filterBy="label" optionLabel="label" [options]="items2"
-                    [(ngModel)]="selectedItem2" placeholder="Select Item">
-                    <ng-template pTemplate="selectedItem">
-                        <div class="subject-item subject-item-value" *ngIf="selectedItem2">
-                            <div>{{selectedItem2.label}}</div>
-                        </div>
-                    </ng-template>
-                    <ng-template let-subject pTemplate="item">
-                        <div class="subject-item">
-                            <div>{{subject.label}}</div>
-                        </div>
-                    </ng-template>
-                </p-dropdown>
+                </div>
+                <div class="mb-3">
+                    <label for="courseCode" class="font-semibold w-6rem">Course #</label>
+                    <input pInputText id="courseCode" [(ngModel)]="course.code" class="flex-auto" autocomplete="off" />
+                </div>
+                <div class="mb-3">
+                    <label for="courseName" class="font-semibold w-6rem">Course Name</label>
+                    <input pInputText id="courseName" [(ngModel)]="course.courseName" class="flex-auto"
+                        autocomplete="off" />
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="font-semibold w-6rem">Description</label>
+                    <input pInputText id="description" [(ngModel)]="course.description" class="flex-auto"
+                        autocomplete="off" />
+                </div>
             </div>
 
-            <div class="mb-3">
-                <label for="isApproved" class="font-semibold w-6rem">Is Approved</label>
-                <p-inputSwitch id="isApproved" [(ngModel)]="course.isApproved" class="flex-auto" autocomplete="off" />
-            </div>
-            <div class="mb-3">
-                <label for="isActive" class="font-semibold w-6rem">Is Active</label>
-                <p-inputSwitch id="isActive" [(ngModel)]="course.isActive" class="flex-auto" autocomplete="off" />
-            </div>
-        </div>
-        <div class="mb-3">
-            <label for="courseCode" class="font-semibold w-6rem">Course #</label>
-            <input pInputText id="courseCode" [(ngModel)]="course.code" class="flex-auto" autocomplete="off" />
-        </div>
-        <div class="mb-3">
-            <label for="courseName" class="font-semibold w-6rem">Course Name</label>
-            <input pInputText id="courseName" [(ngModel)]="course.courseName" class="flex-auto" autocomplete="off" />
-        </div>
-        <div class="mb-3">
-            <label for="description" class="font-semibold w-6rem">Description</label>
-            <input pInputText id="description" [(ngModel)]="course.description" class="flex-auto" autocomplete="off" />
-        </div>
-        <div class="mb-3">
-            <label for="price" class="font-semibold w-6rem">Price</label>
-            <p-inputNumber id="price" [(ngModel)]="course.price" class="flex-auto" autocomplete="off" />
-        </div>
-        <div class="mb-3">
-            <label for="quantity" class="font-semibold w-6rem">Total Sessions</label>
-            <p-inputNumber id="quantity" [(ngModel)]="course.totalSessions" class="flex-auto" autocomplete="off" />
-        </div>
-        <div class="mb-3">
-            <label for="totalSlot" class="font-semibold w-6rem">Total Slots</label>
-            <p-inputNumber id="totalSlot" [(ngModel)]="course.totalSlots" class="flex-auto" autocomplete="off" />
-        </div>
-        
+            <div class="col-6">
+                <div class="mb-3">
+                    <label for="price" class="font-semibold w-6rem">Price</label>
+                    <p-inputNumber id="price" [(ngModel)]="course.price" class="flex-auto" autocomplete="off" />
+                </div>
+                <div class="mb-3">
+                    <label for="quantity" class="font-semibold w-6rem">Total Sessions</label>
+                    <p-inputNumber id="quantity" [(ngModel)]="course.totalSessions" class="flex-auto"
+                        autocomplete="off" />
+                </div>
+                <div class="mb-3">
+                    <label for="totalSlot" class="font-semibold w-6rem">Total Slots</label>
+                    <p-inputNumber id="totalSlot" [(ngModel)]="course.totalSlots" class="flex-auto"
+                        autocomplete="off" />
+                </div>
 
-        <div class="mb-3">
-            <label for="startDate" class="font-semibold w-6rem">Start Date</label>
-            <p-calendar appendTo="body" id="startDate" [(ngModel)]="startDate" dateFormat="dd/mm/yy" class="flex-auto"
-                autocomplete="off" [showIcon]="true" inputId="icondisplay" />
-        </div>
-        <div class="mb-3">
-            <label for="endDate" class="font-semibold w-6rem">End Date</label>
-            <p-calendar appendTo="body" id="endDate" [(ngModel)]="endDate" dateFormat="dd/mm/yy" class="flex-auto"
-                autocomplete="off" [showIcon]="true" inputId="icondisplay" />
+
+                <div class="mb-3">
+                    <label for="startDate" class="font-semibold w-6rem">Start Date</label>
+                    <p-calendar appendTo="body" id="startDate" [(ngModel)]="startDate" dateFormat="dd/mm/yy"
+                        class="flex-auto" autocomplete="off" [showIcon]="true" inputId="icondisplay" />
+                </div>
+                <div class="mb-3">
+                    <label for="endDate" class="font-semibold w-6rem">End Date</label>
+                    <p-calendar appendTo="body" id="endDate" [(ngModel)]="endDate" dateFormat="dd/mm/yy"
+                        class="flex-auto" autocomplete="off" [showIcon]="true" inputId="icondisplay" />
+                </div>
+            </div>
         </div>
 
 

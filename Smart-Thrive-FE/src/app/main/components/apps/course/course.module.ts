@@ -29,14 +29,21 @@ import { CourseCreateOrUpdateComponent } from './course-create-or-update/course-
 import { CourseDetailComponent } from './course-detail/course-detail.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import { TagModule } from 'primeng/tag';
+import { TabViewModule } from 'primeng/tabview';
 import { SessionCreateOrUpdateComponent } from '../session/session-create-or-update/session-create-or-update.component';
 import { SessionModule } from '../session/session.module';
+import { AvatarModule } from 'primeng/avatar';
+import { BadgeModule } from 'primeng/badge';
 
 @NgModule({
   declarations: [
     CourseComponent,
     CourseCreateOrUpdateComponent,
     CourseDetailComponent,
+  ],
+  exports: [
+    CourseCreateOrUpdateComponent
   ],
   imports: [
     CommonModule,
@@ -66,6 +73,10 @@ import { SessionModule } from '../session/session.module';
     ConfirmDialogModule,
     InputSwitchModule,
     SessionModule,
+    TagModule,
+    TabViewModule,
+    AvatarModule,
+    BadgeModule,
   ]
 })
 export class CourseModule { }

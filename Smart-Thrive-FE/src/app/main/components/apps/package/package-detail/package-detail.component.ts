@@ -9,6 +9,9 @@ import { PaginatedListResponse } from '../../../../../data/model/paginated-respo
 import { CourseService } from '../../../../services/services/course.service';
 import { Guid } from 'guid-typescript';
 import { CourseXPackage } from '../../../../../data/entities/courseXpackage';
+import { Table } from 'primeng/table';
+import { UserService } from '../../../../services/services/user.service';
+import { CourseXPackageService } from '../../../../services/services/courexpackage.service';
 
 @Component({
   selector: 'app-package-detail',
@@ -16,7 +19,15 @@ import { CourseXPackage } from '../../../../../data/entities/courseXpackage';
   styleUrl: './package-detail.component.scss'
 })
 export class PackageDetailComponent implements OnInit {
-  constructor(private messageService: MessageService
+  onGlobalFilter(table: Table, event: Event) {
+    table.filterGlobal(
+      (event.target as HTMLInputElement).value,
+      'contains'
+    );
+  }
+  constructor(private messageService: MessageService,
+    protected userService: UserService,
+    private courseXpackageService: CourseXPackageService
     , private courseService: CourseService
   ) { }
 
@@ -36,11 +47,11 @@ export class PackageDetailComponent implements OnInit {
     this._selectedColumns = this.cols.filter((col) => val.includes(col));
   }
   paginatedListResponse: PaginatedListResponse<Course> = {} as PaginatedListResponse<Course>;
-  
+
   id: string | null = null;
   package: Package = {} as Package;
   student: Student = {} as Student;
-  courseXPackage: CourseXPackage[] = [];
+  courseXPackages: CourseXPackage[] = [];
   courseIds: Guid[] = [];
   startDate!: Date;
   endDate!: Date;
@@ -58,40 +69,73 @@ export class PackageDetailComponent implements OnInit {
     sortOrder: 1
   };
 
-
+  coursesExceptListId: Course[] = [];
   ngOnInit(): void {
-    this.startDate = new Date(this.package.startDate ?? '');
-    this.endDate = new Date(this.package.endDate ?? '');
-    this.student = this.package.student ?? {} as Student;
-    this.getListCourse().then(() => {
-      this.paginatedListResponse.results = this.courses || [];
-      this.getSelectedColumns();
-      console.log(this.paginatedListResponse.results);
+    this.initialize();
+
+    this.courseXpackageService.refreshComponent$.subscribe(() => {
+      this.initialize();
+    });
+
+  }
+
+  loadPatientListing(event: any) {
+    this.paginatedRequest.pageSize = event.rows;
+    this.paginatedRequest.pageNumber = event.first / event.rows + 1;
+    this.paginatedRequest.sortField = event.sortField;
+    this.paginatedRequest.sortOrder = event.sortOrder;
+
+    this.getAllCourseXPackageByPackageId().then(() => {
+      this.getCoursesBasedOnCourseXPackage();
     });
   }
 
-  async getListCourse(): Promise<void> {
+  setPaginatedRequest() {
+    this.paginatedRequest.pageNumber = this.paginatedListResponse.pageNumber;
+    this.paginatedRequest.pageSize = this.paginatedListResponse.pageSize;
+    this.paginatedRequest.sortField = this.paginatedListResponse.sortField;
+  }
+
+  initialize() {
+    this.startDate = new Date(this.package.startDate ?? '');
+    this.endDate = new Date(this.package.endDate ?? '');
+    this.student = this.package.student ?? {} as Student;
+
+    this.getAllCourseXPackageByPackageId().then(() => {
+      this.getCoursesExceptListId();
+    });
+
+
+    this.getAllCourseXPackageByPackageId().then(() => {
+      this.getCoursesBasedOnCourseXPackage().then(() => {
+        this.getSelectedColumns();
+      });
+    });
+
+
+
+  }
+
+  async getCoursesBasedOnCourseXPackage(): Promise<void> {
     // get list guid courseIds
-    this.courseXPackage = [];
     this.courseIds = [];
-    this.courseXPackage = this.package.courseXPackages ?? [];
-    for(let i: number = 0; i < this.courseXPackage.length; i++) {
-      const courseId = this.courseXPackage[i].courseId;
+
+    for (let i: number = 0; i < this.courseXPackages.length; i++) {
+      const courseId = this.courseXPackages[i].courseId;
       if (courseId) {
         this.courseIds.push(courseId as unknown as Guid);
       }
     }
-
+    this.paginatedRequestFillter = this.paginatedRequest;
     this.paginatedRequestFillter.result = this.courseIds;
-    console.log(this.paginatedRequestFillter.result);
 
     return new Promise((resolve, reject) => {
       this.courseService.getAllPaginationByListId(this.paginatedRequestFillter).subscribe({
         next: (response) => {
           this.courses = response.results || [];
-          console.log(response.results);
-          this.courseXPackage = [];
-          this.paginatedRequestFillter.result = [];
+          this.courseXPackages = [];
+          this.paginatedListResponse = response;
+          this.setPaginatedRequest();
           resolve();
         },
         error: (err) => {
@@ -102,14 +146,83 @@ export class PackageDetailComponent implements OnInit {
     });
   }
 
-  deleteCourse(course: Course) {
+  async getCoursesExceptListId(): Promise<void> {
+
+    this.courseIds = [];
+    this.coursesExceptListId = [];
+
+    for (let i: number = 0; i < this.courseXPackages.length; i++) {
+      const courseId = this.courseXPackages[i].courseId;
+      if (courseId) {
+        this.courseIds.push(courseId as unknown as Guid);
+      }
+    }
+
+    console.log("check_courseId-list", this.courseIds)
+
+
+    this.paginatedRequestFillter.result = this.courseIds;
+
+    return new Promise((resolve, reject) => {
+      this.courseService.getAllExceptListId(this.paginatedRequestFillter).subscribe({
+        next: (response) => {
+          this.coursesExceptListId = response.results || [];
+          resolve();
+        },
+        error: (err) => {
+          console.log("check_error", err);
+          reject(err);
+        }
+      });
+    });
   }
 
-  deleteSelectedCourses() {
-    throw new Error('Method not implemented.');
+  async getAllCourseXPackageByPackageId(): Promise<void> {
+    this.courseXPackages = [];
+    return new Promise((resolve, reject) => {
+      this.courseXpackageService.getAllByPackageId(this.package.id).subscribe({
+        next: (response) => {
+          this.courseXPackages = response.results || [];
+          console.log("check_courseXPackage", this.courseXPackages);
+          resolve();
+        },
+        error: (err) => {
+          console.log("check_error", err);
+          reject(err);
+        }
+      });
+    });
+
   }
+
+  coursexpackage: CourseXPackage = {} as CourseXPackage;
+  addCourseIntoPackage(course: Course) {
+    this.coursexpackage.courseId = course.id;
+    this.coursexpackage.packageId = this.package.id;
+    this.courseXpackageService.add(this.coursexpackage).subscribe({
+      next: (response) => {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: response.message });
+        this.courseXpackageService.triggerRefresh();
+        //this.courseService.triggerRefresh();
+      },
+      error: (err) => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error' });
+      },
+    });
+  }
+
+  dialogVisible: boolean = false;
+
   openNew() {
-    throw new Error('Method not implemented.');
+    this.getAllCourseXPackageByPackageId().then(() => {
+      this.getCoursesExceptListId().then(() => {
+        this.dialogVisible = true;
+      });
+    });
+  }
+
+  deleteCourse(course: Course) {
+
   }
 
   getSelectedColumns() {
@@ -119,5 +232,37 @@ export class PackageDetailComponent implements OnInit {
 
   getNewQuote() {
     this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Copied' });
+  }
+
+  getSeverity(status: string) {
+    switch (status) {
+      case 'APPROVED':
+        return 'success';
+      case 'PENDING':
+        return 'warning';
+      case 'REJECTED':
+        return 'danger';
+      case 'NOT REQUEST':
+        return 'secondary';
+    }
+
+    return 'secondary'
+  }
+  getValueBool(status: boolean) {
+    switch (status) {
+      case true:
+        return 'Active';
+      case false:
+        return 'Inactive';
+    }
+  }
+
+  getSeverityBool(status: boolean) {
+    switch (status) {
+      case true:
+        return 'success';
+      case false:
+        return 'secondary';
+    }
   }
 }

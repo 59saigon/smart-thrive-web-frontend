@@ -29,6 +29,8 @@ import { PackageDetailComponent } from './package-detail/package-detail.componen
 import { PackageCreateOrUpdateComponent } from './package-create-or-update/package-create-or-update.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import { CourseModule } from "../course/course.module";
+import { TagModule } from 'primeng/tag';
 @NgModule({
   declarations: [
     PackageComponent,
@@ -61,7 +63,9 @@ import { InputSwitchModule } from 'primeng/inputswitch';
     ClipboardModule,
     AccordionModule,
     ConfirmDialogModule,
-    InputSwitchModule
-  ]
+    InputSwitchModule,
+    CourseModule,
+    TagModule
+]
 })
 export class PackageModule { }
