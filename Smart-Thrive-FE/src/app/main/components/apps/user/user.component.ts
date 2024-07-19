@@ -81,7 +81,7 @@ export class UserComponent implements OnInit {
     pageNumber: 1,
     pageSize: 5,
     sortField: 'CreatedDate',
-    sortOrder: 1
+    sortOrder: -1
   };
 
   paginatedListResponse: PaginatedListResponse<User> = {} as PaginatedListResponse<User>;
