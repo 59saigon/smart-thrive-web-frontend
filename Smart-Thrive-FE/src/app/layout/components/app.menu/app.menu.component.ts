@@ -97,13 +97,13 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
   }
 
   initialize(): void {
-    this.resetHideMenuTimeout();
-    this.setModel();
-    this.setSettingModel();
-    // this.getListCourse()
-    //   .then(() => {
 
-    //   })
+    this.getListCourse()
+      .then(() => {
+        this.resetHideMenuTimeout();
+        this.setModel();
+        this.setSettingModel();
+      })
   }
 
   showAndHideMenu($ev: Event) {
