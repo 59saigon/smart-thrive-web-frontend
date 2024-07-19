@@ -24,6 +24,8 @@ export class RoleService extends BaseService<Role>{
   }
 
   getByRoleName(roleName: string): Observable<ItemResponse<Role>> {
-    return this.http.get<ItemResponse<Role>>(`${this.getBaseUrl()}/get-by-role-name?roleName=${roleName}`);
+    return this.http.get<ItemResponse<Role>>(`${this.getBaseUrl()}/get-by-role-name?roleName=${roleName}`, {
+      headers: this.getHeaders()
+    });
   }
 }

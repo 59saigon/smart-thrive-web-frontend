@@ -26,11 +26,15 @@ export class SessionService extends BaseService<Session>{
   }
 
   getAllByCourseId(courseId: Guid): Observable<PaginatedListResponse<Session>> {
-    return this.http.get<PaginatedListResponse<Session>>(`${this.getBaseUrl()}/get-all-by-course-id/${courseId}`);
+    return this.http.get<PaginatedListResponse<Session>>(`${this.getBaseUrl()}/get-all-by-course-id/${courseId}`, {
+      headers: this.getHeaders()
+    });
   }
 
 
   getAllByCourseIdForProvider(courseId: Guid): Observable<PaginatedListResponse<Session>> {
-    return this.http.get<PaginatedListResponse<Session>>(`${this.getBaseUrl()}/get-all-by-course-id-for-provider/${courseId}`);
+    return this.http.get<PaginatedListResponse<Session>>(`${this.getBaseUrl()}/get-all-by-course-id-for-provider/${courseId}`, {
+      headers: this.getHeaders()
+    });
   }
 }

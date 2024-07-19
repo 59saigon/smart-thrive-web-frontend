@@ -16,7 +16,7 @@ export class BaseService<TEntity extends BaseEntity> {
   constructor(public http: HttpClient, public _entityTxt: String) {
     this.entityTxt = _entityTxt;
   }
-  private getHeaders(): { [header: string]: string | string[] } {
+  protected getHeaders(): { [header: string]: string | string[] } {
     return {
       'ngrok-skip-browser-warning': 'true'
     };

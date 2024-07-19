@@ -27,22 +27,32 @@ export class CourseService extends BaseService<Course> {
   }
 
   getAllPaginationByListId(request: PaginatedRequestFillter<Guid[]>): Observable<PaginatedListResponse<Course>> {
-    return this.http.post<PaginatedListResponse<Course>>(`${this.getBaseUrl()}${ConstantsApi.getAllPaginationByListId}`, request);
+    return this.http.post<PaginatedListResponse<Course>>(`${this.getBaseUrl()}${ConstantsApi.getAllPaginationByListId}`, request, {
+      headers: this.getHeaders()
+    });
   }
 
   getAllExceptListId(request: PaginatedRequestFillter<Guid[]>): Observable<PaginatedListResponse<Course>> {
-    return this.http.post<PaginatedListResponse<Course>>(`${this.getBaseUrl()}/get-all-except-list-id-with-actived`, request);
+    return this.http.post<PaginatedListResponse<Course>>(`${this.getBaseUrl()}/get-all-except-list-id-with-actived`, request, {
+      headers: this.getHeaders()
+    });
   }
 
   getAllPaginationByProviderId(providerId: Guid,request: PaginatedRequest): Observable<PaginatedListResponse<Course>> {
-    return this.http.post<PaginatedListResponse<Course>>(`${this.getBaseUrl()}/get-all-pagination-by-provider-id?providerId=${providerId}`, request);
+    return this.http.post<PaginatedListResponse<Course>>(`${this.getBaseUrl()}/get-all-pagination-by-provider-id?providerId=${providerId}`, request, {
+      headers: this.getHeaders()
+    });
   }
 
   getAllByProviderId(providerId: Guid): Observable<ItemListResponse<Course>> {
-    return this.http.get<ItemListResponse<Course>>(`${this.getBaseUrl()}/get-all-by-provider-id/${providerId}`);
+    return this.http.get<ItemListResponse<Course>>(`${this.getBaseUrl()}/get-all-by-provider-id/${providerId}`, {
+      headers: this.getHeaders()
+    });
   }
 
   getAllPendingStatus(): Observable<ItemListResponse<Course>> {
-    return this.http.get<ItemListResponse<Course>>(`${this.getBaseUrl()}/get-all-pending-status`);
+    return this.http.get<ItemListResponse<Course>>(`${this.getBaseUrl()}/get-all-pending-status`, {
+      headers: this.getHeaders()
+    });
   }
 }
