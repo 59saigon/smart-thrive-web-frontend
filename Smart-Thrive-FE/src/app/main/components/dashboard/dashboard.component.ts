@@ -94,14 +94,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
     const monthlySums = Array(12).fill(0);
     const monthlyCounts = Array(12).fill(0);
 
-    this.orders.forEach((order) => {
-      const orderDate = new Date(order.createdDate);
-      if (orderDate.getFullYear() === currentYear) {
-        const month = orderDate.getMonth(); // 0 = January, 1 = February, ...
-        monthlySums[month] += order.totalPrice ? order.totalPrice : 0;
-        monthlyCounts[month]++;
-      }
-    });
+    if (this.orders != null) {
+      this.orders.forEach((order) => {
+        const orderDate = new Date(order.createdDate);
+        if (orderDate.getFullYear() === currentYear) {
+          const month = orderDate.getMonth(); // 0 = January, 1 = February, ...
+          monthlySums[month] += order.totalPrice ? order.totalPrice : 0;
+          monthlyCounts[month]++;
+        }
+      });
+    }
 
     return monthlySums;
   }
@@ -111,14 +113,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
     const monthlySums = Array(12).fill(0);
     const monthlyCounts = Array(12).fill(0);
     console.log("check_orders", this.orders);
-    this.orders.forEach((order) => {
-      const orderDate = new Date(order.createdDate);
-      if (orderDate.getFullYear() === currentYear) {
-        const month = orderDate.getMonth(); // 0 = January, 1 = February, ...
-        monthlySums[month] += order.id != null ? 1 : 0;
-        monthlyCounts[month]++;
-      }
-    });
+    if (this.orders != null) {
+      this.orders.forEach((order) => {
+        const orderDate = new Date(order.createdDate);
+        if (orderDate.getFullYear() === currentYear) {
+          const month = orderDate.getMonth(); // 0 = January, 1 = February, ...
+          monthlySums[month] += order.id != null ? 1 : 0;
+          monthlyCounts[month]++;
+        }
+      });
+    }
 
     return monthlySums;
   }
