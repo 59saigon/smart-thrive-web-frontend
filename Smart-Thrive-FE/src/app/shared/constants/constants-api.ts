@@ -1,6 +1,7 @@
 import { User } from "../../data/entities/user";
 
-const api = 'https://089f-42-116-223-252.ngrok-free.app/api';
+// const api = 'https://089f-42-116-223-252.ngrok-free.app/api';
+ const api = 'https://stirring-terrier-moderately.ngrok-free.app/api';
 
 export const ConstantsApi = {
   baseApi: api,
