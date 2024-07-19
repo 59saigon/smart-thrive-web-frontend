@@ -98,7 +98,6 @@ export class CourseDetailComponent implements OnInit {
         this.paginatedListResponse.results = response.results;
       },
       error: (err) => {
-        console.log("check_error", err);
       },
     });
   }
@@ -109,7 +108,6 @@ export class CourseDetailComponent implements OnInit {
         this.paginatedListResponse.results = response.results;
       },
       error: (err) => {
-        console.log("check_error", err);
       },
     });
   }

@@ -30,7 +30,6 @@ export class ApprovalsComponent implements OnInit {
 
   ngOnInit(): void {
     this.initialize();
-    console.log("checks", this.awaitingCourses);
     this.isShowDetail = false;
 
     this.courseService.refreshComponent$.subscribe(() => {
@@ -136,11 +135,9 @@ export class ApprovalsComponent implements OnInit {
     this.courseService.getAllSearch(this.paginatedRequestFillter).subscribe({
       next: (response) => {
         this.paginatedPendingListResponse = response;
-        console.log("check_p", response)
         //this.setPaginatedRequest();
       },
       error: (err) => {
-        console.log("check_error", err);
       },
     });
   }
@@ -157,7 +154,6 @@ export class ApprovalsComponent implements OnInit {
         //this.setPaginatedApprovedRequest();
       },
       error: (err) => {
-        console.log("check_error", err);
       },
     });
   }
@@ -175,7 +171,6 @@ export class ApprovalsComponent implements OnInit {
         //this.setPaginatedRejectRequest();
       },
       error: (err) => {
-        console.log("check_error", err);
       },
     });
   }

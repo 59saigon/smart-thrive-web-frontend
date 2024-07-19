@@ -39,8 +39,6 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     if (this._avatar) {
       this.avatarWidth = this._avatar.nativeElement.offsetWidth;
-    } else {
-      console.log('check_avatar', 'Avatar element not found!');
     }
     this.resetHideMenuTimeout();
   }
@@ -49,7 +47,6 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
     const user = this.userService.getUserDetails();
     if (user && user.picture) {
       const base64Prefix = `data:image/png;base64,${user.picture}`;
-      console.log("imgbase64", base64Prefix);
       if (base64Prefix.includes('image')) {
         return base64Prefix;
       } else {
@@ -147,11 +144,9 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
           var courses = response.results;
           this.quantityCoursePending = courses.length ? courses.length : 0;
           console.log("check_course",courses);
-          console.log("check_quantity",this.quantityCoursePending);
           resolve(); // Resolve the promise when the operation is done
         },
         error: (err) => {
-          console.log("check_error", err);
           reject(err); // Reject the promise if there's an error
         },
       });

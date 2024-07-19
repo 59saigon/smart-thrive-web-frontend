@@ -20,7 +20,6 @@ export class AuthGuard implements CanActivate {
     const currentUrl = state.url; // Đường dẫn hiện tại
 
     if (this.userService.IsLoggedIn()) {
-      console.log("check_role", this.userService.getRole());
       if (this.userService.getRole() === "Staff" &&
         (currentUrl === '/dashboard' || currentUrl === '/apps/user' || currentUrl === '/')) {
         this.router.navigate(['/approvals']);

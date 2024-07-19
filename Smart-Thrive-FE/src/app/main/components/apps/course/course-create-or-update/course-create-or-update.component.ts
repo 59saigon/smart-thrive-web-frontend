@@ -67,7 +67,6 @@ export class CourseCreateOrUpdateComponent implements OnInit {
         }
       },
       error: (err) => {
-        console.log("check_error", err);
       }
     });
   }
@@ -82,7 +81,6 @@ export class CourseCreateOrUpdateComponent implements OnInit {
         }
       },
       error: (err) => {
-        console.log("check_error", err);
       }
     });
   }

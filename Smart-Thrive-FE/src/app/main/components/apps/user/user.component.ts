@@ -173,7 +173,6 @@ export class UserComponent implements OnInit {
     this.activeState[1] = true;
     this.isShowDetail = true;
     this.userDetailComponent.user = user;
-    console.log("check_user", user);
     this.userDetailComponent.ngOnInit();
   }
 
