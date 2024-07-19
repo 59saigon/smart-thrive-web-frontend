@@ -102,7 +102,6 @@ export class OrderCreateOrUpdateComponent implements OnInit {
         },
       });
     } else {
-      console.log("order", this.order);
       this.orderService.add(this.order).subscribe({
         next: (response) => {
           this.messageService.add({ severity: 'success', summary: 'Success', detail: response.message });

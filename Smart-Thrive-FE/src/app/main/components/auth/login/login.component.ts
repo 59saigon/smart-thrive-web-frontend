@@ -196,7 +196,6 @@ export class LoginComponent implements OnInit {
                 // Verify OTP
                 this.userService.verifyOtp(email, otp).toPromise()
                   .then(response => {
-                    console.log("very", response.valid)
                     if (response.valid) {
                       Swal.fire({
                         title: "New Password",

@@ -130,11 +130,9 @@ export class CourseComponent implements OnInit {
     this.courseService.getAllSearch(this.paginatedRequestFillter).subscribe({
       next: (response) => {
         this.paginatedListResponse = response;
-        console.log("pagina", this.paginatedListResponse)
         this.setPaginatedRequest();
       },
       error: (err) => {
-        console.log("check_error", err);
       },
     });
   }
@@ -142,12 +140,9 @@ export class CourseComponent implements OnInit {
   getListCourseNoPaginationByProviderId(): void {
     this.courseService.getAllByProviderId(this.userService.getUserDetails().provider?.id!).subscribe({
       next: (response) => {
-        console.log("check_", response);
         this.awaitingCourses = response.results.filter(m => m.status == 'PENDING');
-        console.log("check_awa", this.awaitingCourses);
       },
       error: (err) => {
-        console.log("check_error", err);
       },
     });
   }
@@ -160,7 +155,6 @@ export class CourseComponent implements OnInit {
         this.paginatedListResponse = response;
       },
       error: (err) => {
-        console.log("check_error", err);
       },
     });
 
@@ -294,7 +288,6 @@ export class CourseComponent implements OnInit {
           resolve(response.result);
         },
         error: (err) => {
-          console.log("check_error", err);
           reject(err);
         }
       });
@@ -426,11 +419,9 @@ export class CourseComponent implements OnInit {
     this.courseService.getAllSearch(this.paginatedRequestFillter).subscribe({
       next: (response) => {
         this.paginatedListResponse = response;
-        console.log("pagina", this.paginatedListResponse)
         this.setPaginatedRequest();
       },
       error: (err) => {
-        console.log("check_error", err);
       },
     });
   }

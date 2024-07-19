@@ -112,7 +112,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     const currentYear = new Date().getFullYear();
     const monthlySums = Array(12).fill(0);
     const monthlyCounts = Array(12).fill(0);
-    console.log("check_orders", this.orders);
     if (this.orders != null) {
       this.orders.forEach((order) => {
         const orderDate = new Date(order.createdDate);
@@ -154,7 +153,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.courseService.getAllPagination(this.paginatedRequest).subscribe({
       next: (response) => {
         this.courses = response.results;
-        console.log(this.courses);
       },
       error: (err) => {
         console.log("check_error", err);
@@ -180,7 +178,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     const averagePriceOrders = this.averagePriceMonthlyOrders();
     const averageQuantityOrders = this.averageQuantityMonthlyOrders();
 
-    console.log("check_quantity",averageQuantityOrders);
 
     this.chartOrder = {
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
