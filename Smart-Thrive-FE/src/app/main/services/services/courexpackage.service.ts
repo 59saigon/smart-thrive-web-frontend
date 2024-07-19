@@ -28,7 +28,9 @@ export class CourseXPackageService extends BaseService<CourseXPackage> {
   }
 
   getAllByPackageId(packageId: Guid): Observable<ItemListResponse<CourseXPackage>> {
-    return this.http.get<ItemListResponse<CourseXPackage>>(`${this.getBaseUrl()}/get-all-by-package-id/${packageId}`);
+    return this.http.get<ItemListResponse<CourseXPackage>>(`${this.getBaseUrl()}/get-all-by-package-id/${packageId}`, {
+      headers: this.getHeaders()
+    });
   }
 
   

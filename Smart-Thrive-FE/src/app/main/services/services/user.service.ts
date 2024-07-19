@@ -31,31 +31,45 @@ export class UserService extends BaseService<User> {
 
 
   login(model: LoginUser): Observable<LoginResponse<User>> {
-    return this.http.post<LoginResponse<User>>(`${ConstantsApi.user.baseUrl}${ConstantsApi.user.login}`, model);
+    return this.http.post<LoginResponse<User>>(`${ConstantsApi.user.baseUrl}${ConstantsApi.user.login}`, model, {
+      headers: this.getHeaders()
+    });
   }
 
   verifiedByGoogleToken(model: LoginWithtAnother): Observable<LoginResponse<User>> {
-    return this.http.post<LoginResponse<User>>(`${ConstantsApi.user.baseUrl}${ConstantsApi.user.loginWithAnother}`, model);
+    return this.http.post<LoginResponse<User>>(`${ConstantsApi.user.baseUrl}${ConstantsApi.user.loginWithAnother}`, model, {
+      headers: this.getHeaders()
+    });
   }
 
   register(user: User): Observable<ItemResponse<any>> {
-    return this.http.post<ItemResponse<any>>(`${ConstantsApi.user.baseUrl}${ConstantsApi.user.register}`, user);
+    return this.http.post<ItemResponse<any>>(`${ConstantsApi.user.baseUrl}${ConstantsApi.user.register}`, user, {
+      headers: this.getHeaders()
+    });
   }
 
   sendOtp(email: string): Observable<any> {
-    return this.http.post<any>(`${ConstantsApi.user.baseUrl}/send-otp`, { email });
+    return this.http.post<any>(`${ConstantsApi.user.baseUrl}/send-otp`, { email }, {
+      headers: this.getHeaders()
+    });
   }
 
   resetPassword(email: string, otp: string, newPassword: string): Observable<BaseResponse> {
-    return this.http.post<BaseResponse>(`${ConstantsApi.user.baseUrl}/reset-password`, { email, otp, newPassword });
+    return this.http.post<BaseResponse>(`${ConstantsApi.user.baseUrl}/reset-password`, { email, otp, newPassword }, {
+      headers: this.getHeaders()
+    });
   }
   
   verifyOtp(email: string, otp: string): Observable<any> {
-    return this.http.post<any>(`${ConstantsApi.user.baseUrl}/verify-otp`, { email, otp });
+    return this.http.post<any>(`${ConstantsApi.user.baseUrl}/verify-otp`, { email, otp }, {
+      headers: this.getHeaders()
+    });
   }
 
   getByEmail(email: string): Observable<ItemResponse<User>> {
-    return this.http.get<ItemResponse<User>>(`${this.getBaseUrl()}${ConstantsApi.getByEmail}/${email}`);
+    return this.http.get<ItemResponse<User>>(`${this.getBaseUrl()}${ConstantsApi.getByEmail}/${email}`, {
+      headers: this.getHeaders()
+    });
   }  
 
   IsLoggedIn() {
