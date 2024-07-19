@@ -97,12 +97,13 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
   }
 
   initialize(): void {
-    this.getListCourse()
-      .then(() => {
-        this.resetHideMenuTimeout();
-        this.setModel();
-        this.setSettingModel();
-      })
+    this.resetHideMenuTimeout();
+    this.setModel();
+    this.setSettingModel();
+    // this.getListCourse()
+    //   .then(() => {
+
+    //   })
   }
 
   showAndHideMenu($ev: Event) {
@@ -143,7 +144,7 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
         next: (response) => {
           var courses = response.results;
           this.quantityCoursePending = courses.length ? courses.length : 0;
-          console.log("check_course",courses);
+          console.log("check_course", courses);
           resolve(); // Resolve the promise when the operation is done
         },
         error: (err) => {
@@ -159,10 +160,10 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
     const isAdmin = this.userService.getRole() === "Admin";
     const isProvider = this.userService.getRole() === "Provider";
     this.model = [
-      !isProvider &&{
+      !isProvider && {
         label: 'General',
         items: [
-          !isStaff &&{
+          !isStaff && {
             label: 'Dashboard',
             icon: 'pi pi-chart-line',
             routerLink: ['/dashboard'],
