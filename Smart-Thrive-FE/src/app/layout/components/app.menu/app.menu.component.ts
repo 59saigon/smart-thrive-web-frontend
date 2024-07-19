@@ -145,7 +145,8 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
         next: (response) => {
           var courses = response.results;
           this.quantityCoursePending = courses.length ? courses.length : 0;
-          console.log(courses);
+          console.log("check_course",courses);
+          console.log("check_quantity",this.quantityCoursePending);
           resolve(); // Resolve the promise when the operation is done
         },
         error: (err) => {
@@ -173,7 +174,7 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
           (isStaff || isAdmin) && {
             label: 'Approvals',
             icon: 'pi pi-inbox',
-            badge: this.quantityCoursePending.toString(),
+            badge: this.quantityCoursePending,
             routerLink: ['/approvals'],
           },
         ],
