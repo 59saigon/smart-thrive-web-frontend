@@ -91,6 +91,7 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    console.log("init", "sidebar");
     this.initialize();
 
     this.courseService.refreshComponent$.subscribe(() => {
