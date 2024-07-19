@@ -1,6 +1,6 @@
 import { User } from "../../data/entities/user";
 
-const api = 'https://localhost:7999/api';
+const api = 'https://stirring-terrier-moderately.ngrok-free.app/api';
 
 export const ConstantsApi = {
   baseApi: api,
