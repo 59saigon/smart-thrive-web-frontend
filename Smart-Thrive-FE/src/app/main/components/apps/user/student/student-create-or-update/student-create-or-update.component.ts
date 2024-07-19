@@ -105,6 +105,8 @@ export class StudentCreateOrUpdateComponent implements OnInit {
       this.student.gender = this.selectedGender;
     }
 
+    this.student.dob = this.dob;
+
     this.student.userId = this.selectedItem.value;
 
     this.submitted = true;
@@ -121,6 +123,7 @@ export class StudentCreateOrUpdateComponent implements OnInit {
         },
       });
     } else {
+      console.log("check_student", this.student)
       this.studentService.add(this.student).subscribe({
         next: (response) => {
           this.messageService.add({ severity: 'success', summary: 'Success', detail: response.message });

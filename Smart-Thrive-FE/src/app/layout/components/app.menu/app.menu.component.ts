@@ -144,8 +144,8 @@ export class AppMenuComponent implements OnInit, AfterViewInit {
       this.courseService.getAllPendingStatus().subscribe({
         next: (response) => {
           var courses = response.results;
-          this.quantityCoursePending = courses.length;
-          console.log(this.quantityCoursePending.toString());
+          this.quantityCoursePending = courses.length ? courses.length : 0;
+          console.log(courses);
           resolve(); // Resolve the promise when the operation is done
         },
         error: (err) => {

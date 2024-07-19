@@ -87,6 +87,8 @@ export class OrderCreateOrUpdateComponent implements OnInit {
 
   saveOrder() {
     this.submitted = true;
+    
+    this.order.packageId = this.selectedItem.value;
 
     if (this.order.id != null) {
       this.orderService.update(this.order).subscribe({
@@ -100,6 +102,7 @@ export class OrderCreateOrUpdateComponent implements OnInit {
         },
       });
     } else {
+      console.log("order", this.order);
       this.orderService.add(this.order).subscribe({
         next: (response) => {
           this.messageService.add({ severity: 'success', summary: 'Success', detail: response.message });
